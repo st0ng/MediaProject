@@ -1,12 +1,16 @@
 package com.example.mediaproject.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mediaproject.Data.TourSearchData;
-
+import com.example.mediaproject.R;
 
 import java.util.ArrayList;
 
@@ -15,9 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<TourSearchData> TourSearchData;
+    private Activity activity;
     private Context context;
     private int layoutId;
 
+    public TourSearchAdapter(ArrayList<TourSearchData> TourSearchData, Activity activity, int layoutId) {
+        this.TourSearchData = TourSearchData;
+        this.activity = activity;
+        this.layoutId = layoutId;
+    }
 
     public TourSearchAdapter(ArrayList<TourSearchData> TourSearchData, Context context, int layoutId) {
         this.TourSearchData = TourSearchData;
@@ -38,7 +48,12 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof TourSearchHolder) {
+            ((TourSearchHolder)holder).TourTitle.setText(TourSearchData.get(position).getTitle());
+            ((TourSearchHolder)holder).TourAdd1.setText(TourSearchData.get(position).getAddr1());
 
+            Glide.with(context).load(TourSearchData.get(position)
+                    .getFirstimage())
+                    .into(((TourSearchHolder) holder).TourImage);
         }
     }
 
@@ -50,13 +65,15 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     public static class TourSearchHolder extends RecyclerView.ViewHolder {
-
-
+        TextView TourTitle;
+        TextView TourAdd1;
+        ImageView TourImage;
 
         public TourSearchHolder(@NonNull View itemView) {
             super(itemView);
-
-
+            TourTitle = itemView.findViewById(R.id.TourTitle);
+            TourAdd1 = itemView.findViewById(R.id.TourAdd1);
+            TourImage = itemView.findViewById(R.id.TourImage);
         }
     }
 }
