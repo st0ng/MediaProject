@@ -1,88 +1,115 @@
 package com.example.mediaproject;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
+import com.example.mediaproject.AirApi.AirApiService;
+import com.example.mediaproject.AirApi.LoadAirApi;
+import com.example.mediaproject.AirApi.model.AirDataRES;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.TourApi.LoadTourApi;
-import com.example.mediaproject.TourApi.Model.DataRES;
+import com.example.mediaproject.TourApi.Model.TourDataRES;
 
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private TourSearchAdapter adapter;
+    RecyclerView recyclerView;
+    TourSearchAdapter TourSearchAdapter;
     ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+
+    Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        TourSearch();
+        AirSearch();
 
-
-        Call<DataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "B", 12, 1, 999, 1);
-        call.enqueue(new Callback<DataRES>() {
-            @Override
-            public void onResponse(Call<DataRES> call, Response<DataRES> response) {
-
-
-                for (int i = 0; i < response.body().getResponse().getBody().getItems().getItem().size(); i++) {
-
-//                    Log.d("call",response.body().getResponse().getBody().getItems().getItem().get(i).getTitle());
-
-                    data.add(new TourSearchData(
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-                            ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-                            ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-                            response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
-                    ));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataRES> call, Throwable t) {
-                Log.d("mainactivity" , "연결안됨");
-                t.fillInStackTrace();
-            }
-        });
-
-        adapter = new TourSearchAdapter(data, this, R.layout.toursearch_cv);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
 
     }
 
 
+    public void AirSearch(){
+        AirApiService airApiService = LoadAirApi.getClient().create(AirApiService.class);
+        Call<AirDataRES> call = airApiService.getCtprvnMesureLIst();
+        call.enqueue(new Callback<AirDataRES>() {
+            @Override
+            public void onResponse(Call<AirDataRES> call, Response<AirDataRES> response) {
+                Log.d("main","연결됨");
+            }
+
+            @Override
+            public void onFailure(Call<AirDataRES> call, Throwable t) {
+                Log.d("mainactivity_AIR", "연결안됨");
+                Log.d("mainactivity_AIR", t.getMessage());
+                Log.d("mainactivity_AIR", t.getMessage());
+                Log.d("mainactivity_AIR", t.toString());
+            }
+        });
+
+    }
+
+    public void TourSearch() {
+        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList();
+        call.enqueue(new Callback<TourDataRES>() {
+            @Override
+            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+                if (response.code() == 200) {
+                    Log.d("mainactivity_TourSearch", response.body().getResponse().getHeader().getResultMsg());
+
+                    int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
+
+                    for (int i = 0; i < size; i++) {
+                        data.add(new TourSearchData(
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
+                        ));
+                    }
+                    TourSearchAdapter = new TourSearchAdapter(data, activity);
+                    recyclerView.setAdapter(TourSearchAdapter);
+                    TourSearchAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourDataRES> call, Throwable t) {
+                Log.d("mainactivity", "연결안됨");
+                t.fillInStackTrace();
+            }
+        });
+    }
 
     public String ChageHttps(String text) {
         String trans = "";

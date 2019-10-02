@@ -1,7 +1,6 @@
 package com.example.mediaproject.Adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,29 +17,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<TourSearchData> TourSearchData;
+    private ArrayList<TourSearchData> tourSearchData;
     private Activity activity;
-    private Context context;
-    private int layoutId;
 
-    public TourSearchAdapter(ArrayList<TourSearchData> TourSearchData, Activity activity, int layoutId) {
-        this.TourSearchData = TourSearchData;
-        this.activity = activity;
-        this.layoutId = layoutId;
+    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData, Activity activity) {
+        this.tourSearchData = tourSearchData;
+        this.activity = activity ;
     }
-
-    public TourSearchAdapter(ArrayList<TourSearchData> TourSearchData, Context context, int layoutId) {
-        this.TourSearchData = TourSearchData;
-        this.context = context;
-        this.layoutId = layoutId;
-    }
-
 
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.toursearch_cv, parent, false);
         return new TourSearchHolder(view);
     }
 
@@ -48,10 +37,10 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof TourSearchHolder) {
-            ((TourSearchHolder)holder).TourTitle.setText(TourSearchData.get(position).getTitle());
-            ((TourSearchHolder)holder).TourAdd1.setText(TourSearchData.get(position).getAddr1());
+            ((TourSearchHolder) holder).TourTitle.setText(tourSearchData.get(position).getTitle());
+            ((TourSearchHolder) holder).TourAdd1.setText(tourSearchData.get(position).getAddr1());
 
-            Glide.with(context).load(TourSearchData.get(position)
+            Glide.with(activity).load(tourSearchData.get(position)
                     .getFirstimage())
                     .into(((TourSearchHolder) holder).TourImage);
         }
@@ -59,9 +48,8 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return TourSearchData.size();
+        return tourSearchData.size();
     }
-
 
 
     public static class TourSearchHolder extends RecyclerView.ViewHolder {

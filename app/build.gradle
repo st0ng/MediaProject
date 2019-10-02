@@ -20,14 +20,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     implementation 'com.android.support:cardview-v7:28.0.0'
-
-    //firebase
-    implementation 'com.google.firebase:firebase-analytics:17.2.0'
 
     //okhttp3
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
@@ -53,8 +51,19 @@ dependencies {
     implementation 'com.zoonref:simple-view-behavior:1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
+    //firebase
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-firestore:18.2.0'
+    implementation 'com.google.firebase:firebase-database:16.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-storage:16.1.0'
+    implementation 'com.flying.xiaopo:sticker:1.6.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support:support-v4:28.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

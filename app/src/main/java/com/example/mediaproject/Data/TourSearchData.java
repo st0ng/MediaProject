@@ -56,39 +56,6 @@ public class TourSearchData {
         this.zipcode = zipcode;
     }
 
-
-    public Integer getCheckbox() {
-        return checkbox;
-    }
-
-    public void setCheckbox(Integer checkbox) {
-        this.checkbox = checkbox;
-    }
-
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getAddr1() {
         return addr1;
     }
@@ -249,12 +216,43 @@ public class TourSearchData {
         this.title = title;
     }
 
-
     public String getZipcode() {
         return zipcode;
     }
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getCheckbox() {
+        return checkbox;
+    }
+
+    public void setCheckbox(Integer checkbox) {
+        this.checkbox = checkbox;
     }
 }

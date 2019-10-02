@@ -9,7 +9,6 @@ public class Items {
 
     @SerializedName("item")
     @JsonAdapter(AlwaysListTypeAdapterFactory.class)
-
     private List<Item> item = null;
 
     public List<Item> getItem() {

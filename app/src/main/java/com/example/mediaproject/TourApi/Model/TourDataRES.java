@@ -3,7 +3,7 @@ package com.example.mediaproject.TourApi.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DataRES {
+public class TourDataRES {
 
     @SerializedName("response")
     @Expose
