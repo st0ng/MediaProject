@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+//g
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TourSearchAdapter TourSearchAdapter;
