@@ -1,8 +1,11 @@
 package com.example.mediaproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.AirApi.AirApiService;
@@ -15,40 +18,52 @@ import com.example.mediaproject.TourApi.Model.TourDataRES;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 //g
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TourSearchAdapter TourSearchAdapter;
     ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-
     Activity activity = this;
+
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        TourSearch();
+        button = (Button) findViewById(R.id.button1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        TourSearch();
         AirSearch();
-
-
     }
 
 
-    public void AirSearch(){
+    public void AirSearch() {
         AirApiService airApiService = LoadAirApi.getClient().create(AirApiService.class);
         Call<AirDataRES> call = airApiService.getCtprvnMesureLIst();
         call.enqueue(new Callback<AirDataRES>() {
             @Override
             public void onResponse(Call<AirDataRES> call, Response<AirDataRES> response) {
-                Log.d("main","연결됨");
+                Log.d("main", "연결됨");
             }
 
             @Override
