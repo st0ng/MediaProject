@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.AirApi.AirApiService;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,14 +30,21 @@ import retrofit2.Response;
 
 public abstract class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    //MainActivity 변수선언
     public BottomNavigationView bottomNavigationView;
+    Activity activity = this;
 
+
+
+    //SearchActivity 변수 선언
+    SearchView searchView;
     RecyclerView recyclerView;
     TourSearchAdapter TourSearchAdapter;
 
-    ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-    Activity activity = this;
 
+
+
+    //AcountActivity 변수 선언
     Button button; // Test bottom
 
 
@@ -52,22 +62,56 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-//        button = (Button) findViewById(R.id.button1);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
-//
-//
-//        recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        TourSearch();
-//        AirSearch();
+
+        if (getContentViewId() == R.layout.activity_recommend) { // Recommend Activity
+
+
+        } else if (getContentViewId() == R.layout.activity_search) { // Search Activity
+
+            searchView = findViewById(R.id.TourSearchView);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    KeywordTourSearch(query);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
+
+            recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            TourSearch();
+            AirSearch();
+
+        } else if (getContentViewId() == R.layout.activity_community) { // Community Activity
+
+
+
+
+        } else if (getContentViewId() == R.layout.activity_acount) { // Acount Activity
+
+            button = (Button) findViewById(R.id.button1);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+
+
+        } else {
+
+        }
+
+
     }
 
 
@@ -96,7 +140,7 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
                     intent = new Intent(MainActivity.this, CommunityActivity.class);
                 } else if (itemId == R.id.navigation_menu4) {
                     intent = new Intent(MainActivity.this, AcountActivity.class);
-                } else{
+                } else {
 
                 }
                 startActivity(intent);
@@ -150,9 +194,10 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
             @Override
             public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
                 if (response.code() == 200) {
-                    Log.d("mainactivity_TourSearch", response.body().getResponse().getHeader().getResultMsg());
+                    Log.d("MainActivity_TourSearch", response.body().getResponse().getHeader().getResultMsg());
 
                     int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
+                    ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
 
                     for (int i = 0; i < size; i++) {
                         data.add(new TourSearchData(
@@ -192,6 +237,63 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
             }
         });
     }
+
+    public void KeywordTourSearch(String query){
+        String keyword = "";
+        keyword = query.trim();
+
+        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getsearchKeyword("Y", "A", 12, keyword, 999, 1);
+        call.enqueue(new Callback<TourDataRES>() {
+            @Override
+            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+                if (response.code() == 200) {
+                    Log.d("MainActivity_KeywordTourSearch", response.body().getResponse().getHeader().getResultMsg());
+
+                    int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
+                    ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+                    
+                    for (int i = 0; i < size; i++) {
+                        data.add(new TourSearchData(
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
+                        ));
+                    }
+                    TourSearchAdapter = new TourSearchAdapter(data, activity);
+                    recyclerView.setAdapter(TourSearchAdapter);
+                    TourSearchAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourDataRES> call, Throwable t) {
+
+            }
+        });
+
+
+
+    }
+
+
 
     public String ChageHttps(String text) {
         String trans = "";

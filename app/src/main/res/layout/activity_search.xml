@@ -1,56 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="vertical">
 
-    >
 
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
+        android:id="@+id/SearchLaout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="search"
-        />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/explanation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_margin="16dp"
-        android:text="Here 12 scrolled items follow to validate if nothing gets cropped"
-        />
 
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/explanation"
-        android:layout_above="@+id/navigation"
-        tools:context="mobi.garden.bottomnavigationtest.HomeActivity"
-        >
-
-        <LinearLayout
-            android:orientation="vertical"
+        <SearchView
+            android:id="@+id/TourSearchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
 
 
-        </LinearLayout>
+    </LinearLayout>
 
-    </ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/TourSearchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SearchLaout"/>
+
 
     <include
         android:id="@+id/navigation"
         layout="@layout/element_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

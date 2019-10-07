@@ -4,20 +4,20 @@
     <item
         android:id="@+id/navigation_menu1"
         android:icon="@drawable/sticker_ic_close_white_18dp"
-        android:title="추천" />
+        android:title="Recommend" />
 
     <item
         android:id="@+id/navigation_menu2"
         android:icon="@drawable/sticker_ic_close_white_18dp"
-        android:title="평가" />
+        android:title="Search" />
 
     <item
         android:id="@+id/navigation_menu3"
         android:icon="@drawable/sticker_ic_close_white_18dp"
-        android:title="좋아요" />
+        android:title="Community" />
 
     <item
         android:id="@+id/navigation_menu4"
         android:icon="@drawable/sticker_ic_close_white_18dp"
-        android:title="계정" />
+        android:title="Acount" />
 </menu>
