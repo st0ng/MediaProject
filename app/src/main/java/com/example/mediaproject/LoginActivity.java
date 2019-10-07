@@ -99,8 +99,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // 로그인 성공
                             Toast.makeText(LoginActivity.this, "success login", Toast.LENGTH_SHORT).show();
-                            Intent intnet = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intnet = new Intent(LoginActivity.this, RecommendActivity.class);
                             startActivity(intnet);
+                            finish();
                         } else {
                             // 로그인 실패
                             Toast.makeText(LoginActivity.this, "fail login", Toast.LENGTH_SHORT).show();

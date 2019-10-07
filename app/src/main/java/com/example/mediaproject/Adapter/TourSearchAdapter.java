@@ -29,7 +29,7 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.toursearch_cv, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.element_toursearch_cv, parent, false);
         return new TourSearchHolder(view);
     }
 

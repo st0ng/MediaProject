@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
@@ -14,47 +14,114 @@ import com.example.mediaproject.AirApi.model.AirDataRES;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//g
-public class MainActivity extends AppCompatActivity {
+public abstract class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    public BottomNavigationView bottomNavigationView;
+
     RecyclerView recyclerView;
     TourSearchAdapter TourSearchAdapter;
+
     ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
     Activity activity = this;
 
-    Button button;
+    Button button; // Test bottom
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateNavigationBarState();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(getContentViewId());
 
-        button = (Button) findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener() {
+        bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+//        button = (Button) findViewById(R.id.button1);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
+//
+//
+//        recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        TourSearch();
+//        AirSearch();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull final MenuItem menuItem) {
+        bottomNavigationView.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            public void run() {
+                int itemId = menuItem.getItemId();
+                Intent intent = null;
+                if (itemId == R.id.navigation_menu1) {
+                    intent = new Intent(MainActivity.this, RecommendActivity.class);
+                } else if (itemId == R.id.navigation_menu2) {
+                    intent = new Intent(MainActivity.this, SearchActivity.class);
+                } else if (itemId == R.id.navigation_menu3) {
+                    intent = new Intent(MainActivity.this, CommunityActivity.class);
+                } else if (itemId == R.id.navigation_menu4) {
+                    intent = new Intent(MainActivity.this, AcountActivity.class);
+                } else{
+
+                }
                 startActivity(intent);
+                overridePendingTransition(0, 0); //Activity에서 Activity로 화면 이동 시 애니매이션 효과 없애기
                 finish();
             }
-        });
+        }, 300);
+        return true;
 
-
-        recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TourSearch();
-        AirSearch();
     }
+
+
+    private void updateNavigationBarState() {
+        int actionId = getNavigationMenuItemId();
+        selectBottomNavigationBarItem(actionId);
+    }
+
+    void selectBottomNavigationBarItem(int itemId) {
+        MenuItem item = bottomNavigationView.getMenu().findItem(itemId);
+        item.setChecked(true);
+    }
+
+    abstract int getContentViewId();
+
+    abstract int getNavigationMenuItemId();
 
 
     public void AirSearch() {
