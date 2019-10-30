@@ -47,7 +47,6 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
     //AcountActivity 변수 선언
     Button button; // Test bottom
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -104,7 +103,6 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
                     finish();
                 }
             });
-
 
 
         } else {
