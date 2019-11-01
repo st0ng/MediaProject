@@ -47,7 +47,6 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
 
 
     //AcountActivity 변수 선언
-    Button button; // Test bottom
     Button logOut;
 
     @Override
@@ -97,16 +96,6 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
 
 
         } else if (getContentViewId() == R.layout.activity_acount) { // Acount Activity
-
-//            button = (Button) findViewById(R.id.button1);
-//            button.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            });
 
             logOut = (Button) findViewById(R.id.logout_button);
             logOut.setOnClickListener(new View.OnClickListener() {
