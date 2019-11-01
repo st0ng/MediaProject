@@ -17,6 +17,7 @@ import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public abstract class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    protected FirebaseAuth auth;
 
     //MainActivity 변수선언
     public BottomNavigationView bottomNavigationView;
@@ -43,9 +46,9 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
 
 
 
-
     //AcountActivity 변수 선언
     Button button; // Test bottom
+    Button logOut;
 
     @Override
     protected void onStart() {
@@ -61,6 +64,7 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+        auth = FirebaseAuth.getInstance();
 
         if (getContentViewId() == R.layout.activity_recommend) { // Recommend Activity
 
@@ -94,11 +98,23 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
 
         } else if (getContentViewId() == R.layout.activity_acount) { // Acount Activity
 
-            button = (Button) findViewById(R.id.button1);
-            button.setOnClickListener(new View.OnClickListener() {
+//            button = (Button) findViewById(R.id.button1);
+//            button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
+//            });
+
+            logOut = (Button) findViewById(R.id.logout_button);
+            logOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    auth.signOut();
+                    //LoginManager.getInstance().logOut();
+                    Intent intent = new Intent(MainActivity.this, LoginActivityNew.class);
                     startActivity(intent);
                     finish();
                 }

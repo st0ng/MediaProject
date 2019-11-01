@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/logout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="로그인 화면으로 넘어가기" />
