@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -9,13 +8,33 @@
 
     >
 
-    <TextView
-        android:id="@+id/title"
+    <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="recomend"
-        />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navigation"
+        android:layout_below="@id/explanation"
+        tools:context="mobi.garden.bottomnavigationtest.HomeActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/TestDATAButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <TextView
+                android:id="@+id/TestDataTestView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </ScrollView>
 
     <TextView
         android:id="@+id/explanation"
@@ -23,34 +42,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_margin="16dp"
-        android:text="Here 12 scrolled items follow to validate if nothing gets cropped"
-        />
+        android:text="Here 12 scrolled items follow to validate if nothing gets cropped" />
 
-    <ScrollView
-        android:id="@+id/scrollview"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/explanation"
-        android:layout_above="@+id/navigation"
-        tools:context="mobi.garden.bottomnavigationtest.HomeActivity"
-        >
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </LinearLayout>
-
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="recomend" />
 
     <include
         android:id="@+id/navigation"
         layout="@layout/element_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

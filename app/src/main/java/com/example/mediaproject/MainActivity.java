@@ -8,17 +8,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.AirApi.AirApiService;
 import com.example.mediaproject.AirApi.LoadAirApi;
 import com.example.mediaproject.AirApi.model.AirDataRES;
+import com.example.mediaproject.Data.TestDATA;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,18 +41,29 @@ import retrofit2.Response;
 
 public abstract class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    //전역 변수 선언
+    private FirebaseAuth Auth;
+
+
+
     //MainActivity 변수선언
     public BottomNavigationView bottomNavigationView;
+    public Button TestDatabutton;
+    public TextView TestDataTestView;
+
     Activity activity = this;
 
+    DatabaseReference DBresgerce = null;
+    HashMap<String, Object> dataUpdate = null;
+    Map<String, Object> testvalue = null;
+
+    TestDATA testdata = null;
 
 
     //SearchActivity 변수 선언
     SearchView searchView;
     RecyclerView recyclerView;
     TourSearchAdapter TourSearchAdapter;
-
-
 
 
     //AcountActivity 변수 선언
@@ -59,15 +81,62 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
 
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            Intent intent = new Intent(this , LoginActivity.class);
+            startActivity(intent);
+        }
+
+
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+        Auth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = Auth.getCurrentUser();
 
         if (getContentViewId() == R.layout.activity_recommend) { // Recommend Activity
+            TestDatabutton = (Button) findViewById(R.id.TestDATAButton);
+            TestDatabutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DBresgerce = FirebaseDatabase.getInstance().getReference();
+                    dataUpdate = new HashMap<>();
+
+                    testdata = new TestDATA("1111", "2222", "3333");
+                    testvalue = testdata.toMap();
+
+                    dataUpdate.put("/UserInfo/" + currentUser.getEmail(), testvalue);
+                    DBresgerce.updateChildren(dataUpdate);
+
+                }
+            });
+
+
+            TestDataTestView = (TextView) findViewById(R.id.TestDataTestView);
+
+            DBresgerce = FirebaseDatabase.getInstance().getReference();
+            DBresgerce.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String key = postSnapshot.getKey();
+                        HashMap<String, HashMap<String, Object>> test = (HashMap<String, HashMap<String, Object>>) postSnapshot.getValue();
+//                        String[] getData = {test.get("id").get("a").toString(), test.get("id").get("b").toString()};
+//                        TestDataTestView.setText(getData[0]);
+                    }
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w("Database", "Failed to read value.", databaseError.toException());
+
+                }
+            });
 
 
         } else if (getContentViewId() == R.layout.activity_search) { // Search Activity
-
             searchView = findViewById(R.id.TourSearchView);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -91,8 +160,6 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
         } else if (getContentViewId() == R.layout.activity_community) { // Community Activity
 
 
-
-
         } else if (getContentViewId() == R.layout.activity_acount) { // Acount Activity
 
             button = (Button) findViewById(R.id.button1);
@@ -104,6 +171,15 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
                     finish();
                 }
             });
+
+
+            Log.d("userid : " , currentUser.getUid());
+
+
+
+
+
+
 
 
 
@@ -189,7 +265,7 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
     }
 
     public void TourSearch() {
-        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList();
+        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", 12, 1, 999, 1);
         call.enqueue(new Callback<TourDataRES>() {
             @Override
             public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
@@ -238,7 +314,7 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
         });
     }
 
-    public void KeywordTourSearch(String query){
+    public void KeywordTourSearch(String query) {
         String keyword = "";
         keyword = query.trim();
 
@@ -251,7 +327,7 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
 
                     int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
                     ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-                    
+
                     for (int i = 0; i < size; i++) {
                         data.add(new TourSearchData(
                                 response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
@@ -290,9 +366,7 @@ public abstract class MainActivity extends AppCompatActivity implements BottomNa
         });
 
 
-
     }
-
 
 
     public String ChageHttps(String text) {
