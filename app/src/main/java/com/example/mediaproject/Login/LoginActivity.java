@@ -98,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ApiException e) {
 
             }
+        }else{
+            Toast.makeText(this,"여여기서 안된",Toast.LENGTH_LONG).show();
         }
     }
 

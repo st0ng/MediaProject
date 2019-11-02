@@ -6,9 +6,6 @@ import android.util.Log;
 import android.widget.SearchView;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
-import com.example.mediaproject.AirApi.AirApiService;
-import com.example.mediaproject.AirApi.LoadAirApi;
-import com.example.mediaproject.AirApi.model.AirDataRES;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
@@ -52,7 +49,7 @@ public class SearchActivity extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TourSearch();
-        AirSearch();
+        //AirSearch();
 
     }
 
@@ -62,25 +59,25 @@ public class SearchActivity extends BaseActivity {
         setSelected(R.id.navigation_menu2);
     }
 
-    public void AirSearch() {
-        AirApiService airApiService = LoadAirApi.getClient().create(AirApiService.class);
-        Call<AirDataRES> call = airApiService.getCtprvnMesureLIst();
-        call.enqueue(new Callback<AirDataRES>() {
-            @Override
-            public void onResponse(Call<AirDataRES> call, Response<AirDataRES> response) {
-                Log.d("main", "연결됨");
-            }
-
-            @Override
-            public void onFailure(Call<AirDataRES> call, Throwable t) {
-                Log.d("mainactivity_AIR", "연결안됨");
-                Log.d("mainactivity_AIR", t.getMessage());
-                Log.d("mainactivity_AIR", t.getMessage());
-                Log.d("mainactivity_AIR", t.toString());
-            }
-        });
-
-    }
+//    public void AirSearch() {
+//        AirApiService airApiService = LoadAirApi.getClient().create(AirApiService.class);
+//        Call<AirDataRES> call = airApiService.getCtprvnMesureLIst();
+//        call.enqueue(new Callback<AirDataRES>() {
+//            @Override
+//            public void onResponse(Call<AirDataRES> call, Response<AirDataRES> response) {
+//                Log.d("main", "연결됨");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AirDataRES> call, Throwable t) {
+//                Log.d("mainactivity_AIR", "연결안됨");
+//                Log.d("mainactivity_AIR", t.getMessage());
+//                Log.d("mainactivity_AIR", t.getMessage());
+//                Log.d("mainactivity_AIR", t.toString());
+//            }
+//        });
+//
+//    }
 
     public void TourSearch() {
         Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList();
