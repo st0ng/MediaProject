@@ -80,7 +80,7 @@ public class SearchActivity extends BaseActivity {
 //    }
 
     public void TourSearch() {
-        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList();
+        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y","A",15,1,10,1);
         call.enqueue(new Callback<TourDataRES>() {
             @Override
             public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {

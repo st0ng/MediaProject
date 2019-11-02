@@ -17,10 +17,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.AirQuality.AirApiService;
 import com.example.mediaproject.AirQuality.Airapi;
+import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.StationApi.StationApi;
 import com.example.mediaproject.StationApi.StationApiService;
+import com.example.mediaproject.TourApi.LoadTourApi;
+import com.example.mediaproject.TourApi.Model.TourDataRES;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,6 +35,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -168,12 +173,47 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         LatLng CurrentLoc = new LatLng(latitude, longitude);
 
-        MarkerOptions markerOptions = new MarkerOptions();
+        final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(CurrentLoc);
         mMap.addMarker(markerOptions);
 
+
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(CurrentLoc));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+
+        Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y","A",20,1,longitude,latitude,1500);
+        Loc.enqueue(new Callback<TourDataRES>() {
+            @Override
+            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+                if (response.code() == 200) {
+                    Log.d("MainActivity_KeywordTourSearch", response.body().getResponse().getHeader().getResultMsg());
+                    int size = response.body().getResponse().getBody().getItems().getItem().size();
+                    Log.d("shit",Integer.toString(size));
+                    ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+                    for(int i=0; i<size; i++)
+                    {
+                        MarkerOptions marker = new MarkerOptions();
+                        double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
+                        double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
+                        String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
+
+                        marker
+                                .position(new LatLng(tempLat,tempLng))
+                                .title(temptitle);
+
+                        mMap.addMarker(marker);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourDataRES> call, Throwable t) {
+                Log.d("shit",t.getMessage());
+            }
+        });
     }
 
     //gps + 권한 관련된 함수들
