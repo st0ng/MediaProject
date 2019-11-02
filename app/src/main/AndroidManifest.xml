@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBb9NTDdapJCD0Fp4bPWuPoztr_5rxMhsY" />
 
         <activity android:name=".Login.LoginActivityNew">
             <intent-filter>

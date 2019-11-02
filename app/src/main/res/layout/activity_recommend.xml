@@ -8,6 +8,23 @@
 
     >
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="recomend"
+        />
+
+    <TextView
+        android:id="@+id/explanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_margin="16dp"
+        android:text="Here 12 scrolled items follow to validate if nothing gets cropped"
+        />
+
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"

@@ -57,6 +57,10 @@ dependencies {
     implementation 'com.zoonref:simple-view-behavior:1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
+    // google maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
     //firebase
     implementation 'com.google.firebase:firebase-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
