@@ -15,6 +15,9 @@ public class AcountActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_acount);
+        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
 
         logOut = (Button) findViewById(R.id.logout_button);
         logOut.setOnClickListener(new View.OnClickListener() {
