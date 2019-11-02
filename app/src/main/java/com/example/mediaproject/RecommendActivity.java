@@ -42,7 +42,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendActivity extends BaseActivity implements OnMapReadyCallback {
     protected GoogleMap mMap;
-
+    public double latitude;
+    public double longitude;
     //지도 관련 변수 & 권한설정
     private static final String ROOT_URL = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/";
 
@@ -69,8 +70,8 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         //gps 정보 불러오기
         gpsTracker = new GpsTracker(RecommendActivity.this);
 
-        final double latitude = gpsTracker.getLatitude();
-        final double longitude = gpsTracker.getLongitude();
+        latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
 
 
         String address = getCurrentAddress(latitude, longitude);
@@ -165,16 +166,14 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         mMap = googleMap;
 
-        LatLng SEOUL = new LatLng(37.56, 126.97);
+        LatLng CurrentLoc = new LatLng(latitude, longitude);
 
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울");
-        markerOptions.snippet("한국의 수도");
+        markerOptions.position(CurrentLoc);
         mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(CurrentLoc));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     //gps + 권한 관련된 함수들
