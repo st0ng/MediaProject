@@ -1,15 +1,39 @@
 package com.example.mediaproject;
 
-public class AcountActivity extends MainActivity {
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.mediaproject.Login.LoginActivityNew;
+
+public class AcountActivity extends BaseActivity {
+
+    Button logOut;
 
     @Override
-    int getContentViewId() {
-        return R.layout.activity_acount;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentLayout(R.layout.activity_acount);
+
+        logOut = (Button) findViewById(R.id.logout_button);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                //LoginManager.getInstance().logOut();
+                Intent intent = new Intent(AcountActivity.this, LoginActivityNew.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
-    int getNavigationMenuItemId() {
-        return R.id.navigation_menu4;
+    protected void onResume() {
+        super.onResume();
+        setSelected(R.id.navigation_menu4);
     }
+
+
 }

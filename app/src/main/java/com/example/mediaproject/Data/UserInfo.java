@@ -1,37 +1,61 @@
 package com.example.mediaproject.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class UserInfo {
-    String UserName;
-    String PassWord;
-    String UserImage;
+    String Uid;
+    String UserEmail;
+    String UserProviderId;
+    String UserDisplayName;
 
-    public UserInfo (String UserName, String PassWord, String UserImage){
-        this.UserName = UserName;
-        this.PassWord = PassWord;
-        this.UserImage = UserImage;
+    public UserInfo(String Uid, String UserEmail, String UserProviderId, String UserDisplayName) {
+        this.Uid = Uid;
+        this.UserEmail = UserEmail;
+        this.UserProviderId = UserProviderId;
+        this.UserDisplayName = UserDisplayName;
+
+
     }
 
-    public String getUserName() {
-        return UserName;
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("Uid", Uid);
+        result.put("UserEmail", UserEmail);
+        result.put("UserProviderId", UserProviderId);
+        result.put("UserDisplayName", UserDisplayName);
+        return result;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public String getUid() {
+        return Uid;
     }
 
-    public String getPassWord() {
-        return PassWord;
+    public void setUid(String uid) {
+        Uid = uid;
     }
 
-    public void setPassWord(String passWord) {
-        PassWord = passWord;
+    public String getUserEmail() {
+        return UserEmail;
     }
 
-    public String getUserImage() {
-        return UserImage;
+    public void setUserEmail(String userEmail) {
+        UserEmail = userEmail;
     }
 
-    public void setUserImage(String userImage) {
-        UserImage = userImage;
+    public String getUserProviderId() {
+        return UserProviderId;
+    }
+
+    public void setUserProviderId(String userProviderId) {
+        UserProviderId = userProviderId;
+    }
+
+    public String getUserDisplayName() {
+        return UserDisplayName;
+    }
+
+    public void setUserDisplayName(String userDisplayName) {
+        UserDisplayName = userDisplayName;
     }
 }

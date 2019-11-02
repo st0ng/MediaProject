@@ -1,6 +1,6 @@
 package com.example.mediaproject.Adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<TourSearchData> tourSearchData;
-    private Activity activity;
+    Context ctx;
 
-    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData, Activity activity) {
+
+    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData) {
         this.tourSearchData = tourSearchData;
-        this.activity = activity ;
+
     }
 
 
@@ -40,7 +41,7 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((TourSearchHolder) holder).TourTitle.setText(tourSearchData.get(position).getTitle());
             ((TourSearchHolder) holder).TourAdd1.setText(tourSearchData.get(position).getAddr1());
 
-            Glide.with(activity).load(tourSearchData.get(position)
+            Glide.with(((TourSearchHolder) holder).TourImage.getContext()).load(tourSearchData.get(position)
                     .getFirstimage())
                     .into(((TourSearchHolder) holder).TourImage);
         }

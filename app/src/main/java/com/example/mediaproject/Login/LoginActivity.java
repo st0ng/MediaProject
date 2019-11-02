@@ -1,10 +1,14 @@
-package com.example.mediaproject;
+package com.example.mediaproject.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.mediaproject.BaseActivity;
+import com.example.mediaproject.R;
+import com.example.mediaproject.RecommendActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -46,6 +50,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Button testButton = (Button) findViewById(R.id.testButton);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RecommendActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         GooleButton = findViewById(R.id.GooleLoginButton);
@@ -99,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // 로그인 성공
                             Toast.makeText(LoginActivity.this, "success login", Toast.LENGTH_SHORT).show();
-                            Intent intnet = new Intent(LoginActivity.this, RecommendActivity.class);
+                            Intent intnet = new Intent(LoginActivity.this, BaseActivity.class);
                             startActivity(intnet);
                             finish();
                         } else {

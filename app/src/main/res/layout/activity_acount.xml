@@ -13,19 +13,10 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/logout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인 화면으로 넘어가기" />
+            android:text="로그아웃" />
 
     </LinearLayout>
-
-
-    <include
-        android:id="@+id/navigation"
-        layout="@layout/element_bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-
 </RelativeLayout>

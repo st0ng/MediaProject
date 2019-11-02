@@ -1,15 +1,39 @@
 package com.example.mediaproject;
 
-public class RecommendActivity extends MainActivity {
+import android.os.Bundle;
 
+public class RecommendActivity extends BaseActivity {
 
     @Override
-    int getContentViewId() {
-        return R.layout.activity_recommend;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentLayout(R.layout.activity_recommend);
+
+//            TestDataTestView = (TextView) findViewById(R.id.TestDataTestView);
+//            DBresgerce = FirebaseDatabase.getInstance().getReference();
+//            DBresgerce.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                        String key = postSnapshot.getKey();
+//                        HashMap<String, HashMap<String, Object>> test = (HashMap<String, HashMap<String, Object>>) postSnapshot.getValue();
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                    Log.w("Database", "Failed to read value.", databaseError.toException());
+//
+//                }
+//            });
+
+
     }
 
     @Override
-    int getNavigationMenuItemId() {
-        return R.id.navigation_menu1;
+    protected void onResume() {
+        super.onResume();
+        setSelected(R.id.navigation_menu1);
     }
 }

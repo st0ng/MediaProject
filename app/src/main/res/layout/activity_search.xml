@@ -1,40 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/container"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+
+<LinearLayout
+    android:id="@+id/SearchLaout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
-    <LinearLayout
-        android:id="@+id/SearchLaout"
+    <SearchView
+        android:id="@+id/TourSearchView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
 
-        <SearchView
-            android:id="@+id/TourSearchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+</LinearLayout>
 
 
-    </LinearLayout>
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/TourSearchRecyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/SearchLaout" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/TourSearchRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/SearchLaout"/>
-
-
-    <include
-        android:id="@+id/navigation"
-        layout="@layout/element_bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

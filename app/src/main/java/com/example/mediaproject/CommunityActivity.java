@@ -1,15 +1,17 @@
 package com.example.mediaproject;
 
-public class CommunityActivity extends MainActivity {
+import android.os.Bundle;
 
-
+public class CommunityActivity extends BaseActivity {
     @Override
-    int getContentViewId() {
-        return R.layout.activity_community;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentLayout(R.layout.activity_community);
     }
 
     @Override
-    int getNavigationMenuItemId() {
-        return R.id.navigation_menu3;
+    protected void onResume() {
+        super.onResume();
+        setSelected(R.id.navigation_menu3);
     }
 }
