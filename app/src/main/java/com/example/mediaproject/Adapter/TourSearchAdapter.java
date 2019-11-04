@@ -1,6 +1,5 @@
 package com.example.mediaproject.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<TourSearchData> tourSearchData;
-    Context ctx;
 
 
     public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData) {
@@ -30,7 +28,7 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.element_toursearch_cv, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_cv, parent, false);
         return new TourSearchHolder(view);
     }
 

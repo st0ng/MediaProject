@@ -99,6 +99,9 @@ public class BaseActivity extends AppCompatActivity {
 
             UserDataUpdate.put("/UserInfo/" + currentUser.getUid(), UserValue);
             DBresgerce.updateChildren(UserDataUpdate);
+
+
+//            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE} , 10) ;
         }
 
 

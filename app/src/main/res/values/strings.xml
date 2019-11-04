@@ -12,4 +12,5 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_recommend">RecommendActivity</string>
     <string name="title_activity_acount">AcountActivity</string>
+    <string name="title_activity_community_tour_list_load">CommunityTourListLoad</string>
 </resources>
