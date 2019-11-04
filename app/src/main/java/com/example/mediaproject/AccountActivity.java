@@ -7,17 +7,14 @@ import android.widget.Button;
 
 import com.example.mediaproject.Login.LoginActivityNew;
 
-public class AcountActivity extends BaseActivity {
+public class AccountActivity extends BaseActivity {
 
     Button logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentLayout(R.layout.activity_acount);
-        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-
+        setContentLayout(R.layout.activity_account);
 
         logOut = (Button) findViewById(R.id.logout_button);
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -25,7 +22,7 @@ public class AcountActivity extends BaseActivity {
             public void onClick(View v) {
                 auth.signOut();
                 //LoginManager.getInstance().logOut();
-                Intent intent = new Intent(AcountActivity.this, LoginActivityNew.class);
+                Intent intent = new Intent(AccountActivity.this, LoginActivityNew.class);
                 startActivity(intent);
                 finish();
             }

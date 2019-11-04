@@ -21,12 +21,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".Login.SignupActivity" />
-        <activity android:name=".AcountActivity" />
-        <activity android:name=".CommunityActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".RecommendActivity" />
+
+        <activity android:name=".Login.LoginActivity"/>
+        <activity android:name=".Login.SignupActivity"/>
+        <activity android:name=".AccountActivity"/>
+        <activity android:name=".CommunityActivity"/>
+        <activity android:name=".SearchActivity"/>
+        <activity android:name=".RecommendActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

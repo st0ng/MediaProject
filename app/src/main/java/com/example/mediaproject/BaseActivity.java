@@ -66,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
                 case R.id.navigation_menu4:
                     if (prevNav != R.id.navigation_menu4)
                         finish();
-                    Intent ii4 = new Intent(BaseActivity.this, AcountActivity.class);
+                    Intent ii4 = new Intent(BaseActivity.this, AccountActivity.class);
                     startActivity(ii4);
                     overridePendingTransition(0, 0);
                     return true;
