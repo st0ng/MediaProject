@@ -18,9 +18,16 @@ public interface TourApiService {
                                        @Query("numOfRows") int numOfRows,
                                        @Query("pageNo") int pageNo);
 
-    //지역 검색 조회
-    @GET("areaBasedList?serviceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&pageNo=1&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=A&contentTypeId=15&areaCode=4&sigunguCode=4&listYN=Y&_type=json")
-    Call<TourDataRES> getareaBasedList();
+    //위치 기반 조회
+    @GET("locationBasedList?serviceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileApp=AppTest&MobileOS=AND&_type=json")
+    Call<TourDataRES> getLocationBasedList(@Query("listYN") String listYN,
+                                       @Query("arrange") String arrange,
+                                       @Query("numOfRows") int numOfRows,
+                                       @Query("pageNo") int pageNo,
+                                       @Query("mapX") double mapX,
+                                       @Query("mapY") double mapY,
+                                       @Query("radius") int radius);
+
 
     //키워드 검색 조회
     @GET("searchKeyword?ServiceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileOS=AND&MobileApp=AppTest&_type=json")
