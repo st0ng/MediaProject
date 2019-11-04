@@ -16,15 +16,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.example.mediaproject.Adapter.LocationSearchAdapter;
 import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.AirQuality.AirApiService;
 import com.example.mediaproject.AirQuality.Airapi;
+import com.example.mediaproject.Data.LocationTourSearchData;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.StationApi.StationApi;
 import com.example.mediaproject.StationApi.StationApiService;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,6 +52,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendActivity extends BaseActivity implements OnMapReadyCallback {
+    RecyclerView recyclerView;
+    com.example.mediaproject.Adapter.LocationSearchAdapter LocationTour;
     protected GoogleMap mMap;
     public double latitude;
     public double longitude;
@@ -57,6 +65,7 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +88,11 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         longitude = gpsTracker.getLongitude();
 
 
+
         String address = getCurrentAddress(latitude, longitude);
 
         String locaddr[] = address.split(" ");
+        Log.d("shit",address);
         final Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -154,7 +165,9 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
 
-
+           recyclerView = findViewById(R.id.LocationRecyclerView);
+           recyclerView.setHasFixedSize(true);
+           recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 
@@ -172,15 +185,17 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         LatLng CurrentLoc = new LatLng(latitude, longitude);
-
+        Log.d("shit",CurrentLoc.toString());
         final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(CurrentLoc);
         mMap.addMarker(markerOptions);
 
 
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(CurrentLoc));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(CurrentLoc);
+//        mMap.moveCamera(cameraUpdate);
+//        Log.d("shit","카메라 옮겨짐.");
+//
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 
 
         Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y","A",20,1,longitude,latitude,1500);
@@ -191,19 +206,46 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                     Log.d("MainActivity_KeywordTourSearch", response.body().getResponse().getHeader().getResultMsg());
                     int size = response.body().getResponse().getBody().getItems().getItem().size();
                     Log.d("shit",Integer.toString(size));
-                    ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+                    ArrayList<LocationTourSearchData> locationtourdata = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
                     for(int i=0; i<size; i++)
                     {
                         MarkerOptions marker = new MarkerOptions();
                         double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
                         double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
                         String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
-
+                        locationtourdata.add(new LocationTourSearchData(
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle()
+                        ));
+                        LocationTour = new LocationSearchAdapter(locationtourdata);
+                        recyclerView.setAdapter(LocationTour);
+                        LocationTour.notifyDataSetChanged();
                         marker
                                 .position(new LatLng(tempLat,tempLng))
                                 .title(temptitle);
 
                         mMap.addMarker(marker);
+
+
 
                     }
                 }
@@ -214,6 +256,12 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                 Log.d("shit",t.getMessage());
             }
         });
+
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(CurrentLoc);
+        mMap.moveCamera(cameraUpdate);
+        Log.d("shit","카메라 옮겨짐.");
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
     }
 
     //gps + 권한 관련된 함수들
@@ -393,5 +441,18 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         }
 
+    }
+
+
+    public String ChageHttps(String text) {
+        String trans = "";
+        trans = text;
+        if (trans != null) {
+            trans = trans.replace("http://", "https://");
+        } else {
+            trans = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAAB7CAMAAAAv38DwAAAAOVBMVEX4+Pezuav7+/qvtaba3Nbz9PLQ08zm5+Pp6ue4vrGss6PDyL3w8O7Bxbrs7erT1s7JzcPf4tylrZwuo5cQAAAEK0lEQVR4nO2a3XqkIAyGJQERFIXe/8VuEpwfZ+w+bdcuHOQ76EwVy9tAAgkOg0qlUqlUKpVKpVKpVCqVSqX6PcFykGvN8y6YAh6VVmgNdRRYNC9CM/UFub4hEmRoTXUQjCeMBktXhgwniAZzD4ywy8czRoPu1qAho89JdGpGUr07b81cHJYUz6bhiT1xbMS4hK8RCmVqggjz1xEJ0jYYbpjO/eRT/X/Es5Xlr4prA8azsI0m5TEnPLkVG6yMJ4w4l7rbcfbdndB3wIim3GM1DNsrZA+MmJxA7JzgO2Q0MswwTL46B0zYHSMvd7CmSMLMJn1x/PaMuAmVqdcweG6SOmPkkS5PV1aekrEnRtkpumeimYlCV4y0GkM5GHahNhl7YiQAmJ+nX2Rq2xMjp4BwdJFNGb/PyBkgPM8+EzknfJ0ObRl59h1DDQUjyKYjRsOpwPNgS0x32BUj8iK9Pn4VZtsZ41yX63otZm7hDhlte0Zjak5lUwhhLtIgd7anIAbJBWBwzskW8jXf6YHRmOcK1PtGvA9GHN2OAbC+Jd99MBrE7Fca67XM75lhJ4ycdxnyGWPOctcWjOV7dQrZrP1vLd9CNE2KUuf15U/N2Kbu/BKk/464taqSbmeFnRNADKURIVnSefsVTUPLgjh8TQ0JVao+9BNH+G3ncXsR2e1VRl+Kd/By3+23b5/39vIMxamy7kHI7boUMdSD3rnW8Lycpxt7vz9FM8mBTeBubyUpyWhuxwnW8DOhPFcm8cqzBupMDoGEESaDMSTq8X4udGdkpIU+hJGrVHsbwsKYQkRc6Q/QHp1rqfHjYkZjFtjtSOZYaGrNDzvcGBMhEU7a7cgLepBvq8FME9KFSJYmxnB9bGdGHCsj1yNkv7o8dgo3xo0LkTnkyugoW0T5P3iPxLMAfB6djDVZ8+IFkuaj5fcjhJFGSi5CwjwcGW0gs4U01nS7xDAk3LhpkCrqbjxiDKXYYv3FjNOGqTKOWMeP9mbzK+MYFxe3rTLOBGars1WT243EY23EgWL+tMMfMjoTSz4wzu+MJZbpw1fGhc/faEJM1CAIY/hgpxGfGTPJft7jjxg9m4S7AhuN5CY8gK+MK25bdMLIJMQh85inhdhxZM+/+8yViJWRzzLYHGuUwgn4WmR8ZtyGMKcAlZHiFR/WmOrJhkI++RsyI/vML/g15SPs0BIfKXu2y1KeXuC5M9IcJYsJI/0rYyHXQE5lKEELxa0Wb3b0rHLlexYU17xMwFpXlMNfipLTI4YjM8aNuqcQOcYZqulI1aW9kWco9AtjVbwyy3E5cZxYUpJRdiPH9PywwhoShcExWJhCmsCGEegReb0HtiTFyJWLutnZtHB1bde1yeJ+mnov6AzuEILrDbh9e/x4fO6P7IezmkOoVCqVSqVSqVQqlUqlUqlU/6Y/sxooCVUeRkIAAAAASUVORK5CYII=";
+        }
+
+        return trans;
     }
 }
