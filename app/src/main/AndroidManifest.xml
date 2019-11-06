@@ -34,7 +34,7 @@
         <activity android:name=".CommunityActivity"/>
         <activity android:name=".SearchActivity"/>
         <activity android:name=".RecommendActivity"/>
-
+        <activity android:name=".TouristSpotActivity"/>
 
     </application>
 

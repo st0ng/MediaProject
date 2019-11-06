@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<LocationTourSearchData> LocationtourSearchData;
-    static Context mContext;
+    Context mContext;
 
 
     public LocationSearchAdapter(ArrayList<LocationTourSearchData> locationtourSearchData) {
@@ -74,7 +74,7 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 @Override
                 public void onClick(View v) {
                     //Log.d("recyclerview", "position =" + getAdapterPosition());
-                    Intent intent = new Intent(itemView.getContext(), AccountActivity.class);
+                    Intent intent = new Intent(itemView.getContext(), TouristSpotActivity.class);
                     //mContext.startActivity(intent);
                     itemView.getContext().startActivity(intent);
                 }
