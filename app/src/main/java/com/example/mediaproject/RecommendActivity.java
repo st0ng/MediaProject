@@ -169,6 +169,8 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //recyclerView.addOnItemTouchListener(new RecyclerTouch);
+
 
 
     }
@@ -186,9 +188,10 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         LatLng CurrentLoc = new LatLng(latitude, longitude);
         Log.d("shit",CurrentLoc.toString());
-        final MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(CurrentLoc);
-        mMap.addMarker(markerOptions);
+        //final MarkerOptions markerOptions = new MarkerOptions();
+        //markerOptions.position(CurrentLoc);
+        //mMap.addMarker(markerOptions);
+        mMap.setMyLocationEnabled(true);
 
 
 //        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(CurrentLoc);

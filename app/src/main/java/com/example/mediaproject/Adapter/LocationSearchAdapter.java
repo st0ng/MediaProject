@@ -1,6 +1,8 @@
 package com.example.mediaproject.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.mediaproject.AccountActivity;
 import com.example.mediaproject.Data.LocationTourSearchData;
 import com.example.mediaproject.R;
+import com.example.mediaproject.RecommendActivity;
+import com.example.mediaproject.TouristSpotActivity;
 
 import java.util.ArrayList;
 
@@ -18,12 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<LocationTourSearchData> LocationtourSearchData;
-    Context ctx;
+    static Context mContext;
 
 
     public LocationSearchAdapter(ArrayList<LocationTourSearchData> locationtourSearchData) {
         this.LocationtourSearchData = locationtourSearchData;
-
     }
 
 
@@ -53,17 +57,29 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
+
     public static class TourSearchHolder extends RecyclerView.ViewHolder {
         TextView TourTitle;
         TextView TourAdd1;
         //TextView TourDist;
         ImageView TourImage;
 
-        public TourSearchHolder(@NonNull View itemView) {
+        public TourSearchHolder(@NonNull final View itemView) {
             super(itemView);
             TourTitle = itemView.findViewById(R.id.TourTitle);
             TourAdd1 = itemView.findViewById(R.id.TourAdd1);
             TourImage = itemView.findViewById(R.id.TourImage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Log.d("recyclerview", "position =" + getAdapterPosition());
+                    Intent intent = new Intent(itemView.getContext(), AccountActivity.class);
+                    //mContext.startActivity(intent);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
+
         }
     }
 }
