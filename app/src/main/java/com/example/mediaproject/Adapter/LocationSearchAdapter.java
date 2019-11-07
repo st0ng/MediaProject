@@ -76,7 +76,7 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     //Log.d("recyclerview", "position =" + getAdapterPosition());
                     Intent intent = new Intent(itemView.getContext(), TouristSpotActivity.class);
                     //mContext.startActivity(intent);
-                    //intent.putExtra("image",LocationtourSearchData.get(getAdapterPosition()).getFirstimage2());
+                    intent.putExtra("photo",LocationtourSearchData.get(getAdapterPosition()).getFirstimage());
                     intent.putExtra("title",LocationtourSearchData.get(getAdapterPosition()).getTitle());
                     intent.putExtra("addr",LocationtourSearchData.get(getAdapterPosition()).getAddr1());
                     intent.putExtra("dist",LocationtourSearchData.get(getAdapterPosition()).getDist());
