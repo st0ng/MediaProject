@@ -28,8 +28,8 @@ public class TouristSpotActivity extends AppCompatActivity {
         String tel = intent.getExtras().getString("tel");
 
         TextView Title = (TextView) findViewById(R.id.TourTitle);
-        TextView Addr = (TextView) findViewById(R.id.distance_textview);
-        TextView Dist = (TextView) findViewById(R.id.location_textview);
+        TextView Addr = (TextView) findViewById(R.id.location_textview);
+        TextView Dist = (TextView) findViewById(R.id.distance_textview);
         TextView Tel  = (TextView) findViewById(R.id.telephone_textview);
 
         Title.setText(title);
