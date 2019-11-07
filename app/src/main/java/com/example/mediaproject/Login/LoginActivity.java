@@ -51,16 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button testButton = (Button) findViewById(R.id.testButton);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RecommendActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         GooleButton = findViewById(R.id.GooleLoginButton);
