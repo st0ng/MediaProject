@@ -2,6 +2,7 @@ package com.example.mediaproject.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<LocationTourSearchData> LocationtourSearchData;
-    Context mContext;
-
 
     public LocationSearchAdapter(ArrayList<LocationTourSearchData> locationtourSearchData) {
         this.LocationtourSearchData = locationtourSearchData;
@@ -58,11 +57,12 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
 
-    public static class TourSearchHolder extends RecyclerView.ViewHolder {
+    public class TourSearchHolder extends RecyclerView.ViewHolder {
         TextView TourTitle;
         TextView TourAdd1;
         //TextView TourDist;
         ImageView TourImage;
+        Bundle bundle;
 
         public TourSearchHolder(@NonNull final View itemView) {
             super(itemView);
@@ -76,7 +76,13 @@ public class LocationSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     //Log.d("recyclerview", "position =" + getAdapterPosition());
                     Intent intent = new Intent(itemView.getContext(), TouristSpotActivity.class);
                     //mContext.startActivity(intent);
+                    intent.putExtra("title",LocationtourSearchData.get(getAdapterPosition()).getTitle());
+                    intent.putExtra("addr",LocationtourSearchData.get(getAdapterPosition()).getAddr1());
+                    intent.putExtra("dist",LocationtourSearchData.get(getAdapterPosition()).getDist());
+                    intent.putExtra("tel",LocationtourSearchData.get(getAdapterPosition()).getTel());
                     itemView.getContext().startActivity(intent);
+
+
                 }
             });
 

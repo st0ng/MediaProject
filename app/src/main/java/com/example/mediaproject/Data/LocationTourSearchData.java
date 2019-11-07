@@ -1,6 +1,8 @@
 package com.example.mediaproject.Data;
 
-public class LocationTourSearchData {
+import java.io.Serializable;
+
+public class LocationTourSearchData implements Serializable {
     private String addr1;
     private String addr2;
     private Integer areacode;
