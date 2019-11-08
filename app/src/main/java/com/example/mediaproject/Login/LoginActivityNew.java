@@ -96,16 +96,6 @@ public class LoginActivityNew extends AppCompatActivity {
             }
         });
 
-        Button testButton = (Button) findViewById(R.id.testButton);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivityNew.this, RecommendActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

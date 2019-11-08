@@ -6,11 +6,21 @@
     android:orientation="vertical"
     tools:context=".Login.LoginActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="160dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:text="모두의 나들이(로고)"/>
+
 
     <EditText
         android:id="@+id/editText_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:hint="Email"
         android:inputType="textEmailAddress"/>
 
@@ -18,6 +28,8 @@
         android:id="@+id/editText_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="5dp"
         android:hint="Password"
         android:inputType="textPassword"/>
 
@@ -25,22 +37,27 @@
         android:id="@+id/email_login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="20dp"
         android:text="로그인"/>
 
     <Button
         android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="20dp"
         android:text="회원가입"/>
-
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="게스트로 시작" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/GooleLoginButton"
+        android:layout_marginHorizontal="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -3,21 +3,21 @@
 
     <item
         android:id="@+id/navigation_menu1"
-        android:icon="@drawable/sticker_ic_close_white_18dp"
+        android:icon="@drawable/location_icon"
         android:title="Recommend" />
 
     <item
         android:id="@+id/navigation_menu2"
-        android:icon="@drawable/sticker_ic_close_white_18dp"
+        android:icon="@drawable/search_icon"
         android:title="Search" />
 
     <item
         android:id="@+id/navigation_menu3"
-        android:icon="@drawable/sticker_ic_close_white_18dp"
+        android:icon="@drawable/community_icon"
         android:title="Community" />
 
     <item
         android:id="@+id/navigation_menu4"
-        android:icon="@drawable/sticker_ic_close_white_18dp"
-        android:title="Acount" />
+        android:icon="@drawable/account_icon"
+        android:title="Account" />
 </menu>
