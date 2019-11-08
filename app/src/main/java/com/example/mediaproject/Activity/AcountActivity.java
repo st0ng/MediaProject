@@ -1,4 +1,4 @@
-package com.example.mediaproject;
+package com.example.mediaproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.mediaproject.Login.LoginActivityNew;
+import com.example.mediaproject.R;
 
 public class AcountActivity extends BaseActivity {
 

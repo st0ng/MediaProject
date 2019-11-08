@@ -1,4 +1,4 @@
-package com.example.mediaproject;
+package com.example.mediaproject.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.SearchView;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.Data.TourSearchData;
+import com.example.mediaproject.R;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
 

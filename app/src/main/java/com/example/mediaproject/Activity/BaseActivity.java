@@ -1,4 +1,4 @@
-package com.example.mediaproject;
+package com.example.mediaproject.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.example.mediaproject.Data.UserInfo;
 import com.example.mediaproject.Login.LoginActivity;
+import com.example.mediaproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

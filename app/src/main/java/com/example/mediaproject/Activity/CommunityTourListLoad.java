@@ -1,21 +1,22 @@
-package com.example.mediaproject;
+package com.example.mediaproject.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.mediaproject.Data.ImageData;
+import com.example.mediaproject.Data.UserTourListData;
+import com.example.mediaproject.Data.UserTourListModel;
+import com.example.mediaproject.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +33,6 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.CursorLoader;
 
 public class CommunityTourListLoad extends AppCompatActivity {
 
@@ -41,17 +41,15 @@ public class CommunityTourListLoad extends AppCompatActivity {
     protected FirebaseAuth firebaseAuth;
     protected DatabaseReference databaseReference;
 
-
     //실시간 데이터베이스 송신 변수 선어
-    HashMap<String, Object> userDataUpdate = null;
     HashMap<String, Object> childUpdates = null;
     Map<String, Object> userValue = null;
-    ImageData imageData = null;
+    UserTourListData userTourListData = null;
+    UserTourListModel userTourListModel = null;
 
     String fileDate;
     String filename;
 
-    private String currentUserName;
     private Uri filepath;
     private Button communityTourListGalleryLoad;
     private Button communityTourListFinalUpload;
@@ -100,9 +98,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 try {
-
                     filepath = data.getData();
-                    Log.d("TAG", "uri:" + String.valueOf(filepath));
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
                     CommunityTourListImage.setImageBitmap(bitmap);
 
@@ -116,16 +112,6 @@ public class CommunityTourListLoad extends AppCompatActivity {
         }
     }
 
-    public String getPath(Uri uri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader cursorLoader = new CursorLoader(this, uri, proj, null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-
-        return cursor.getString(index);
-    }
-
     public void UploadTourList() {
         if (filepath != null) {
 
@@ -136,7 +122,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
 
 
             //날짜 기준의 파일명 생성
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HH:mm:ss");
             Date now = new Date();
 
             fileDate = formatter.format(now);
@@ -147,7 +133,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
                     .child("UserTourListImage/" + filename);
 
 
-            UploadTask uploadTask = storageReference.putFile(filepath);
+            final UploadTask uploadTask = storageReference.putFile(filepath);
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -162,12 +148,17 @@ public class CommunityTourListLoad extends AppCompatActivity {
                     Uri downloadUri = task.getResult();
 
                     //실시간 데이터베이스 게시판 데이터 전송
-                    childUpdates = new HashMap<>();
-                    imageData = new ImageData(firebaseAuth.getCurrentUser().getUid(), firebaseAuth.getCurrentUser().getEmail(), downloadUri.toString(), "test", fileDate);
-                    userValue = imageData.toMap();
+                    userTourListModel = new UserTourListModel();
+                    userTourListModel.Uid = firebaseAuth.getCurrentUser().getUid();
+                    userTourListModel.UserEmail = firebaseAuth.getCurrentUser().getEmail();
+                    userTourListModel.ImageUri = downloadUri.toString();
+                    userTourListModel.ImageName = filename;
+                    userTourListModel.description = "test";
+                    userTourListModel.CreateDate = fileDate;
+                    userTourListModel.starCount = 0;
+                    userTourListModel.stars = null;
 
-                    childUpdates.put("UserTourListImage/" + fileDate, userValue);
-                    databaseReference.updateChildren(childUpdates);
+                    databaseReference.child("UserTourListImage").push().setValue(userTourListModel);
 
                     progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                     Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
@@ -175,16 +166,14 @@ public class CommunityTourListLoad extends AppCompatActivity {
 
 
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                    Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             });
-//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//                        //파이어베이스 스토리지 업로드 진행 시
-//                        @Override
-//                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-//                            @SuppressWarnings("VisibleForTests")
-//                            double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-//                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
-//                        }
-//                    });
 
 
         } else {

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".CommunityTourListLoad"
+            android:name=".Activity.CommunityTourListLoad"
             android:label="@string/title_activity_community_tour_list_load"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Login.LoginActivityNew">
@@ -23,10 +23,10 @@
         </activity>
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignupActivity" />
-        <activity android:name=".AcountActivity" />
-        <activity android:name=".CommunityActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".RecommendActivity" />
+        <activity android:name=".Activity.AcountActivity" />
+        <activity android:name=".Activity.CommunityActivity" />
+        <activity android:name=".Activity.SearchActivity" />
+        <activity android:name=".Activity.RecommendActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

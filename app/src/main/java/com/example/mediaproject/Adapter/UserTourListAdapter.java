@@ -1,5 +1,6 @@
 package com.example.mediaproject.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +9,39 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mediaproject.Data.UserTourListData;
+import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.storage.FirebaseStorage;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<UserTourListData> UserTourListData;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
 
-    public UserTourListAdapter(ArrayList<UserTourListData> UserTourListData) {
+    private List<UserTourListModel> UserTourListModel;
+    private List<UserTourListData> UserTourListData;
+    private List<String> UidLists;
+
+
+    public UserTourListAdapter(List<UserTourListData> UserTourListData, List<UserTourListModel> UserTourListModel, List<String> UidLists) {
         this.UserTourListData = UserTourListData;
+        this.UserTourListModel = UserTourListModel;
+        this.UidLists = UidLists;
     }
 
 
@@ -35,11 +56,45 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof UserTourListHolder) {
-            ((UserTourListHolder) holder).CommnitiyUserEmail.setText(UserTourListData.get(position).getUserEmail());
-            Glide.with(holder.itemView.getContext()).load(UserTourListData.get(position).ImageUri).into(((UserTourListHolder) holder).CommnitiyUserImage);
+            ((UserTourListHolder) holder).CommunitiyUserEmail.setText(UserTourListData.get(position).getUserEmail());
+            ((UserTourListHolder) holder).CommunitiyDescription.setText(UserTourListData.get(position).getDescription());
+            ((UserTourListHolder) holder).CommunitiyCreateDate.setText(UserTourListData.get(position).getCreateDate());
+            Glide.with(holder.itemView.getContext()).load(UserTourListData.get(position).ImageUri).into(((UserTourListHolder) holder).CommunitiyUserImage);
 
+            ((UserTourListHolder) holder).CommunityCheckedLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onHeartClicked(firebaseDatabase.getReference().child("UserTourListImage").child(UidLists.get(position)));
+
+                }
+            });
+
+            ((UserTourListHolder) holder).CommunityDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onDeleteClicked(position);
+                }
+            });
+
+
+            if (UserTourListModel.get(position).stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+                ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart);
+                String count = String.valueOf(UserTourListData.get(position).getStarCount());
+                ((UserTourListHolder) holder).CommunityuHeartCount.setText(count);
+            } else {
+                ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart_botom);
+                String count = String.valueOf(UserTourListData.get(position).getStarCount());
+                ((UserTourListHolder) holder).CommunityuHeartCount.setText(count);
+            }
+
+
+            if(UserTourListData.get(position).getUid().equals(firebaseAuth.getCurrentUser().getUid())){
+                ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.VISIBLE);
+            }else{
+                ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.INVISIBLE);
+            }
         }
-    }
+    } //onBindViewHolder end
 
     @Override
     public int getItemCount() {
@@ -48,15 +103,87 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
     public static class UserTourListHolder extends RecyclerView.ViewHolder {
-        ImageView CommnitiyUserImage;
-        TextView CommnitiyUserEmail;
+        ImageView CommunitiyUserImage;
+        ImageView CommunityCheckedLike;
+        ImageView CommunityDelete;
+        TextView CommunitiyUserEmail;
+        TextView CommunitiyDescription;
+        TextView CommunitiyCreateDate;
+        TextView CommunityuHeartCount;
+
 
         public UserTourListHolder(@NonNull View itemView) {
             super(itemView);
-            CommnitiyUserImage = itemView.findViewById(R.id.CommnitiyUserImage);
-            CommnitiyUserEmail = itemView.findViewById(R.id.CommnitiyUserEmail);
-
+            CommunitiyUserImage = itemView.findViewById(R.id.CommnitiyUserImage);
+            CommunitiyUserEmail = itemView.findViewById(R.id.CommnitiyUserEmail);
+            CommunitiyDescription = itemView.findViewById(R.id.CommnitiyDescription);
+            CommunitiyCreateDate = itemView.findViewById(R.id.CommnitiyCreateDate);
+            CommunityCheckedLike = itemView.findViewById(R.id.CommnityCheckedLike);
+            CommunityuHeartCount = itemView.findViewById(R.id.CommnitiyLikeCount);
+            CommunityDelete = itemView.findViewById(R.id.CommunityDelete);
         }
-    }
-}
+    } //UserTourListHolder end
+
+
+    private void onHeartClicked(DatabaseReference postRef) {
+        postRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                UserTourListModel userTourListModel = mutableData.getValue(UserTourListModel.class);
+                if (userTourListModel == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                if (userTourListModel.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+                    // Unstar the post and remove self from stars
+                    userTourListModel.starCount = userTourListModel.starCount - 1;
+                    userTourListModel.stars.remove(firebaseAuth.getCurrentUser().getUid());
+                } else {
+                    // Star the post and add self to stars
+                    userTourListModel.starCount = userTourListModel.starCount + 1;
+                    userTourListModel.stars.put(firebaseAuth.getCurrentUser().getUid(), true);
+                }
+
+                // Set value and report transaction success
+                mutableData.setValue(userTourListModel);
+                return Transaction.success(mutableData);
+            }
+
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+            }
+        });
+    } //onHeartClicked end
+
+    private void onDeleteClicked(final int position) {
+        firebaseStorage.getReference().child("UserTourListImage").child(UserTourListData.get(position).getImageName().toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                firebaseDatabase.getReference().child("UserTourListImage").child(UidLists.get(position).toString()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("성공", "성공");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("실패", "실패");
+                    }
+                });
+            } //firebaseStorage onSuccess end
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+
+    } //onDeleteClicked end
+
+} //UserTourListAdapter end
 

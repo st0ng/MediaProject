@@ -1,4 +1,4 @@
-package com.example.mediaproject;
+package com.example.mediaproject.Activity;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -6,50 +6,37 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.example.mediaproject.Adapter.LocationSearchAdapter;
-import com.example.mediaproject.Adapter.TourSearchAdapter;
-import com.example.mediaproject.AirQuality.AirApiService;
-import com.example.mediaproject.AirQuality.Airapi;
 import com.example.mediaproject.Data.LocationTourSearchData;
-import com.example.mediaproject.Data.TourSearchData;
-import com.example.mediaproject.StationApi.StationApi;
-import com.example.mediaproject.StationApi.StationApiService;
+import com.example.mediaproject.GpsTracker;
+import com.example.mediaproject.R;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendActivity extends BaseActivity implements OnMapReadyCallback {
     RecyclerView recyclerView;
@@ -72,102 +59,102 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_recommend);
 
-        //권한 확인
-        if (!checkLocationServicesStatus()) {
-
-            showDialogForLocationServiceSetting();
-        } else {
-
-            checkRunTimePermission();
-        }
-
-        //gps 정보 불러오기
-        gpsTracker = new GpsTracker(RecommendActivity.this);
-
-        latitude = gpsTracker.getLatitude();
-        longitude = gpsTracker.getLongitude();
-
-
-
-        String address = getCurrentAddress(latitude, longitude);
-
-        String locaddr[] = address.split(" ");
-        Log.d("shit",address);
-        final Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit2 = new Retrofit.Builder()
-                .baseUrl("http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        StationApiService stationApiService = retrofit2.create(StationApiService.class);
-
-        Call<StationApi> getst = stationApiService.getStation(10,1,locaddr[3]);
-        getst.enqueue(new Callback<StationApi>() {
-            @Override
-            public void onResponse(Call<StationApi> call, Response<StationApi> response) {
-                int stationNum = response.body().getTotalCount();
-                String closestStation = "";
-                double distance = Double.MAX_VALUE;
-
-                Location phoneloc = new Location("phoneloc");
-                phoneloc.setLatitude(latitude);
-                phoneloc.setLongitude(longitude);
-
-                for(int i=0; i<stationNum; i++)
-                {
-                    Location locationstation = new Location("station");
-                    locationstation.setLongitude(Double.parseDouble(response.body().getList().get(i).getDmY()));
-                    locationstation.setLatitude(Double.parseDouble(response.body().getList().get(i).getDmX()));
-
-                    double tempdist = phoneloc.distanceTo(locationstation);
-                    if(tempdist <= distance)
-                    {
-                        distance = tempdist;
-                        closestStation = response.body().getList().get(i).getStationName();
-                    }
-                }
-                int meter = (int)Math.round(distance);
-
-                Retrofit retrofit1 = new Retrofit.Builder()
-                        .baseUrl(ROOT_URL)
-                        .addConverterFactory(GsonConverterFactory.create(gson))
-                        .build();
-
-                AirApiService airApiService = retrofit1.create(AirApiService.class);
-
-                Call<Airapi> getair = airApiService.getInfo(1, 1, closestStation, "DAILY", 1.3);
-                getair.enqueue(new Callback<Airapi>() {
-                    @Override
-                    public void onResponse(Call<Airapi> call, Response<Airapi> response) {
-                        Log.d("airair",response.body().getList().get(0).getPm25Grade());
-                        Log.d("airair",response.body().getList().get(0).getPm10Grade());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Airapi> call, Throwable t) {
-                        Log.d("airair",t.getMessage());
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<StationApi> call, Throwable t) {
-                Log.d("airair",t.getMessage());
-            }
-        });
-
-
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        recyclerView = findViewById(R.id.LocationRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        //권한 확인
+//        if (!checkLocationServicesStatus()) {
+//
+//            showDialogForLocationServiceSetting();
+//        } else {
+//
+//            checkRunTimePermission();
+//        }
+//
+//        //gps 정보 불러오기
+//        gpsTracker = new GpsTracker(RecommendActivity.this);
+//
+//        latitude = gpsTracker.getLatitude();
+//        longitude = gpsTracker.getLongitude();
+//
+//
+//
+//        String address = getCurrentAddress(latitude, longitude);
+//
+//        String locaddr[] = address.split(" ");
+//        Log.d("shit",address);
+//        final Gson gson = new GsonBuilder()
+//                .setLenient()
+//                .create();
+//
+//        Retrofit retrofit2 = new Retrofit.Builder()
+//                .baseUrl("http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/")
+//                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .build();
+//
+//        StationApiService stationApiService = retrofit2.create(StationApiService.class);
+//
+//        Call<StationApi> getst = stationApiService.getStation(10,1,locaddr[3]);
+//        getst.enqueue(new Callback<StationApi>() {
+//            @Override
+//            public void onResponse(Call<StationApi> call, Response<StationApi> response) {
+//                int stationNum = response.body().getTotalCount();
+//                String closestStation = "";
+//                double distance = Double.MAX_VALUE;
+//
+//                Location phoneloc = new Location("phoneloc");
+//                phoneloc.setLatitude(latitude);
+//                phoneloc.setLongitude(longitude);
+//
+//                for(int i=0; i<stationNum; i++)
+//                {
+//                    Location locationstation = new Location("station");
+//                    locationstation.setLongitude(Double.parseDouble(response.body().getList().get(i).getDmY()));
+//                    locationstation.setLatitude(Double.parseDouble(response.body().getList().get(i).getDmX()));
+//
+//                    double tempdist = phoneloc.distanceTo(locationstation);
+//                    if(tempdist <= distance)
+//                    {
+//                        distance = tempdist;
+//                        closestStation = response.body().getList().get(i).getStationName();
+//                    }
+//                }
+//                int meter = (int)Math.round(distance);
+//
+//                Retrofit retrofit1 = new Retrofit.Builder()
+//                        .baseUrl(ROOT_URL)
+//                        .addConverterFactory(GsonConverterFactory.create(gson))
+//                        .build();
+//
+//                AirApiService airApiService = retrofit1.create(AirApiService.class);
+//
+//                Call<Airapi> getair = airApiService.getInfo(1, 1, closestStation, "DAILY", 1.3);
+//                getair.enqueue(new Callback<Airapi>() {
+//                    @Override
+//                    public void onResponse(Call<Airapi> call, Response<Airapi> response) {
+//                        Log.d("airair",response.body().getList().get(0).getPm25Grade());
+//                        Log.d("airair",response.body().getList().get(0).getPm10Grade());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Airapi> call, Throwable t) {
+//                        Log.d("airair",t.getMessage());
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFailure(Call<StationApi> call, Throwable t) {
+//                Log.d("airair",t.getMessage());
+//            }
+//        });
+//
+//
+//
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+//
+//        recyclerView = findViewById(R.id.LocationRecyclerView);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 
