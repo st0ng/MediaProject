@@ -1,16 +1,16 @@
 package com.example.mediaproject;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.mediaproject.Data.TourListSpotData;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
-
-import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +19,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TouristSpotActivity extends AppCompatActivity {
-    ArrayList<TourListSpotData> data = new ArrayList<>();
+
     ImageView SpotImage;
     TextView TourTitle;
     TextView location_textview;
+    TextView location2_textview;
     TextView distance_textview;
     TextView telephone_textview;
     TextView overview_textview;
+    TextView homepage_textview;
+
+    LinearLayout location_layout;
+    LinearLayout location2_layout;
+    LinearLayout distance_layout;
+    LinearLayout telephone_layout;
+    LinearLayout overview_layout;
+    LinearLayout homepage_layout;
 
 
 
@@ -46,28 +55,51 @@ public class TouristSpotActivity extends AppCompatActivity {
 
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
         TourTitle = (TextView) findViewById(R.id.TourTitle);
+
         location_textview = (TextView) findViewById(R.id.location_textview);
+        location2_textview = (TextView) findViewById(R.id.location2_textview);
         distance_textview = (TextView) findViewById(R.id.distance_textview);
         telephone_textview = (TextView) findViewById(R.id.telephone_textview);
         overview_textview = (TextView) findViewById(R.id.overview_textview);
+        homepage_textview = (TextView) findViewById(R.id.homepage_textview);
+
+
+        location_layout = (LinearLayout) findViewById(R.id.location_layout);
+        location2_layout = (LinearLayout) findViewById(R.id.location2_layout);
+        distance_layout = (LinearLayout) findViewById(R.id.distance_layout);
+        telephone_layout = (LinearLayout) findViewById(R.id.telephone_layout);
+        overview_layout = (LinearLayout) findViewById(R.id.overview_layout);
+        homepage_layout = (LinearLayout) findViewById(R.id.telephone_layout);
+
 
         Glide.with(SpotImage.getContext()).load(photo).into(SpotImage);
         TourTitle.setText(title);
-        location_textview.setText(addr);
-        distance_textview.setText(dist);
-        telephone_textview.setText(tel);
+
+        if(addr != null){ //주소
+            location_layout.setVisibility(View.VISIBLE);
+            location_textview.setText(addr);
+        }else{
+            location_layout.setVisibility(View.GONE);
+        }
+
+        if(dist != null){ //거리
+            distance_layout.setVisibility(View.VISIBLE);
+            distance_textview.setText(dist);
+        }else{
+            distance_layout.setVisibility(View.GONE);
+        }
+
+        if(tel != null){ //전화번호
+            distance_layout.setVisibility(View.VISIBLE);
+            telephone_textview.setText(tel);
+        }else{
+            telephone_layout.setVisibility(View.GONE);
+        }
+
 
         if(contentid != 0){
             TourInfo(contentid);
         }
-
-
-
-
-
-
-
-
     }
 
 
@@ -77,49 +109,36 @@ public class TouristSpotActivity extends AppCompatActivity {
         @Override
         public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
             if(response.code() ==200){
-                int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
-                    data.clear();
-
-//                data.add(new TourListSpotData(
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getAddr1(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getAddr2(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getAreacode(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getBooktour(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getCat1(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getCat2(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getCat3(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getContentid(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getContenttypeid(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getCreatedtime(),
-//                        ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(0).getFirstimage()),
-//                        ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(0).getFirstimage2()),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getHomepage(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getMapx(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getMapy(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getMlevel(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getModifiedtime(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getOverview(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getSigungucode(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getTitle(),
-//                        response.body().getResponse().getBody().getItems().getItem().get(0).getZipcode()));
-
-
-                if(response.body().getResponse().getBody().getItems().getItem().get(0).getAddr1() != null){
+                if(response.body().getResponse().getBody().getItems().getItem().get(0).getAddr1() != null){ //주소
+                    location_layout.setVisibility(View.VISIBLE);
                     location_textview.setText(response.body().getResponse().getBody().getItems().getItem().get(0).getAddr1());
                 }else{
-
+                    location_layout.setVisibility(View.GONE);
                 }
 
-                if(response.body().getResponse().getBody().getItems().getItem().get(0).getOverview() != null){
-                    overview_textview.setText(response.body().getResponse().getBody().getItems().getItem().get(0).getOverview());
+                if(response.body().getResponse().getBody().getItems().getItem().get(0).getAddr2() != null){  //주소2
+                    location2_layout.setVisibility(View.VISIBLE);
+                    location2_textview.setText(response.body().getResponse().getBody().getItems().getItem().get(0).getAddr2());
                 }else{
-
+                    location2_layout.setVisibility(View.GONE);
                 }
 
+                if(response.body().getResponse().getBody().getItems().getItem().get(0).getOverview() != null){ //개요
+                    overview_layout.setVisibility(View.VISIBLE);
+                    overview_textview.setText(ChageBr(response.body().getResponse().getBody().getItems().getItem().get(0).getOverview()));
+                }else{
+                    overview_layout.setVisibility(View.GONE);
+                }
 
+                if(response.body().getResponse().getBody().getItems().getItem().get(0).getHomepage() != null){ //홈페이지
+                    homepage_layout.setVisibility(View.VISIBLE);
+                    homepage_textview.setText(ChageHOME(response.body().getResponse().getBody().getItems().getItem().get(0).getHomepage()));
+                }else{
+                    homepage_layout.setVisibility(View.GONE);
+                }
 
-            }
-        }
+            }// if end
+        }// onResponse end
 
         @Override
         public void onFailure(Call<TourDataRES> call, Throwable t) {
@@ -127,6 +146,15 @@ public class TouristSpotActivity extends AppCompatActivity {
         }
     });
     } //TourInfo end
+
+
+    public void newLinearLayout(){
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,10);
+        String color = "#CCCCCC";
+        linearLayout.setBackground(Drawable.createFromPath(color));
+    }
 
     public String ChageHttps(String text) {
         String trans = "";
@@ -140,5 +168,40 @@ public class TouristSpotActivity extends AppCompatActivity {
         return trans;
     }
 
+
+
+     // ChageBr
+     // overview 의 <br />,<br> 을 "\n"로 바꿔주기
+    public String ChageBr(String text) {
+        String trans;
+        trans = text;
+        if (trans != null) {
+            trans = trans.replace("</b>", "\n");
+            trans = trans.replace("<b>", "\n");
+            trans = trans.replace("<br>", "\n");
+            trans = trans.replace("<br />", "\n");
+            trans = trans.replace("</a>", "");
+        } else {
+
+        }
+        return trans;
+    }
+
+
+     // ChageHOME
+     // html 태그 제거하기
+    public String ChageHOME(String html) {
+        String trans = "";
+        String result = "";
+        trans = html;
+        String regex1 = "\\<.*?\\>";        //html 태그 제거하기 코드
+
+        if (trans != null) {
+            result = trans.replaceAll(regex1, "\n");
+        } else {
+        }
+
+        return result;
+    }
 
 }
