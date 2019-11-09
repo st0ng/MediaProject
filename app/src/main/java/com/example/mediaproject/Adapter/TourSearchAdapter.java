@@ -1,5 +1,8 @@
 package com.example.mediaproject.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.R;
+import com.example.mediaproject.TouristSpotActivity;
 
 import java.util.ArrayList;
 
@@ -17,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<TourSearchData> tourSearchData;
+    protected Context ThisView;
 
 
     public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData) {
@@ -29,6 +34,7 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_cv, parent, false);
+        ThisView = parent.getContext();
         return new TourSearchHolder(view);
     }
 
@@ -42,6 +48,22 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Glide.with(((TourSearchHolder) holder).TourImage.getContext()).load(tourSearchData.get(position)
                     .getFirstimage())
                     .into(((TourSearchHolder) holder).TourImage);
+
+            ((TourSearchHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ThisView, TouristSpotActivity.class);
+                    intent.putExtra("contentid", tourSearchData.get(position).getContentid());
+                    Log.d("TourSearchAdapter",tourSearchData.get(position).getContentid().toString());
+                    intent.putExtra("photo",tourSearchData.get(position).getFirstimage());
+                    intent.putExtra("title",tourSearchData.get(position).getTitle());
+                    intent.putExtra("addr",tourSearchData.get(position).getAddr1());
+//                    intent.putExtra("dist",tourSearchData.get(position).getDist());
+                    intent.putExtra("tel",tourSearchData.get(position).getTel());
+                    ThisView.startActivity(intent);
+
+                }
+            });
         }
     }
 
