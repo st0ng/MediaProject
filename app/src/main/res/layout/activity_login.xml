@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context=".Login.LoginActivity">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="160dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="30dp"
-        android:text="모두의 나들이(로고)"/>
+        android:layout_marginVertical="80dp"
+        android:src="@drawable/logo"/>
 
 
     <EditText
@@ -60,5 +59,6 @@
         android:layout_marginHorizontal="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
 </LinearLayout>
