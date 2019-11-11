@@ -10,11 +10,41 @@ public interface TourApiService {
 
 
     //지역 검색 조회
-    @GET("areaBasedList?ServiceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileOS=AND&MobileApp=AppTest&_type=json&listYN=Y&arrange=B")
+    @GET("areaBasedList?ServiceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileOS=AND&MobileApp=AppTest&_type=json")
     Call<TourDataRES> getareaBasedList(@Query("listYN") String listYN,
                                        @Query("arrange") String arrange,
                                        @Query("contentTypeId") int contentTypeId,
                                        @Query("areaCode") int areaCode,
+                                       @Query("numOfRows") int numOfRows,
+                                       @Query("pageNo") int pageNo);
+
+    @GET("areaBasedList?ServiceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileOS=AND&MobileApp=AppTest&_type=json")
+    Call<TourDataRES> getareaBasedList(@Query("listYN") String listYN,
+                                       @Query("arrange") String arrange,
+                                       @Query("contentTypeId") int contentTypeId,
+                                       @Query("areaCode") int areaCode,
+                                       @Query("cat1") String cat1,
+                                       @Query("numOfRows") int numOfRows,
+                                       @Query("pageNo") int pageNo);
+
+    @GET("areaBasedList?ServiceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileOS=AND&MobileApp=AppTest&_type=json")
+    Call<TourDataRES> getareaBasedList(@Query("listYN") String listYN,
+                                       @Query("arrange") String arrange,
+                                       @Query("contentTypeId") int contentTypeId,
+                                       @Query("areaCode") int areaCode,
+                                       @Query("cat1") String cat1,
+                                       @Query("cat2") String cat2,
+                                       @Query("numOfRows") int numOfRows,
+                                       @Query("pageNo") int pageNo);
+
+    @GET("areaBasedList?ServiceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileOS=AND&MobileApp=AppTest&_type=json")
+    Call<TourDataRES> getareaBasedList(@Query("listYN") String listYN,
+                                       @Query("arrange") String arrange,
+                                       @Query("contentTypeId") int contentTypeId,
+                                       @Query("areaCode") int areaCode,
+                                       @Query("cat1") String cat1,
+                                       @Query("cat2") String cat2,
+                                       @Query("cat3") String cat3,
                                        @Query("numOfRows") int numOfRows,
                                        @Query("pageNo") int pageNo);
 

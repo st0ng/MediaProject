@@ -1,8 +1,13 @@
 package com.example.mediaproject.Activity;
 
-import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
@@ -19,18 +24,58 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-    Activity activity = this;
-    SearchView searchView;
-    RecyclerView recyclerView;
-    com.example.mediaproject.Adapter.TourSearchAdapter TourSearchAdapter;
+    private SearchView searchView;
+
+    private LinearLayout KategorieList_Layout;
+    private LinearLayout include_kateforie;
+
+
+    private Button KategorieSearchButton;
+    private Button TemaSearchButton;
+
+    private CheckBox Search_Nature;
+    private CheckBox Search_History;
+    private CheckBox Search_Recreation;
+    private CheckBox Search_Experience;
+    private CheckBox Search_Industry;
+    private CheckBox Search_Architecture;
+    private CheckBox Search_Lesports;
+
+
+    //리사이클러뷰
+    private RecyclerView recyclerView;
+    private TourSearchAdapter TourSearchAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_search);
+
+        include_kateforie = (LinearLayout) findViewById(R.id.include_kateforie);
+
+        KategorieSearchButton = (Button) findViewById(R.id.KategorieSearchButton);
+        TemaSearchButton = (Button) findViewById(R.id.TemaSearchButton);
+        Search_Nature = (CheckBox) findViewById(R.id.Search_Nature);
+        Search_History = (CheckBox) findViewById(R.id.Search_History);
+        Search_Recreation = (CheckBox) findViewById(R.id.Search_Recreation);
+        Search_Experience = (CheckBox) findViewById(R.id.Search_Experience);
+        Search_Industry = (CheckBox) findViewById(R.id.Search_Industry);
+        Search_Architecture = (CheckBox) findViewById(R.id.Search_Architecture);
+        Search_Lesports = (CheckBox) findViewById(R.id.Search_Lesports);
+
+        KategorieSearchButton.setOnClickListener(this);
+        TemaSearchButton.setOnClickListener(this);
+        Search_Nature.setOnCheckedChangeListener(this);
+        Search_History.setOnCheckedChangeListener(this);
+        Search_Recreation.setOnCheckedChangeListener(this);
+        Search_Experience.setOnCheckedChangeListener(this);
+        Search_Industry.setOnCheckedChangeListener(this);
+        Search_Architecture.setOnCheckedChangeListener(this);
+        Search_Lesports.setOnCheckedChangeListener(this);
+
 
         searchView = findViewById(R.id.TourSearchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -49,9 +94,126 @@ public class SearchActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TourSearch();
-        //AirSearch();
+    } // onCreate end
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.Search_Nature:
+                if (isChecked) {
+                    TourSearch(1, 12, 0, "A01", "A0101", "");
+                    Search_History.setChecked(false);
+                    Search_Recreation.setChecked(false);
+                    Search_Experience.setChecked(false);
+                    Search_Industry.setChecked(false);
+                    Search_Architecture.setChecked(false);
+                    Search_Lesports.setChecked(false);
+                } else {
+
+                }
+                break;
+
+            case R.id.Search_History:
+                if (isChecked) {
+                    TourSearch(1, 12, 0, "A02", "A0201", "");
+                    Search_Nature.setChecked(false);
+                    Search_Recreation.setChecked(false);
+                    Search_Experience.setChecked(false);
+                    Search_Industry.setChecked(false);
+                    Search_Architecture.setChecked(false);
+                    Search_Lesports.setChecked(false);
+                } else {
+
+                }
+                break;
+
+            case R.id.Search_Recreation:
+                if (isChecked) {
+                    TourSearch(1, 12, 0, "A02", "A0202", "");
+                    Search_Nature.setChecked(false);
+                    Search_History.setChecked(false);
+                    Search_Experience.setChecked(false);
+                    Search_Architecture.setChecked(false);
+                    Search_Industry.setChecked(false);
+                    Search_Lesports.setChecked(false);
+                } else {
+
+                }
+                break;
+
+            case R.id.Search_Experience:
+                if (isChecked) {
+                    TourSearch(1, 12, 0, "A02", "A0203", "");
+                    Search_Nature.setChecked(false);
+                    Search_History.setChecked(false);
+                    Search_Recreation.setChecked(false);
+                    Search_Industry.setChecked(false);
+                    Search_Architecture.setChecked(false);
+                    Search_Lesports.setChecked(false);
+
+                } else {
+
+                }
+                break;
+
+            case R.id.Search_Industry:
+                if (isChecked) {
+                    TourSearch(1,12,0,"A02","A0204","");
+                    Search_Nature.setChecked(false);
+                    Search_History.setChecked(false);
+                    Search_Recreation.setChecked(false);
+                    Search_Experience.setChecked(false);
+                    Search_Architecture.setChecked(false);
+                    Search_Lesports.setChecked(false);
+
+                } else {
+
+                }
+                break;
+
+            case R.id.Search_Architecture:
+                if (isChecked) {
+                    TourSearch(1,12,0,"A02","A0205","");
+                    Search_Nature.setChecked(false);
+                    Search_History.setChecked(false);
+                    Search_Experience.setChecked(false);
+                    Search_Recreation.setChecked(false);
+                    Search_Industry.setChecked(false);
+                    Search_Lesports.setChecked(false);
+                } else {
+
+                }
+                break;
+
+            case R.id.Search_Lesports:
+                if (isChecked) {
+                    TourSearch(1,12,0,"A03","","");
+                    Search_Nature.setChecked(false);
+                    Search_History.setChecked(false);
+                    Search_Recreation.setChecked(false);
+                    Search_Experience.setChecked(false);
+                    Search_Industry.setChecked(false);
+                    Search_Architecture.setChecked(false);
+                } else {
+
+                }
+        } //swith end
+    } //onCheckedChanged end
+
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.KategorieSearchButton) {
+            KategorieSearchButton.setBackgroundColor(Color.GRAY);
+            TemaSearchButton.setBackgroundColor(Color.WHITE);
+            include_kateforie.setVisibility(View.VISIBLE);
+
+        } else if (v.getId() == R.id.TemaSearchButton) {
+            KategorieSearchButton.setBackgroundColor(Color.WHITE);
+            TemaSearchButton.setBackgroundColor(Color.GRAY);
+            include_kateforie.setVisibility(View.GONE);
+
+        }
     }
 
     @Override
@@ -61,57 +223,59 @@ public class SearchActivity extends BaseActivity {
     }
 
 
-    public void TourSearch() {
-        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y","A",15,1,10,1);
-        call.enqueue(new Callback<TourDataRES>() {
-            @Override
-            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
-                if (response.code() == 200) {
-                    Log.d("MainActivity_TourSearch", response.body().getResponse().getHeader().getResultMsg());
+    public void TourSearch(int areaCode, int contentTypeId, int sigunguCode, String cat1, String cat2, String cat3) {
+        if (areaCode == 0 || sigunguCode == 0) {
 
-                    int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
-                    ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+        } else {
+            Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", contentTypeId, areaCode, cat1, cat2, cat3, 999, 1);
+            call.enqueue(new Callback<TourDataRES>() {
+                @Override
+                public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+                    if (response.code() == 200) {
+                        int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
+                        ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
 
-                    for (int i = 0; i < size; i++) {
-                        data.add(new TourSearchData(
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
-                        ));
+                        for (int i = 0; i < size; i++) {
+                            data.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
+                            ));
+                        }
+                        TourSearchAdapter = new TourSearchAdapter(data);
+                        recyclerView.setAdapter(TourSearchAdapter);
+                        TourSearchAdapter.notifyDataSetChanged();
                     }
-                    TourSearchAdapter = new TourSearchAdapter(data);
-                    recyclerView.setAdapter(TourSearchAdapter);
-                    TourSearchAdapter.notifyDataSetChanged();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<TourDataRES> call, Throwable t) {
-                Log.d("mainactivity", "연결안됨");
-                t.fillInStackTrace();
-            }
-        });
-    }
+                @Override
+                public void onFailure(Call<TourDataRES> call, Throwable t) {
+                    Log.d("mainactivity", "연결안됨");
+                    t.fillInStackTrace();
+                }
+            });
+        } //else end
+    }// TourSearch end
 
-    public void KeywordTourSearch(String query){
+    public void KeywordTourSearch(String query) {
         String keyword = "";
         keyword = query.trim();
 
@@ -163,9 +327,7 @@ public class SearchActivity extends BaseActivity {
         });
 
 
-
     }
-
 
 
     public String ChageHttps(String text) {
@@ -179,4 +341,6 @@ public class SearchActivity extends BaseActivity {
 
         return trans;
     }
+
+
 }

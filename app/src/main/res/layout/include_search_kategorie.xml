@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="#CCCCCC"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/Search_Nature"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="자연" />
+
+            <CheckBox
+                android:id="@+id/Search_History"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="역사" />
+
+            <CheckBox
+                android:id="@+id/Search_Recreation"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="휴양" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/Search_Experience"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="체험" />
+
+            <CheckBox
+                android:id="@+id/Search_Industry"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="산업" />
+
+            <CheckBox
+                android:id="@+id/Search_Architecture"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="건축 및 조형물" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/Search_Lesports"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="레포츠" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="xxx" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/kategorie_checkbutton"
+                android:button="@null"
+                android:gravity="center"
+                android:text="xxx" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#CCCCCC"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"/>
+
+
+
+    </LinearLayout>
+</LinearLayout>
