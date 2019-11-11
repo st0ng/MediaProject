@@ -225,8 +225,53 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     public void TourSearch(int areaCode, int contentTypeId, int sigunguCode, String cat1, String cat2, String cat3) {
         if (areaCode == 0 || sigunguCode == 0) {
+            Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", contentTypeId, areaCode, cat1, cat2, cat3, 999, 1);
+            call.enqueue(new Callback<TourDataRES>() {
+                @Override
+                public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+                    if (response.code() == 200) {
+                        int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
+                        ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
 
-        } else {
+                        data.clear();
+                        for (int i = 0; i < size; i++) {
+                            data.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
+                            ));
+                        }
+                        TourSearchAdapter = new TourSearchAdapter(data);
+                        recyclerView.setAdapter(TourSearchAdapter);
+                        TourSearchAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TourDataRES> call, Throwable t) {
+                    Log.d("mainactivity", "연결안됨");
+                    t.fillInStackTrace();
+                }
+            });
+        } else { //if end
             Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", contentTypeId, areaCode, cat1, cat2, cat3, 999, 1);
             call.enqueue(new Callback<TourDataRES>() {
                 @Override
