@@ -3,7 +3,6 @@ package com.example.mediaproject;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.mediaproject.Data.TourInfoData;
 import com.example.mediaproject.Data.TourInfoModel;
+import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +43,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     HashMap<String, Object> childUpdates = null;
     Map<String, Object> userValue = null;
     TourInfoData tourInfoData = null;
-
+    boolean checklist = false;
 
 
     private RatingBar TourRatingBar;
@@ -63,8 +63,6 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private LinearLayout telephone_layout;
     private LinearLayout overview_layout;
     private LinearLayout homepage_layout;
-
-
 
 
     @Override
@@ -132,30 +130,64 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        if(!firebaseDatabase.getReference().child("TourInfo").equals(title)){
-            childUpdates = new HashMap<>();
-            tourInfoData = new TourInfoData(title, 0, 0, null, null);
-            userValue = tourInfoData.toMap();
-
-            childUpdates.put("/TourInfo/" + title, userValue);
-            databaseReference.updateChildren(childUpdates);
-        }
-
-        firebaseDatabase.getReference().child("TourInfo").child(title).addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference().child("TourInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                checklist = false;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    TourInfoModel get = snapshot.getValue(TourInfoModel.class);
-                    Log.d("testtttt",get.toString());
+                    UserTourListModel get = snapshot.getValue(UserTourListModel.class);
+                    String listkey = snapshot.getKey();
 
+                    if(listkey.equals(title)){
+                        checklist = true;
+                        break;
+                    }
+
+                } // for end
+
+
+
+
+
+                if (checklist == false) {
+                    childUpdates = new HashMap<>();
+                    tourInfoData = new TourInfoData(title, 0, 0, null, null);
+                    userValue = tourInfoData.toMap();
+
+                    childUpdates.put("/TourInfo/" + title, userValue);
+                    databaseReference.updateChildren(childUpdates);
                 }
+
+
+
+                firebaseDatabase.getReference().child("TourInfo").child(title).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        TourInfoModel data = dataSnapshot.getValue(TourInfoModel.class);
+
+                        if (data.stars.containsKey(firebaseAuth.getCurrentUser().getUid())){
+                            TourList_Heart.setImageResource(R.drawable.heart);
+                        }else{
+                            TourList_Heart.setImageResource(R.drawable.heart_botom);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }); // firebase // TourInfo // title 경로 end
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        }); //firebase // TourInfo end
+
+
+
 
         TourList_Heart = (ImageView) findViewById(R.id.TourList_Heart);
         TourList_Heart.setOnClickListener(new View.OnClickListener() {
