@@ -48,11 +48,11 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/SearchTestView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginVertical="10dp" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/SearchTestView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="300dp"-->
+<!--            android:layout_marginVertical="10dp" />-->
 
     </LinearLayout>
 </RelativeLayout>
