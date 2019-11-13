@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,8 @@ import com.google.android.material.chip.Chip;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+
+import io.reactivex.internal.operators.completable.CompletableHide;
 
 
 public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.ViewHolder> {
@@ -120,21 +123,18 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
 
     int flag = 0;
     int Selected = 0;
+    Context context;
+    LinearLayout mParent;
 
     private ArrayList<String> mData = null ;
-
-
-
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView LocList ;
-
         ViewHolder(View itemView) {
             super(itemView) ;
 
             // 뷰 객체에 대한 참조. (hold strong reference)
             LocList = itemView.findViewById(R.id.LocList) ;
-
         }
     }
 
@@ -146,12 +146,13 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
     public SearchTestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext() ;
+        mParent = (LinearLayout) parent.getParent();
+        context = parent.getContext() ;
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
         View view = inflater.inflate(R.layout.test_item, parent, false) ;
         SearchTestAdapter.ViewHolder vh = new SearchTestAdapter.ViewHolder(view) ;
-
         return vh ;
     }
 
@@ -159,8 +160,6 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
     @Override
     public void onBindViewHolder(SearchTestAdapter.ViewHolder holder, final int position) {
         String text = mData.get(position);
-
-
         if(text.equals("")){
             holder.LocList.setVisibility(View.GONE);
         }
@@ -172,6 +171,9 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
         ((ViewHolder) holder).LocList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Chip chip1 = mParent.findViewById(R.id.chip1);
+
                 Log.d("shit", String.valueOf(position));
                 if (flag == 0 ) {
                     if (position == 0) {
@@ -247,13 +249,12 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
                 else {
                     Selected = 1;
                     //holder.LocList.isClickable(false);
+                    chip1.setText(mData.get(position));
+                    chip1.setVisibility(View.VISIBLE);
                 }
             }
         });
-
-
-
-            }
+    }
 
 
     // getItemCount() - 전체 데이터 갯수 리턴.
