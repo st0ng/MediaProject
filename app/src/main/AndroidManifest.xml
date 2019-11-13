@@ -29,9 +29,11 @@
         </activity>
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignupActivity" />
-        <activity android:name=".Activity.AcountActivity" />
+        <activity android:name=".Activity.AcountActivity"
+            android:theme="@style/Material"/>
         <activity android:name=".Activity.CommunityActivity" />
-        <activity android:name=".Activity.SearchActivity" />
+        <activity android:name=".Activity.SearchActivity"
+            android:theme="@style/Material"/>
         <activity android:name=".Activity.RecommendActivity" />
         <activity android:name=".TouristSpotActivity"/>
 
