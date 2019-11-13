@@ -6,23 +6,31 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mediaproject.Adapter.LocationSearchAdapter;
+import com.example.mediaproject.AirQuality.AirApiService;
+import com.example.mediaproject.AirQuality.Airapi;
 import com.example.mediaproject.Data.LocationTourSearchData;
 import com.example.mediaproject.GpsTracker;
 import com.example.mediaproject.R;
+import com.example.mediaproject.StationApi.StationApi;
+import com.example.mediaproject.StationApi.StationApiService;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,10 +41,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendActivity extends BaseActivity implements OnMapReadyCallback {
     RecyclerView recyclerView;
@@ -59,37 +70,37 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_recommend);
 
-//        //권한 확인
-//        if (!checkLocationServicesStatus()) {
-//
-//            showDialogForLocationServiceSetting();
-//        } else {
-//
-//            checkRunTimePermission();
-//        }
-//
-//        //gps 정보 불러오기
-//        gpsTracker = new GpsTracker(RecommendActivity.this);
-//
-//        latitude = gpsTracker.getLatitude();
-//        longitude = gpsTracker.getLongitude();
-//
-//
-//
-//        String address = getCurrentAddress(latitude, longitude);
-//
-//        String locaddr[] = address.split(" ");
-//        Log.d("shit",address);
-//        final Gson gson = new GsonBuilder()
-//                .setLenient()
-//                .create();
-//
-//        Retrofit retrofit2 = new Retrofit.Builder()
-//                .baseUrl("http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/")
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-//                .build();
-//
-//        StationApiService stationApiService = retrofit2.create(StationApiService.class);
+        //권한 확인
+        if (!checkLocationServicesStatus()) {
+
+            showDialogForLocationServiceSetting();
+        } else {
+
+            checkRunTimePermission();
+        }
+
+        //gps 정보 불러오기
+        gpsTracker = new GpsTracker(RecommendActivity.this);
+
+        latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
+
+
+
+        String address = getCurrentAddress(latitude, longitude);
+
+        String locaddr[] = address.split(" ");
+        Log.d("shit",address);
+        final Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit2 = new Retrofit.Builder()
+                .baseUrl("http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        StationApiService stationApiService = retrofit2.create(StationApiService.class);
 //
 //        Call<StationApi> getst = stationApiService.getStation(10,1,locaddr[3]);
 //        getst.enqueue(new Callback<StationApi>() {
@@ -145,18 +156,18 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 //                Log.d("airair",t.getMessage());
 //            }
 //        });
-//
-//
-//
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
-//
-//        recyclerView = findViewById(R.id.LocationRecyclerView);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        recyclerView = findViewById(R.id.LocationRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addOnItemTouchListener(new RecyclerTouch);
+
 
 
 
@@ -187,66 +198,66 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 //
 //        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 
-
-        Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y","A",20,1,longitude,latitude,1500);
-        Loc.enqueue(new Callback<TourDataRES>() {
-            @Override
-            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
-                if (response.code() == 200) {
-                    Log.d("MainActivity_KeywordTourSearch", response.body().getResponse().getHeader().getResultMsg());
-                    int size = response.body().getResponse().getBody().getItems().getItem().size();
-                    Log.d("shit",Integer.toString(size));
-                    ArrayList<LocationTourSearchData> locationtourdata = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-                    for(int i=0; i<size; i++)
-                    {
-                        MarkerOptions marker = new MarkerOptions();
-                        double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
-                        double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
-                        String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
-                        locationtourdata.add(new LocationTourSearchData(
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
-                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle()
-                        ));
-                        LocationTour = new LocationSearchAdapter(locationtourdata);
-                        recyclerView.setAdapter(LocationTour);
-                        LocationTour.notifyDataSetChanged();
-                        marker
-                                .position(new LatLng(tempLat,tempLng))
-                                .title(temptitle);
-
-                        mMap.addMarker(marker);
-
-
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TourDataRES> call, Throwable t) {
-                Log.d("shit",t.getMessage());
-            }
-        });
-
+//
+//        Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y","A",20,1,longitude,latitude,1500);
+//        Loc.enqueue(new Callback<TourDataRES>() {
+//            @Override
+//            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+//                if (response.code() == 200) {
+//                    Log.d("MainActivity_KeywordTourSearch", response.body().getResponse().getHeader().getResultMsg());
+//                    int size = response.body().getResponse().getBody().getItems().getItem().size();
+//                    Log.d("shit",Integer.toString(size));
+//                    ArrayList<LocationTourSearchData> locationtourdata = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+//                    for(int i=0; i<size; i++)
+//                    {
+//                        MarkerOptions marker = new MarkerOptions();
+//                        double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
+//                        double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
+//                        String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
+//                        locationtourdata.add(new LocationTourSearchData(
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
+//                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+//                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+//                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle()
+//                        ));
+//                        LocationTour = new LocationSearchAdapter(locationtourdata);
+//                        recyclerView.setAdapter(LocationTour);
+//                        LocationTour.notifyDataSetChanged();
+//                        marker
+//                                .position(new LatLng(tempLat,tempLng))
+//                                .title(temptitle);
+//
+//                        mMap.addMarker(marker);
+//
+//
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TourDataRES> call, Throwable t) {
+//                Log.d("shit",t.getMessage());
+//            }
+//        });
+//
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(CurrentLoc);
         mMap.moveCamera(cameraUpdate);
