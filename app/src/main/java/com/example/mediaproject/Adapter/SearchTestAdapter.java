@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mediaproject.R;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -122,6 +123,8 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
 
     private ArrayList<String> mData = null ;
 
+
+
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView LocList ;
@@ -156,6 +159,7 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
     @Override
     public void onBindViewHolder(SearchTestAdapter.ViewHolder holder, final int position) {
         String text = mData.get(position);
+
 
         if(text.equals("")){
             holder.LocList.setVisibility(View.GONE);
