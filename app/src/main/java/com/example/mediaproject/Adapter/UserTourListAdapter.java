@@ -68,7 +68,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 }
             });
-
+            //하트 개수 받아오기
             ((UserTourListHolder) holder).CommunityDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
