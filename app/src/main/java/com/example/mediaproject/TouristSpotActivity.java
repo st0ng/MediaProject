@@ -145,8 +145,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    TourInfoModel get = snapshot.getValue(TourInfoModel.class);
-                    Log.d("testtttt",get.toString());
+//                    TourInfoModel get = snapshot.getValue(TourInfoModel.class);
+//                    Log.d("testtttt",get.toString());
 
                 }
             }
