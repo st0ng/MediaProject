@@ -40,6 +40,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private Button KategorieSearchButton;
     private Button TemaSearchButton;
     private Chip Search_Nature;
+    private Chip Search_Architecture;
 
 //    private CheckBox Search_Nature;
 //    private CheckBox Search_History;
@@ -73,6 +74,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         KategorieSearchButton = (Button) findViewById(R.id.KategorieSearchButton);
         TemaSearchButton = (Button) findViewById(R.id.TemaSearchButton);
         Search_Nature = (Chip) findViewById(R.id.Search_Nature);
+        Search_Architecture = (Chip) findViewById(R.id.Search_Architecture);
         context = this;
 
 
@@ -89,6 +91,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         KategorieSearchButton.setOnClickListener(this);
         TemaSearchButton.setOnClickListener(this);
         Search_Nature.setOnClickListener(this);
+        Search_Architecture.setOnClickListener(this);
 //        Search_Nature.setOnCheckedChangeListener(this);
 //        Search_History.setOnCheckedChangeListener(this);
 //        Search_Recreation.setOnCheckedChangeListener(this);
@@ -144,10 +147,16 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         if (v.getId() == R.id.Search_Nature){
             TourSearch(1, 12, 0, "A01", "A0101", "");
-            Chip Search_Nature = new Chip(context);
+            Search_Nature = new Chip(context);
             Search_Nature.setText("자연");
             dynamic_layout.addView(Search_Nature);
-
+            Search_Architecture.setChecked(false);
+        }
+        if (v.getId() == R.id.Search_Architecture){
+            TourSearch(1,12,0,"A02","A0205","");
+            Search_Architecture = new Chip(context);
+            Search_Architecture.setText("건축");
+            dynamic_layout.addView(Search_Architecture);
         }
     }
 

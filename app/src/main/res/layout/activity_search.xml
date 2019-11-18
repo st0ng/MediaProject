@@ -71,7 +71,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
-                    android:text="테마" />
+                    android:text="지역" />
 
             </LinearLayout>
 
