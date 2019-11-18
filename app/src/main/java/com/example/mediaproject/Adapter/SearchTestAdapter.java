@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mediaproject.Data.LocationCodeData;
 import com.example.mediaproject.R;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.internal.operators.completable.CompletableHide;
@@ -22,104 +24,7 @@ import io.reactivex.internal.operators.completable.CompletableHide;
 
 public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.ViewHolder> {
 
-
-    //서울 시군구코드
-    ArrayList<String> sigunguSeoul = new ArrayList<String>(
-            Arrays.asList("강남구","강동구", "강북구", "강서구", "관악구", "광진구",
-                    "구로구", "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구", "중구","중랑구"
-            )
-    );
-    //인천 시군구코드
-    ArrayList<String> sigunguInchun = new ArrayList<String>(
-            Arrays.asList("강화군","계양구","미추홀구","남동구","동구","부평구","서구","연수구","옹진군","중구"
-            )
-    );
-    //대전 시군구코드
-    ArrayList<String> sigunguDaegeon = new ArrayList<String>(
-            Arrays.asList("대덕구","동구", "서구","유성구","중구"
-            )
-    );
-    //대구 시군구코드
-    ArrayList<String> sigunguDaegu = new ArrayList<String>(
-            Arrays.asList( "남구","달서구","달성군","동구","북구","서구","수성구","중구"
-            )
-    );
-    //광주 시군구코드
-    ArrayList<String> sigunguGwangju = new ArrayList<String>(
-            Arrays.asList("광산구","남구","동구","북구","서구"
-            )
-    );
-    //부산 시군구코드
-    ArrayList<String> sigunguBusan = new ArrayList<String>(
-            Arrays.asList("강서구","금정구","기장군","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구"
-            )
-    );
-    //울산 시군구코드
-    ArrayList<String> sigunguUlsan = new ArrayList<String>(
-            Arrays.asList( "중구","남구","동구","북구","울주군"
-            )
-    );
-    //세종시 시군구코드
-    ArrayList<String> sigunguSejong = new ArrayList<String>(
-            Arrays.asList( "세종시"
-            )
-    );
-    //경기도 시군구코드
-    ArrayList<String> sigunguGyunggi = new ArrayList<String>(
-            Arrays.asList( "가평군","고양시","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시","수원시","시흥시",
-                    "안산시","안성시","안양시","양주시","양평군","여주시","연천군","오산시","용인시","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시"
-            )
-    );
-    //강원도 시군구코드
-    ArrayList<String> sigunguGangwon = new ArrayList<String>(
-            Arrays.asList( "강릉시","고성군","동해시","삼척시","속초시","양구군","양양군","영월군","원주시",
-                    "인제군","정선군","철원군","춘천시","태백시","평창군","홍천군","화천군","횡성군"
-            )
-    );
-    //충북 시군구코드
-    ArrayList<String> sigunguChungBuk = new ArrayList<String>(
-            Arrays.asList( "괴산군","단양군","보은군","영동군","옥천군","음성군","제천시","진천군","청원군","청주시","충주시","증평군"
-            )
-    );
-    //충남 시군구코드
-    ArrayList<String> sigunguChungNam = new ArrayList<String>(
-            Arrays.asList( "공주시","금산군","논산시","당진시","보령시","부여군","서산시","서천군","아산시",
-
-                    "예산군","천안시","청양군","태안군","흥성군","계룡시"
-            )
-    );
-    //경북 시군구코드
-    ArrayList<String> sigunguGyoungBuk = new ArrayList<String>(
-            Arrays.asList("경산시","경주시","고령군","구미시","군위군","김천시","문경시","봉화군","상주시","성주군","안동시","영덕군","영양군",
-
-                    "영주시","영천시","예천군","울릉군","울진군","의성군","청도군","청송군","칠곡군","포항시"
-            )
-    );
-    //경남 시군구코드
-    ArrayList<String> sigunguGyoungNam = new ArrayList<String>(
-            Arrays.asList("거제시","고창군","고성군","김해시","남해군","마산시","밀양시","사천시","산청군","양산시",
-
-                    "의령군","진주시","진해시","창녕군","창원시","통영시","하동군","함안군","함양군","합천군"
-
-            )
-    );
-    //전북 시군구코드
-    ArrayList<String> sigunguGeonBuk = new ArrayList<String>(
-            Arrays.asList("고창군","군산시","김제시","남원시","무주군","부안군","순창군","완주군","익산시","임실군","장수군","전주시","정읍시","진안군"
-            )
-    );
-    //전남 시군구코드
-    ArrayList<String> sigunguGeonNam = new ArrayList<String>(
-            Arrays.asList("강진군","고흥군","곡성군","광양시","구례군","나주시","담양군","목포시","무안군","보성군","순천시","신안군","여수시",
-                    "영광군","영암군","완도군","장성군","장흥군","진도군","함평군","해남군","화순군"
-            )
-    );
-    //제주 시군구코드
-    ArrayList<String> sigunguZezu = new ArrayList<String>(
-            Arrays.asList( "남제주군","북제주군","서귀포시","제주시"
-            )
-    );
-
+    LocationCodeData LocData = new LocationCodeData();
 
     int flag = 0;
     int Selected = 0;
@@ -171,77 +76,162 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
         ((ViewHolder) holder).LocList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ArrayList<String> Locations = new ArrayList<String>();
                 Chip chip1 = mParent.findViewById(R.id.chip1);
 
                 Log.d("shit", String.valueOf(position));
                 if (flag == 0 ) {
                     if (position == 0) {
-                        mData = sigunguSeoul;
+                        HashMap<String,Integer> map = LocData.sigunguSeoul;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 1) {
-                        mData = sigunguInchun;
+                        HashMap<String,Integer> map = LocData.sigunguInchun;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 2) {
-                        mData = sigunguDaegeon;
+                        HashMap<String,Integer> map = LocData.sigunguDaegeon;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 3) {
-                        mData = sigunguDaegu;
+                        HashMap<String,Integer> map = LocData.sigunguDaegu;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 4) {
-                        mData = sigunguGwangju;
+                        HashMap<String,Integer> map = LocData.sigunguGwangju;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 5) {
-                        mData = sigunguBusan;
+                        HashMap<String,Integer> map = LocData.sigunguBusan;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 6) {
-                        mData = sigunguUlsan;
+                        HashMap<String,Integer> map = LocData.sigunguUlsan;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 7) {
-                        mData = sigunguSejong;
+                        HashMap<String,Integer> map = LocData.sigunguSejong;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 8) {
-                        mData = sigunguGyunggi;
+                        HashMap<String,Integer> map = LocData.sigunguGyunggi;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 9) {
-                        mData = sigunguGangwon;
+                        HashMap<String,Integer> map = LocData.sigunguGangwon;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 10) {
-                        mData = sigunguChungBuk;
+                        HashMap<String,Integer> map = LocData.sigunguChungBuk;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 11) {
-                        mData = sigunguChungNam;
+                        HashMap<String,Integer> map = LocData.sigunguChungNam;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 12) {
-                        mData = sigunguGyoungBuk;
+                        HashMap<String,Integer> map = LocData.sigunguGyoungBuk;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 13) {
-                        mData = sigunguGyoungNam;
+                        HashMap<String,Integer> map = LocData.sigunguGyoungNam;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 14) {
-                        mData = sigunguGeonBuk;
+                        HashMap<String,Integer> map = LocData.sigunguGeonBuk;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 15) {
-                        mData = sigunguGeonNam;
+                        HashMap<String,Integer> map = LocData.sigunguGeonNam;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     } else if (position == 16) {
-                        mData = sigunguZezu;
+                        HashMap<String,Integer> map = LocData.sigunguZezu;
+                        for(String key : map.keySet())
+                        {
+                            Locations.add(key);
+                        }
+                        mData = Locations;
                         notifyDataSetChanged();
                         flag = 1;
                     }

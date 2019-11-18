@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -20,7 +21,6 @@ import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class SearchActivity extends BaseActivity implements View.OnClickListener {
     //CompoundButton.OnCheckedChangeListener
     private SearchView searchView;
 
@@ -37,10 +37,12 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout include_kateforie;
     private LinearLayout dynamic_layout;
 
-    private CheckBox AreaSearchButton;
-    private CheckBox KategorieSearchButton;
-
+    private Button KategorieSearchButton;
+    private Button TemaSearchButton;
     private Chip Search_Nature;
+    protected Chip Search_TourSpot;
+    protected Chip Search_Architecture;
+
 
 //    private CheckBox Search_Nature;
 //    private CheckBox Search_History;
@@ -60,8 +62,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     //관광공사 광역시 코드
     ArrayList<String> provinceCode = new ArrayList<String>(
-            Arrays.asList("서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종",
-                    "경기도", "강원도", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주도")
+            Arrays.asList("서울","인천","대전","대구","광주","부산","울산","세종",
+                    "경기도","강원도","충청북도","충청남도","경상북도","경상남도","전라북도","전라남도","제주도")
     );
 
     @Override
@@ -71,10 +73,14 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         include_kateforie = (LinearLayout) findViewById(R.id.include_kateforie);
         dynamic_layout = (LinearLayout) findViewById(R.id.dynamic_layout);
-        KategorieSearchButton = (CheckBox) findViewById(R.id.KategorieSearchButton);
-        AreaSearchButton = (CheckBox) findViewById(R.id.AreaSearchButton);
+        KategorieSearchButton = (Button) findViewById(R.id.KategorieSearchButton);
+        TemaSearchButton = (Button) findViewById(R.id.TemaSearchButton);
         Search_Nature = (Chip) findViewById(R.id.Search_Nature);
+        Search_TourSpot = (Chip) findViewById(R.id.Search_TourSpot);
+        Search_Architecture = (Chip) findViewById(R.id.Search_Architecture);
         context = this;
+
+
 
 
 //        Search_Nature = (CheckBox) findViewById(R.id.Search_Nature);
@@ -85,10 +91,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 //        Search_Architecture = (CheckBox) findViewById(R.id.Search_Architecture);
 //        Search_Lesports = (CheckBox) findViewById(R.id.Search_Lesports);
 
-        KategorieSearchButton.setOnCheckedChangeListener(this);
-        AreaSearchButton.setOnCheckedChangeListener(this);
+        KategorieSearchButton.setOnClickListener(this);
+        TemaSearchButton.setOnClickListener(this);
         Search_Nature.setOnClickListener(this);
-
 //        Search_Nature.setOnCheckedChangeListener(this);
 //        Search_History.setOnCheckedChangeListener(this);
 //        Search_Recreation.setOnCheckedChangeListener(this);
@@ -113,12 +118,12 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         });
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        recyclerView2 = findViewById(R.id.SearchTestView);
+        recyclerView2 = findViewById(R.id.SearchTestView) ;
 
-        recyclerView2.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView2.setLayoutManager(new GridLayoutManager(this,4)) ;
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        SearchTestAdapter adapter = new SearchTestAdapter(provinceCode);
+        SearchTestAdapter adapter = new SearchTestAdapter(provinceCode) ;
         recyclerView2.setAdapter(adapter);
 
 
@@ -127,49 +132,191 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     } // onCreate end
 
-
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.Search_Nature) {
-            TourSearch(1, 12, 0, "A01", "A0101", "");
-            Chip Search_Nature = new Chip(context);
-            Search_Nature.setText("자연");
-            dynamic_layout.addView(Search_Nature);
+        if (v.getId() == R.id.KategorieSearchButton) {
+            KategorieSearchButton.setBackgroundColor(Color.GRAY);
+            TemaSearchButton.setBackgroundColor(Color.WHITE);
+            include_kateforie.setVisibility(View.VISIBLE);
+            recyclerView2.setVisibility(View.GONE);
 
+        } else if (v.getId() == R.id.TemaSearchButton) {
+            KategorieSearchButton.setBackgroundColor(Color.WHITE);
+            TemaSearchButton.setBackgroundColor(Color.GRAY);
+            recyclerView2.setVisibility(View.VISIBLE);
+            include_kateforie.setVisibility(View.GONE);
+        }
+
+        if (v.getId() == R.id.Search_Nature){
+            Chip Search_Nature = new Chip(context);
+            Search_Nature.setText("자연관광지");
+            dynamic_layout.addView(Search_Nature);
+        }
+        else if (v.getId() == R.id.Search_TourSpot){
+            Chip Search_TourSpot= new Chip(context);
+            Search_TourSpot.setText("관광지");
+            dynamic_layout.addView(Search_TourSpot);
+        }
+        else if (v.getId() == R.id.Search_Architecture){
+            Chip Search_Architecture= new Chip(context);
+            Search_Nature.setText("건축/조형물");
+            dynamic_layout.addView(Search_Architecture);
+        }
+        else if (v.getId() == R.id.Search_CultureFacility){
+            Chip Search_CultureFacility= new Chip(context);
+            Search_Nature.setText("문화시설");
+            dynamic_layout.addView(Search_CultureFacility);
+        }
+        else if (v.getId() == R.id.Search_Festival){
+            Chip Search_Festival= new Chip(context);
+            Search_Nature.setText("축제");
+            dynamic_layout.addView(Search_Festival);
+        }
+        else if (v.getId() == R.id.Search_PnE){
+            Chip Search_PnE= new Chip(context);
+            Search_Nature.setText("공연/행사");
+            dynamic_layout.addView(Search_PnE);
+        }
+        else if (v.getId() == R.id.Search_Course){
+            Chip Search_Course= new Chip(context);
+            Search_Nature.setText("추천코스");
+            dynamic_layout.addView(Search_Course);
+        }
+        else if (v.getId() == R.id.Search_Lesports){
+            Chip Search_Lesports= new Chip(context);
+            Search_Nature.setText("레포츠");
+            dynamic_layout.addView(Search_Lesports);
+        }
+        else if (v.getId() == R.id.Search_Lodge){
+            Chip Search_Lodge= new Chip(context);
+            Search_Nature.setText("숙박");
+            dynamic_layout.addView(Search_Lodge);
+        }
+        else if (v.getId() == R.id.Search_Shopping){
+            Chip Search_Shopping= new Chip(context);
+            Search_Nature.setText("쇼핑");
+            dynamic_layout.addView(Search_Shopping);
+        }
+        else if (v.getId() == R.id.Search_Food){
+            Chip Search_Food= new Chip(context);
+            Search_Nature.setText("음식");
+            dynamic_layout.addView(Search_Food);
+        }
+
+
+
+        if(v.getId() == R.id.search)
+        {
+            Log.d("shit","버튼 눌렀엉?");
         }
     }
 
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.KategorieSearchButton:
-                if (isChecked) {
-                    KategorieSearchButton.setBackgroundColor(Color.GRAY);
-                    AreaSearchButton.setBackgroundColor(Color.WHITE);
-                    include_kateforie.setVisibility(View.VISIBLE);
-                    recyclerView2.setVisibility(View.GONE);
-                } else {
-                    KategorieSearchButton.setBackgroundColor(Color.WHITE);
-                    AreaSearchButton.setBackgroundColor(Color.WHITE);
-                    include_kateforie.setVisibility(View.GONE);
-                    recyclerView2.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.AreaSearchButton:
-                if (isChecked) {
-                    KategorieSearchButton.setBackgroundColor(Color.WHITE);
-                    AreaSearchButton.setBackgroundColor(Color.GRAY);
-                    include_kateforie.setVisibility(View.GONE);
-                    recyclerView2.setVisibility(View.VISIBLE);
-                } else {
-                    KategorieSearchButton.setBackgroundColor(Color.WHITE);
-                    AreaSearchButton.setBackgroundColor(Color.WHITE);
-                    include_kateforie.setVisibility(View.GONE);
-                    recyclerView2.setVisibility(View.GONE);
-                }
-        } //swith end
-    } //onCheckedChanged end
+    //    @Override
+//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//        switch (buttonView.getId()) {
+//            case R.id.Search_Nature:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A01", "A0101", "");
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_History:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A02", "A0201", "");
+//                    Search_Nature.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Recreation:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A02", "A0202", "");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Experience:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A02", "A0203", "");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Industry:
+//                if (isChecked) {
+//                    TourSearch(1,12,0,"A02","A0204","");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Architecture:
+//                if (isChecked) {
+//                    TourSearch(1,12,0,"A02","A0205","");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Lesports:
+//                if (isChecked) {
+//                    TourSearch(1,12,0,"A03","","");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                } else {
+//
+//                }
+//        } //swith end
+//    } //onCheckedChanged end
+
+
 
 
     @Override
@@ -188,10 +335,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                     if (response.code() == 200) {
                         int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
                         ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-                        List<String> list = new ArrayList<>();
-                        data.clear();
-                        list.clear();
 
+                        data.clear();
                         for (int i = 0; i < size; i++) {
                             data.add(new TourSearchData(
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
@@ -217,7 +362,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                             ));
                         }
-                        TourSearchAdapter = new TourSearchAdapter(data, list);
+                        TourSearchAdapter = new TourSearchAdapter(data);
                         recyclerView.setAdapter(TourSearchAdapter);
                         TourSearchAdapter.notifyDataSetChanged();
                     }
@@ -237,9 +382,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                     if (response.code() == 200) {
                         int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
                         ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-                        List<String> list = new ArrayList<>();
-                        data.clear();
-                        list.clear();
 
                         for (int i = 0; i < size; i++) {
                             data.add(new TourSearchData(
@@ -266,7 +408,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                             ));
                         }
-                        TourSearchAdapter = new TourSearchAdapter(data, list);
+                        TourSearchAdapter = new TourSearchAdapter(data);
                         recyclerView.setAdapter(TourSearchAdapter);
                         TourSearchAdapter.notifyDataSetChanged();
                     }
@@ -294,9 +436,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
                     int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
                     ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-                    List<String> list = new ArrayList<>();
-                    data.clear();
-                    list.clear();
 
                     for (int i = 0; i < size; i++) {
                         data.add(new TourSearchData(
@@ -323,7 +462,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                 response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                         ));
                     }
-                    TourSearchAdapter = new TourSearchAdapter(data, list);
+                    TourSearchAdapter = new TourSearchAdapter(data);
                     recyclerView.setAdapter(TourSearchAdapter);
                     TourSearchAdapter.notifyDataSetChanged();
                 }
