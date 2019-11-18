@@ -17,31 +17,67 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="자연" />
+            android:text="자연관광지" />
         <com.google.android.material.chip.Chip
-            android:id="@+id/Search_History"
+            android:id="@+id/Search_TourSpot"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="역사" />
+            android:text="관광지" />
+<!--        <com.google.android.material.chip.Chip-->
+<!--            android:id="@+id/Search_History"-->
+<!--            style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="역사" />-->
+<!--        <com.google.android.material.chip.Chip-->
+<!--            android:id="@+id/Search_Recreation"-->
+<!--            style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="휴양" />-->
+<!--        <com.google.android.material.chip.Chip-->
+<!--            android:id="@+id/Search_Experience"-->
+<!--            style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="체험" />-->
+<!--        <com.google.android.material.chip.Chip-->
+<!--            android:id="@+id/Search_Industry"-->
+<!--            style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="산업" />-->
         <com.google.android.material.chip.Chip
-            android:id="@+id/Search_Recreation"
+            android:id="@+id/Search_Architecture"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="휴양" />
+            android:text="건축/조형물" />
         <com.google.android.material.chip.Chip
-            android:id="@+id/Search_Experience"
+            android:id="@+id/Search_CultureFacility"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="체험" />
+            android:text="문화시설" />
         <com.google.android.material.chip.Chip
-            android:id="@+id/Search_Industry"
+            android:id="@+id/Search_Festival"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="산업" />
+            android:text="축제" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Search_PnE"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공연/행사" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Search_Course"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="추천코스" />
         <com.google.android.material.chip.Chip
             android:id="@+id/Search_Lesports"
             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -49,46 +85,23 @@
             android:layout_height="wrap_content"
             android:text="레포츠" />
         <com.google.android.material.chip.Chip
-            android:id="@+id/Search_Architecture"
+            android:id="@+id/Search_Lodge"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="건축 및 조형물" />
+            android:text="숙박" />
         <com.google.android.material.chip.Chip
+            android:id="@+id/Search_Shopping"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choice" />
+            android:text="쇼핑" />
         <com.google.android.material.chip.Chip
+            android:id="@+id/Search_Food"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choice" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choice" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choice" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choice" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choice" />
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choice" />
+            android:text="음식" />
 
 
     </com.google.android.material.chip.ChipGroup>
