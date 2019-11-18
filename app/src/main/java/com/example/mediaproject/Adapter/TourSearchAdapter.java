@@ -10,23 +10,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.R;
 import com.example.mediaproject.TouristSpotActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<TourSearchData> tourSearchData;
+    private List<String> UidLists;
     protected Context ThisView;
 
 
-    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData) {
-        this.tourSearchData = tourSearchData;
 
+    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData, List<String> UidLists) {
+        this.tourSearchData = tourSearchData;
+        this.UidLists = UidLists;
     }
 
 
@@ -45,8 +50,14 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((TourSearchHolder) holder).TourTitle.setText(tourSearchData.get(position).getTitle());
             ((TourSearchHolder) holder).TourAdd1.setText(tourSearchData.get(position).getAddr1());
 
-            Glide.with(((TourSearchHolder) holder).TourImage.getContext()).load(tourSearchData.get(position)
-                    .getFirstimage())
+            RequestOptions myOptions = new RequestOptions()
+                    .fitCenter()
+                    .override(85, 85);
+
+            Glide.with(((TourSearchHolder) holder).TourImage.getContext())
+                    .load(tourSearchData.get(position).getFirstimage())
+                    .apply(new RequestOptions().override(75, 75))
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
                     .into(((TourSearchHolder) holder).TourImage);
 
             ((TourSearchHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {

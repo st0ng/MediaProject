@@ -33,14 +33,13 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
 
-    private List<UserTourListModel> UserTourListModel;
+
     private List<UserTourListData> UserTourListData;
     private List<String> UidLists;
 
 
-    public UserTourListAdapter(List<UserTourListData> UserTourListData, List<UserTourListModel> UserTourListModel, List<String> UidLists) {
+    public UserTourListAdapter(List<UserTourListData> UserTourListData, List<String> UidLists) {
         this.UserTourListData = UserTourListData;
-        this.UserTourListModel = UserTourListModel;
         this.UidLists = UidLists;
     }
 
@@ -77,7 +76,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
 
-            if (UserTourListModel.get(position).stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+            if (UserTourListData.get(position).stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
                 ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart);
                 String count = String.valueOf(UserTourListData.get(position).getStarCount());
                 ((UserTourListHolder) holder).CommunityuHeartCount.setText(count);

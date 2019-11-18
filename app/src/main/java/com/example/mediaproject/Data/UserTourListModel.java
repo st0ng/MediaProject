@@ -18,14 +18,4 @@ public class UserTourListModel {
 
     }
 
-    public UserTourListModel(String Uid, String UserEmail, String ImageUri, String description, String CreateDate,
-                              int starCount , Map<String , Boolean> stars) {
-        this.Uid = Uid;
-        this.UserEmail = UserEmail;
-        this.ImageUri = ImageUri;
-        this.description = description;
-        this.CreateDate = CreateDate;
-        this.starCount = starCount;
-        this.stars = stars;
-    }
 }

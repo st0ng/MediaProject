@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.mediaproject.Adapter.UserTourListAdapter;
+import com.example.mediaproject.CommunityTourListLoad;
 import com.example.mediaproject.Data.UserTourListData;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.R;
@@ -65,25 +66,22 @@ public class CommunityActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //데이터 받아서 adapter 에 보내줄 data 생성
                 List<UserTourListData> data = new ArrayList<>();
-                List<UserTourListModel> model = new ArrayList<>();
                 List<String> UidLists = new ArrayList<>();
 
                 //다시 불러올 때 기존에 저장되어 있던 데이터 초기화
                 data.clear();
-                model.clear();
                 UidLists.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
                     data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.stars));
-                    model.add(new UserTourListModel(get.Uid, get.UserEmail, get.ImageUri, get.description, get.CreateDate, get.starCount, get.stars));
 
                     String UidKey = snapshot.getKey();
                     UidLists.add(UidKey);
                 }
 
-                userTourListAdapter = new UserTourListAdapter(data, model, UidLists);
+                userTourListAdapter = new UserTourListAdapter(data, UidLists);
                 recyclerView.setAdapter(userTourListAdapter);
                 userTourListAdapter.notifyDataSetChanged();
 
