@@ -10,16 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBb9NTDdapJCD0Fp4bPWuPoztr_5rxMhsY" />
-
         <activity
-            android:name=".Activity.CommunityTourListLoad"
-            android:label="@string/title_activity_community_tour_list_load"
+            android:name=".UpdateUserInfo"
+            android:label="@string/title_activity_update_user_info"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
+        <activity
+            android:name=".AccountListActivity"
+            android:label="@string/title_activity_account_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CommunityTourListLoad"
+            android:label="@string/title_activity_community_tour_list_load"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Login.LoginActivityNew">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,25 +31,30 @@
         </activity>
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignupActivity" />
-        <activity android:name=".Activity.AcountActivity"
-            android:theme="@style/Material"/>
+        <activity
+            android:name=".Activity.AcountActivity"
+            android:theme="@style/Material" />
         <activity android:name=".Activity.CommunityActivity" />
-        <activity android:name=".Activity.SearchActivity"
-            android:theme="@style/Material"/>
+        <activity
+            android:name=".Activity.SearchActivity"
+            android:theme="@style/Material" />
         <activity android:name=".Activity.RecommendActivity" />
-        <activity android:name=".TouristSpotActivity"/>
+        <activity android:name=".TouristSpotActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBb9NTDdapJCD0Fp4bPWuPoztr_5rxMhsY" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBb9NTDdapJCD0Fp4bPWuPoztr_5rxMhsY" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

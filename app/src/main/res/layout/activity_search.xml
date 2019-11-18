@@ -57,21 +57,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <CheckBox
+                    android:id="@+id/AreaSearchButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorWhite"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="지역" />
+
+                <CheckBox
                     android:id="@+id/KategorieSearchButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
                     android:background="@color/colorWhite"
                     android:text="카테고리" />
-
-                <Button
-                    android:id="@+id/TemaSearchButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorWhite"
-                    android:text="지역" />
 
             </LinearLayout>
 

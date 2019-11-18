@@ -4,16 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserInfo {
-    String Uid;
-    String UserEmail;
-    String UserProviderId;
-    String UserDisplayName;
+    public String Uid;
+    public String UserEmail;
+    public String UserImage;
+    public String UserSex;
+    public String UserPost;
+    public String UserProviderId;
+    public String UserDisplayName;
+    public String UserPassword;
 
-    public UserInfo(String Uid, String UserEmail, String UserProviderId, String UserDisplayName) {
+    public UserInfo(String Uid, String UserEmail, String UserImage , String UserSex , String UserPost, String UserProviderId, String UserDisplayName, String UserPassword) {
         this.Uid = Uid;
         this.UserEmail = UserEmail;
+        this.UserImage = UserImage;
+        this.UserSex = UserSex;
+        this.UserPost = UserPost;
         this.UserProviderId = UserProviderId;
         this.UserDisplayName = UserDisplayName;
+        this.UserPassword= UserPassword;
 
 
     }
@@ -22,6 +30,9 @@ public class UserInfo {
         HashMap<String, Object> result = new HashMap<>();
         result.put("Uid", Uid);
         result.put("UserEmail", UserEmail);
+        result.put("UserImage", UserImage);
+        result.put("UserSex", UserSex);
+        result.put("UserPost", UserPost);
         result.put("UserProviderId", UserProviderId);
         result.put("UserDisplayName", UserDisplayName);
         return result;
@@ -57,5 +68,29 @@ public class UserInfo {
 
     public void setUserDisplayName(String userDisplayName) {
         UserDisplayName = userDisplayName;
+    }
+
+    public String getUserImage() {
+        return UserImage;
+    }
+
+    public void setUserImage(String userImage) {
+        UserImage = userImage;
+    }
+
+    public String getUserSex() {
+        return UserSex;
+    }
+
+    public void setUserSex(String userSex) {
+        UserSex = userSex;
+    }
+
+    public String getUserPost() {
+        return UserPost;
+    }
+
+    public void setUserPost(String userPost) {
+        UserPost = userPost;
     }
 }

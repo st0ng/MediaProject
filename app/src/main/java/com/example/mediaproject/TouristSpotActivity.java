@@ -1,7 +1,6 @@
 package com.example.mediaproject;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -72,11 +71,11 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
         Intent intent = getIntent();
         final String title = intent.getExtras().getString("title");
-        String addr = intent.getExtras().getString("addr");
+        final String addr = intent.getExtras().getString("addr");
         String dist = String.valueOf(intent.getExtras().getInt("dist")) + "m";
         String tel = intent.getExtras().getString("tel");
-        String photo = intent.getExtras().getString("photo");
-        int contentid = intent.getExtras().getInt("contentid");
+        final String photo = intent.getExtras().getString("photo");
+        final int contentid = intent.getExtras().getInt("contentid");
 
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
         TourTitle = (TextView) findViewById(R.id.TourTitle);
@@ -138,7 +137,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                     UserTourListModel get = snapshot.getValue(UserTourListModel.class);
                     String listkey = snapshot.getKey();
 
-                    if(listkey.equals(title)){
+                    if (listkey.equals(title)) {
                         checklist = true;
                         break;
                     }
@@ -146,12 +145,9 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                 } // for end
 
 
-
-
-
                 if (checklist == false) {
                     childUpdates = new HashMap<>();
-                    tourInfoData = new TourInfoData(title, 0, 0, null, null);
+                    tourInfoData = new TourInfoData(title, photo, addr,  contentid, 0, 0, null, null);
                     userValue = tourInfoData.toMap();
 
                     childUpdates.put("/TourInfo/" + title, userValue);
@@ -159,15 +155,14 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                 }
 
 
-
                 firebaseDatabase.getReference().child("TourInfo").child(title).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         TourInfoModel data = dataSnapshot.getValue(TourInfoModel.class);
 
-                        if (data.stars.containsKey(firebaseAuth.getCurrentUser().getUid())){
+                        if (data.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
                             TourList_Heart.setImageResource(R.drawable.heart);
-                        }else{
+                        } else {
                             TourList_Heart.setImageResource(R.drawable.heart_botom);
                         }
                     }
@@ -185,8 +180,6 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
             }
         }); //firebase // TourInfo end
-
-
 
 
         TourList_Heart = (ImageView) findViewById(R.id.TourList_Heart);
@@ -244,14 +237,6 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         });
     } //TourInfoData end
 
-
-    public void newLinearLayout() {
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 10);
-        String color = "#CCCCCC";
-        linearLayout.setBackground(Drawable.createFromPath(color));
-    }
 
     public String ChageHttps(String text) {
         String trans = "";

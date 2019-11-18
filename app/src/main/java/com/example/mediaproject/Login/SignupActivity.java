@@ -42,9 +42,9 @@ public class SignupActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        editTextEmail = (EditText)findViewById(R.id.signupActivity_email);
-        editTextName = (EditText)findViewById(R.id.signupActivity_name);
-        editTextPassword = (EditText)findViewById(R.id.signupActivity_password);
+        editTextEmail = (EditText) findViewById(R.id.signupActivity_email);
+        editTextName = (EditText) findViewById(R.id.signupActivity_name);
+        editTextPassword = (EditText) findViewById(R.id.signupActivity_password);
         signup = (Button) findViewById(R.id.signupActivity_button);
 
         signup.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class SignupActivity extends AppCompatActivity {
                 name = editTextName.getText().toString();
                 password = editTextPassword.getText().toString();
 
-                if(isValidEmail() && isValidName() && isValidPasswd()) {
+                if (isValidEmail() && isValidName() && isValidPasswd()) {
                     createUser(email, password);
                 }
 
@@ -78,10 +78,15 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         UserModel userModel = new UserModel();
-                        userModel.userEmail = editTextEmail.getText().toString();
-                        userModel.userName = editTextName.getText().toString();
-                        userModel.userPassword = editTextPassword.getText().toString();
-                        userModel.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        userModel.UserEmail = editTextEmail.getText().toString();
+                        userModel.UserDisplayName = editTextName.getText().toString();
+                        userModel.UserPassword = editTextPassword.getText().toString();
+                        userModel.Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        userModel.UserProviderId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        userModel.UserImage = null;
+                        userModel.UserPost = null;
+                        userModel.UserSex = null;
+
 
                         String uid = task.getResult().getUser().getUid();
                         FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
@@ -129,8 +134,8 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isValidName(){
-        if(name.isEmpty()){
+    private boolean isValidName() {
+        if (name.isEmpty()) {
             Toast.makeText(this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
             return false;
         } else {

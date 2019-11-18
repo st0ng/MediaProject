@@ -21,6 +21,7 @@ import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,8 +38,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout include_kateforie;
     private LinearLayout dynamic_layout;
 
-    private Button KategorieSearchButton;
-    private Button TemaSearchButton;
+    private CheckBox AreaSearchButton;
+    private CheckBox KategorieSearchButton;
+
     private Chip Search_Nature;
     private Chip Search_Architecture;
 
@@ -71,8 +73,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         include_kateforie = (LinearLayout) findViewById(R.id.include_kateforie);
         dynamic_layout = (LinearLayout) findViewById(R.id.dynamic_layout);
-        KategorieSearchButton = (Button) findViewById(R.id.KategorieSearchButton);
-        TemaSearchButton = (Button) findViewById(R.id.TemaSearchButton);
+        KategorieSearchButton = (CheckBox) findViewById(R.id.KategorieSearchButton);
+        AreaSearchButton = (CheckBox) findViewById(R.id.AreaSearchButton);
         Search_Nature = (Chip) findViewById(R.id.Search_Nature);
         Search_Architecture = (Chip) findViewById(R.id.Search_Architecture);
         context = this;
@@ -89,8 +91,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 //        Search_Lesports = (CheckBox) findViewById(R.id.Search_Lesports);
 
         KategorieSearchButton.setOnClickListener(this);
-        TemaSearchButton.setOnClickListener(this);
+        AreaSearchButton.setOnClickListener(this);
         Search_Nature.setOnClickListener(this);
+
         Search_Architecture.setOnClickListener(this);
 //        Search_Nature.setOnCheckedChangeListener(this);
 //        Search_History.setOnCheckedChangeListener(this);
@@ -134,13 +137,13 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         if (v.getId() == R.id.KategorieSearchButton) {
             KategorieSearchButton.setBackgroundColor(Color.GRAY);
-            TemaSearchButton.setBackgroundColor(Color.WHITE);
+            AreaSearchButton.setBackgroundColor(Color.WHITE);
             include_kateforie.setVisibility(View.VISIBLE);
             recyclerView2.setVisibility(View.GONE);
 
-        } else if (v.getId() == R.id.TemaSearchButton) {
+        } else if (v.getId() == R.id.AreaSearchButton) {
             KategorieSearchButton.setBackgroundColor(Color.WHITE);
-            TemaSearchButton.setBackgroundColor(Color.GRAY);
+            AreaSearchButton.setBackgroundColor(Color.GRAY);
             recyclerView2.setVisibility(View.VISIBLE);
             include_kateforie.setVisibility(View.GONE);
         }
@@ -284,8 +287,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                     if (response.code() == 200) {
                         int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
                         ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-
+                        List<String> list = new ArrayList<>();
                         data.clear();
+                        list.clear();
+
                         for (int i = 0; i < size; i++) {
                             data.add(new TourSearchData(
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
@@ -311,7 +316,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                             ));
                         }
-                        TourSearchAdapter = new TourSearchAdapter(data);
+                        TourSearchAdapter = new TourSearchAdapter(data, list);
                         recyclerView.setAdapter(TourSearchAdapter);
                         TourSearchAdapter.notifyDataSetChanged();
                     }
@@ -331,6 +336,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                     if (response.code() == 200) {
                         int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
                         ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+                        List<String> list = new ArrayList<>();
+                        data.clear();
+                        list.clear();
 
                         for (int i = 0; i < size; i++) {
                             data.add(new TourSearchData(
@@ -357,7 +365,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                             ));
                         }
-                        TourSearchAdapter = new TourSearchAdapter(data);
+                        TourSearchAdapter = new TourSearchAdapter(data, list);
                         recyclerView.setAdapter(TourSearchAdapter);
                         TourSearchAdapter.notifyDataSetChanged();
                     }
@@ -385,6 +393,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
                     int size = response.body().getResponse().getBody().getItems().getItem().size(); //검색된 Api item의 수
                     ArrayList<TourSearchData> data = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
+                    List<String> list = new ArrayList<>();
+                    data.clear();
+                    list.clear();
 
                     for (int i = 0; i < size; i++) {
                         data.add(new TourSearchData(
@@ -411,7 +422,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                 response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                         ));
                     }
-                    TourSearchAdapter = new TourSearchAdapter(data);
+                    TourSearchAdapter = new TourSearchAdapter(data, list);
                     recyclerView.setAdapter(TourSearchAdapter);
                     TourSearchAdapter.notifyDataSetChanged();
                 }
