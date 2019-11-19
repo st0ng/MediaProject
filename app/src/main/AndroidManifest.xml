@@ -12,7 +12,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".UpdateUserInfo"
-            android:label="@string/title_activity_update_user_info"
+            android:label=".UpdateUserInfo"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".AccountListActivity"
@@ -32,7 +32,7 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignupActivity" />
         <activity
-            android:name=".Activity.AcountActivity"
+            android:name=".Activity.AccountActivity"
             android:theme="@style/Material" />
         <activity android:name=".Activity.CommunityActivity" />
         <activity

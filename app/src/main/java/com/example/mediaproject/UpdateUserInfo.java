@@ -1,5 +1,6 @@
 package com.example.mediaproject;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -58,8 +59,6 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
     private Button UserInfoLoad;
 
     private Uri filepath;
-    private UserInfo userinfo;
-    private UserModel model;
 
     String UserEmail;
     String UserImage;
@@ -83,26 +82,33 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
-
         Update_UserDisPlayName = (EditText) findViewById(R.id.Update_UserDisPlayName);
         Update_UserPost = (EditText) findViewById(R.id.Update_UserPost);
         Update_UserImage = (ImageView) findViewById(R.id.Update_UserImage);
-        Update_UserImage.setOnClickListener(this);
         UserInfoLoad = (Button) findViewById(R.id.UserInfoLoad);
-        UserInfoLoad.setOnClickListener(this);
         Update_CheckedSex = (RadioGroup) findViewById(R.id.Update_CheckedSex);
-        Update_CheckedSex.setOnCheckedChangeListener(this);
         Update_male = (RadioButton) findViewById(R.id.Update_male);
         Update_female = (RadioButton) findViewById(R.id.Update_female);
+
+        Update_UserImage.setOnClickListener(this);
+        UserInfoLoad.setOnClickListener(this);
+        Update_CheckedSex.setOnCheckedChangeListener(this);
 
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         firebaseDatabase.getReference().child("UserInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Uid = null;
+                UserDisplayName = null;
+                UserProviderId = null;
+                UserImage = null;
+                UserPost =  null;
+                UserSex =  null;
+                UserEmail =  null;
+                UserPassword =  null;
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserModel get = snapshot.getValue(UserModel.class);
-
-
                     if (currentUser.getUid().equals(get.Uid)) {
                         Uid = get.Uid;
                         UserDisplayName = get.UserDisplayName;
@@ -112,33 +118,36 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
                         UserSex = get.UserSex;
                         UserEmail = get.UserEmail;
                         UserPassword = get.UserPassword;
+                    } //if end
+                } // for end
 
-                        Update_UserDisPlayName.setText(get.UserDisplayName);
+                Update_UserDisPlayName.setText(UserDisplayName);
 
-                        if (UserImage != null) {
-                            Glide.with(UpdateUserInfo.this)
-                                    .load(get.UserImage)
-                                    .apply(new RequestOptions().override(150, 150))
-                                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
-                                    .into(Update_UserImage);
-                        }
+                if (UserImage != null) {
+                    Activity activity = UpdateUserInfo.this;
+                    if (activity.isFinishing())
+                        return;
 
-                        if (UserPost != null) {
-                            Update_UserPost.setText(get.UserPost);
-                        }
-
-                        if (UserSex.equals("남자")) {
-                            Update_male.setChecked(true);
-                        } else if (UserSex.equals("여자")) {
-                            Update_female.setChecked(true);
-                        } else {
-
-                        }
-
-
-                    }
+                    Glide.with(UpdateUserInfo.this)
+                            .load(UserImage)
+                            .apply(new RequestOptions().override(150, 150))
+                            .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
+                            .into(Update_UserImage);
                 }
-            }
+
+                if (UserPost != null) {
+                    Update_UserPost.setText(UserPost);
+                }
+
+                if (UserSex != null) {
+                    if (UserSex.equals("남자")) {
+                        Update_male.setChecked(true);
+                    } else if (UserSex.equals("여자")) {
+                        Update_female.setChecked(true);
+                    } else { }
+                }
+
+            } //onDataChange end
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -223,6 +232,8 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
                 DBresgerce = FirebaseDatabase.getInstance().getReference();
                 UserDataUpdate = new HashMap<>();
 
+                UserDisplayName = String.valueOf(Update_UserDisPlayName.getText());
+                UserPost = String.valueOf(Update_UserPost.getText());
 
                 UserInfo = new UserInfo(Uid, UserEmail, UserImage, UserSex, UserPost, UserPassword, UserDisplayName, UserPassword);
                 UserValue = UserInfo.toMap();

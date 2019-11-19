@@ -12,10 +12,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.mediaproject.Adapter.LocationSearchAdapter;
+import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.AirQuality.AirApiService;
 import com.example.mediaproject.AirQuality.Airapi;
-import com.example.mediaproject.Data.LocationTourSearchData;
+import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.GpsTracker;
 import com.example.mediaproject.R;
 import com.example.mediaproject.StationApi.StationApi;
@@ -51,7 +51,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendActivity extends BaseActivity implements OnMapReadyCallback {
     RecyclerView recyclerView;
-    com.example.mediaproject.Adapter.LocationSearchAdapter LocationTour;
+    RecyclerView recyclerView2;
+    RecyclerView recyclerView3;
+    private com.example.mediaproject.Adapter.TourSearchAdapter TourSearchAdapter;
+    private com.example.mediaproject.Adapter.TourSearchAdapter TourSearchAdapter2;
+    private com.example.mediaproject.Adapter.TourSearchAdapter TourSearchAdapter3;
     protected GoogleMap mMap;
     public double latitude;
     public double longitude;
@@ -86,11 +90,10 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         longitude = gpsTracker.getLongitude();
 
 
-
         String address = getCurrentAddress(latitude, longitude);
 
         String locaddr[] = address.split(" ");
-        Log.d("shit",address);
+        Log.d("shit", address);
         final Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -101,42 +104,55 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                 .build();
 
         StationApiService stationApiService = retrofit2.create(StationApiService.class);
-//
-//        Call<StationApi> getst = stationApiService.getStation(10,1,locaddr[3]);
-//        getst.enqueue(new Callback<StationApi>() {
-//            @Override
-//            public void onResponse(Call<StationApi> call, Response<StationApi> response) {
-//                int stationNum = response.body().getTotalCount();
-//                String closestStation = "";
-//                double distance = Double.MAX_VALUE;
-//
-//                Location phoneloc = new Location("phoneloc");
-//                phoneloc.setLatitude(latitude);
-//                phoneloc.setLongitude(longitude);
-//
-//                for(int i=0; i<stationNum; i++)
-//                {
-//                    Location locationstation = new Location("station");
-//                    locationstation.setLongitude(Double.parseDouble(response.body().getList().get(i).getDmY()));
-//                    locationstation.setLatitude(Double.parseDouble(response.body().getList().get(i).getDmX()));
-//
-//                    double tempdist = phoneloc.distanceTo(locationstation);
-//                    if(tempdist <= distance)
-//                    {
-//                        distance = tempdist;
-//                        closestStation = response.body().getList().get(i).getStationName();
-//                    }
-//                }
-//                int meter = (int)Math.round(distance);
-//
-//                Retrofit retrofit1 = new Retrofit.Builder()
-//                        .baseUrl(ROOT_URL)
-//                        .addConverterFactory(GsonConverterFactory.create(gson))
-//                        .build();
-//
-//                AirApiService airApiService = retrofit1.create(AirApiService.class);
-//
-//                Call<Airapi> getair = airApiService.getInfo(1, 1, closestStation, "DAILY", 1.3);
+
+        Call<StationApi> getst = stationApiService.getStation(10, 1, locaddr[3]);
+        getst.enqueue(new Callback<StationApi>() {
+            @Override
+            public void onResponse(Call<StationApi> call, Response<StationApi> response) {
+                int stationNum = response.body().getTotalCount();
+                String closestStation = "";
+                double distance = Double.MAX_VALUE;
+
+                Location phoneloc = new Location("phoneloc");
+                phoneloc.setLatitude(latitude);
+                phoneloc.setLongitude(longitude);
+
+                for (int i = 0; i < stationNum; i++) {
+                    Location locationstation = new Location("station");
+                    locationstation.setLongitude(Double.parseDouble(response.body().getList().get(i).getDmY()));
+                    locationstation.setLatitude(Double.parseDouble(response.body().getList().get(i).getDmX()));
+
+                    double tempdist = phoneloc.distanceTo(locationstation);
+                    if (tempdist <= distance) {
+                        distance = tempdist;
+                        closestStation = response.body().getList().get(i).getStationName();
+                    }
+                }
+                int meter = (int) Math.round(distance);
+
+                Retrofit retrofit1 = new Retrofit.Builder()
+                        .baseUrl(ROOT_URL)
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+
+                AirApiService airApiService = retrofit1.create(AirApiService.class);
+
+                Call<Airapi> getair = airApiService.getInfo(1, 1, closestStation, "DAILY", 1.3);
+                getair.enqueue(new Callback<Airapi>() {
+                    @Override
+                    public void onResponse(Call<Airapi> call, Response<Airapi> response) {
+                        if (response.code() == 200) {
+                            //int size = response.body().getList()
+                        }
+                        Log.d("airair", response.body().getList().get(0).getPm25Grade());
+                        Log.d("airair", response.body().getList().get(0).getPm10Grade());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Airapi> call, Throwable t) {
+                        Log.d("airair", t.getMessage());
+                    }
+                });
 //                getair.enqueue(new Callback<Airapi>() {
 //                    @Override
 //                    public void onResponse(Call<Airapi> call, Response<Airapi> response) {
@@ -149,14 +165,13 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 //                        Log.d("airair",t.getMessage());
 //                    }
 //                });
-//            }
-//
-//            @Override
-//            public void onFailure(Call<StationApi> call, Throwable t) {
-//                Log.d("airair",t.getMessage());
-//            }
-//        });
+            }
 
+            @Override
+            public void onFailure(Call<StationApi> call, Throwable t) {
+                Log.d("airair", t.getMessage());
+            }
+        });
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -168,10 +183,16 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addOnItemTouchListener(new RecyclerTouch);
 
+        recyclerView2 = findViewById(R.id.LocationRecyclerView2);
+        recyclerView2.setHasFixedSize(true);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView3 = findViewById(R.id.LocationRecyclerView3);
+        recyclerView3.setHasFixedSize(true);
+        recyclerView3.setLayoutManager(new LinearLayoutManager(this));
 
 
-
-    }
+    } // onCreate end
 
     @Override
     protected void onResume() {
@@ -185,84 +206,172 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         LatLng CurrentLoc = new LatLng(latitude, longitude);
-        Log.d("shit",CurrentLoc.toString());
+        Log.d("shit", CurrentLoc.toString());
         //final MarkerOptions markerOptions = new MarkerOptions();
         //markerOptions.position(CurrentLoc);
         //mMap.addMarker(markerOptions);
         mMap.setMyLocationEnabled(true);
 
 
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(CurrentLoc);
-//        mMap.moveCamera(cameraUpdate);
-//        Log.d("shit","카메라 옮겨짐.");
-//
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
-
-//
-//        Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y","A",20,1,longitude,latitude,1500);
-//        Loc.enqueue(new Callback<TourDataRES>() {
-//            @Override
-//            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
-//                if (response.code() == 200) {
-//                    Log.d("MainActivity_KeywordTourSearch", response.body().getResponse().getHeader().getResultMsg());
-//                    int size = response.body().getResponse().getBody().getItems().getItem().size();
-//                    Log.d("shit",Integer.toString(size));
-//                    ArrayList<LocationTourSearchData> locationtourdata = new ArrayList<>(); //데이터 받아서 adapter 에 보내줄 data 생성
-//                    for(int i=0; i<size; i++)
-//                    {
-//                        MarkerOptions marker = new MarkerOptions();
-//                        double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
-//                        double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
-//                        String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
-//                        locationtourdata.add(new LocationTourSearchData(
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
-//                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-//                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-//                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle()
-//                        ));
-//                        LocationTour = new LocationSearchAdapter(locationtourdata);
-//                        recyclerView.setAdapter(LocationTour);
-//                        LocationTour.notifyDataSetChanged();
-//                        marker
-//                                .position(new LatLng(tempLat,tempLng))
-//                                .title(temptitle);
-//
-//                        mMap.addMarker(marker);
-//
-//
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TourDataRES> call, Throwable t) {
-//                Log.d("shit",t.getMessage());
-//            }
-//        });
-//
-
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(CurrentLoc);
         mMap.moveCamera(cameraUpdate);
-        Log.d("shit","카메라 옮겨짐.");
+        Log.d("shit", "카메라 옮겨짐.");
+
         mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+
+
+        Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y", "A", 999, 1, longitude, latitude, 1500);
+        Loc.enqueue(new Callback<TourDataRES>() {
+            @Override
+            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+                if (response.code() == 200) {
+                    int size = response.body().getResponse().getBody().getItems().getItem().size();
+
+                    ArrayList<TourSearchData> tourSearchData = new ArrayList<>();
+                    ArrayList<TourSearchData> tour = new ArrayList<>();
+                    ArrayList<TourSearchData> restor = new ArrayList<>();
+                    ArrayList<TourSearchData> stay = new ArrayList<>();
+
+                    tourSearchData.clear();
+                    tour.clear();
+                    restor.clear();
+                    stay.clear();
+
+                    for (int i = 0; i < size; i++) {
+                        MarkerOptions marker = new MarkerOptions();
+                        double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
+                        double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
+                        String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
+
+                        tourSearchData.add(new TourSearchData(
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
+                        ));
+
+                        marker.position(new LatLng(tempLat, tempLng)).title(temptitle);
+                        mMap.addMarker(marker);
+
+
+
+                        if(response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 12
+                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 14
+                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 15
+                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 28
+                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 38){ //관광지
+                            tour.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
+
+                        }else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 39){ // 음식점
+                            restor.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
+
+                        }else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 32){ // 숙박지
+                            stay.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
+
+                        }else{}
+                    } //for end
+                        TourSearchAdapter = new TourSearchAdapter(tour);
+                        recyclerView.setAdapter(TourSearchAdapter);
+                        TourSearchAdapter.notifyDataSetChanged();
+
+                    TourSearchAdapter2 = new TourSearchAdapter(restor);
+                    recyclerView2.setAdapter(TourSearchAdapter2);
+                    TourSearchAdapter2.notifyDataSetChanged();
+
+                    TourSearchAdapter3 = new TourSearchAdapter(stay);
+                    recyclerView3.setAdapter(TourSearchAdapter3);
+                    TourSearchAdapter3.notifyDataSetChanged();
+
+                } //if end
+            } //onResponse end
+
+            @Override
+            public void onFailure(Call<TourDataRES> call, Throwable t) {
+                Log.d("shit", t.getMessage());
+            }
+        });
+
+
     }
 
     //gps + 권한 관련된 함수들

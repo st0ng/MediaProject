@@ -28,6 +28,10 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     protected Context ThisView;
 
 
+    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData){
+        this.tourSearchData = tourSearchData;
+    }
+
 
     public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData, List<String> UidLists) {
         this.tourSearchData = tourSearchData;
