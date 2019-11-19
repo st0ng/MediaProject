@@ -176,6 +176,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             AreaSearchButton.setBackgroundColor(Color.WHITE);
             include_kateforie.setVisibility(View.VISIBLE);
             recyclerView2.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+
             SearchTestAdapter adapter = new SearchTestAdapter(provinceCode) ;
             recyclerView2.setAdapter(adapter);
             adapter.notifyDataSetChanged();
@@ -183,8 +185,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         } else if (v.getId() == R.id.AreaSearchButton) {
             KategorieSearchButton.setBackgroundColor(Color.WHITE);
             AreaSearchButton.setBackgroundColor(Color.GRAY);
-            recyclerView2.setVisibility(View.VISIBLE);
             include_kateforie.setVisibility(View.GONE);
+            recyclerView2.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
         }
 
         if (v.getId() == R.id.Search_Nature){
@@ -270,10 +273,13 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
 
 
-        if(v.getId() == R.id.search_act)
-        {
-            //검색에 넣을 테마 argument
+        if(v.getId() == R.id.search_act) {
 
+            include_kateforie.setVisibility(View.GONE);
+            recyclerView2.setVisibility(View.GONE);
+            search_act.setVisibility(View.VISIBLE);
+
+            //검색에 넣을 테마 argument
             LocationCodeData LocData = new LocationCodeData();
             LinkedHashMap<String,Integer> map = LocData.provinceCode;
             Chip chip0 = findViewById(R.id.chip0);
@@ -282,6 +288,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             String chip1Text = chip1.getText().toString();
             int areacode = map.get(chip0Text);
             int sigunguCode = 0;
+
 
             //areacode 노가다
             if(areacode == 1)

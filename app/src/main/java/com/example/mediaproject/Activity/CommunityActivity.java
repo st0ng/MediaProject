@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +30,7 @@ public class CommunityActivity extends BaseActivity {
     protected FirebaseStorage firebaseStorage;
     protected FirebaseDatabase firebaseDatabase;
     protected FirebaseAuth firebaseAuth;
+
 
 
     Button CommunityTourListUploadButton;
@@ -62,14 +62,14 @@ public class CommunityActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
+
+
+        firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //데이터 받아서 adapter 에 보내줄 data 생성
                 List<UserTourListData> data = new ArrayList<>();
                 List<String> UidLists = new ArrayList<>();
 
-                //다시 불러올 때 기존에 저장되어 있던 데이터 초기화
                 data.clear();
                 UidLists.clear();
 
@@ -104,3 +104,6 @@ public class CommunityActivity extends BaseActivity {
         setSelected(R.id.navigation_menu3);
     }
 }
+
+
+

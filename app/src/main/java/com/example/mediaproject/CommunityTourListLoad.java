@@ -153,7 +153,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
                     userTourListModel.Uid = firebaseAuth.getCurrentUser().getUid();
                     userTourListModel.UserEmail = firebaseAuth.getCurrentUser().getEmail();
                     userTourListModel.ImageUri = downloadUri.toString();
-                    userTourListModel.ImageName = filename;
+                    userTourListModel.ImageName = firebaseAuth.getCurrentUser().getDisplayName();
                     userTourListModel.description = String.valueOf(CommunitytourListPost.getText());
                     userTourListModel.CreateDate = fileDate;
                     userTourListModel.starCount = 0;
