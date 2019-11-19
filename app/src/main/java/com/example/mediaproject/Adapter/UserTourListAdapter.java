@@ -81,11 +81,11 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (UserTourListData.get(position).stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
                 ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart);
                 String count = String.valueOf(UserTourListData.get(position).getStarCount());
-                ((UserTourListHolder) holder).CommunityuHeartCount.setText(count);
+                ((UserTourListHolder) holder).CommunityuHeartCount.setText("좋아요 " + count + "개");
             } else {
                 ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart_botom);
                 String count = String.valueOf(UserTourListData.get(position).getStarCount());
-                ((UserTourListHolder) holder).CommunityuHeartCount.setText(count);
+                ((UserTourListHolder) holder).CommunityuHeartCount.setText("좋아요 " + count + "개");
             }
 
 
