@@ -123,7 +123,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
 
 
             //날짜 기준의 파일명 생성
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 E요일 a h:mm");
             Date now = new Date();
 
             fileDate = formatter.format(now);
