@@ -29,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected FirebaseAuth auth;
+    private FirebaseAuth auth;
     protected DatabaseReference DBresgerce = null;
     protected  FirebaseDatabase firebaseDatabase;
 

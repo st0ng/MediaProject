@@ -15,6 +15,7 @@ import com.example.mediaproject.AccountListActivity;
 import com.example.mediaproject.Data.TourInfoModel;
 import com.example.mediaproject.Data.UserModel;
 import com.example.mediaproject.Data.UserTourListModel;
+import com.example.mediaproject.Login.LoginActivityNew;
 import com.example.mediaproject.R;
 import com.example.mediaproject.UpdateUserInfo;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,6 +68,18 @@ public class AcountActivity extends BaseActivity implements View.OnClickListener
 //        UserImage.setClipToOutline(true);
 //        UserImage.setBackground(new ShapeDrawable(new OvalShape()));
 //        UserImage.setClipToOutline(true);
+
+        Button logOut = (Button) findViewById(R.id.logout_button);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.signOut();
+                //LoginManager.getInstance().logOut();
+                Intent intent = new Intent(AcountActivity.this, LoginActivityNew.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
             @Override

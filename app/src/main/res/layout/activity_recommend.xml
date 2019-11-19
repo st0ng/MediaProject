@@ -83,7 +83,7 @@
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:paddingLeft="15dp"
-                    android:text="추천 여행지" />
+                    android:text="주변 여행지 리스트" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/LocationRecyclerView"

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -29,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class SearchActivity extends BaseActivity implements View.OnClickListener {
     //CompoundButton.OnCheckedChangeListener
     private SearchView searchView;
 
@@ -41,6 +42,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private CheckBox KategorieSearchButton;
 
     private Chip Search_Nature;
+    private Chip Search_Architecture;
 
 //    private CheckBox Search_Nature;
 //    private CheckBox Search_History;
@@ -60,8 +62,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     //관광공사 광역시 코드
     ArrayList<String> provinceCode = new ArrayList<String>(
-            Arrays.asList("서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종",
-                    "경기도", "강원도", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주도")
+            Arrays.asList("서울","인천","대전","대구","광주","부산","울산","세종",
+                    "경기도","강원도","충청북도","충청남도","경상북도","경상남도","전라북도","전라남도","제주도")
     );
 
     @Override
@@ -74,7 +76,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         KategorieSearchButton = (CheckBox) findViewById(R.id.KategorieSearchButton);
         AreaSearchButton = (CheckBox) findViewById(R.id.AreaSearchButton);
         Search_Nature = (Chip) findViewById(R.id.Search_Nature);
+        Search_Architecture = (Chip) findViewById(R.id.Search_Architecture);
         context = this;
+
+
 
 
 //        Search_Nature = (CheckBox) findViewById(R.id.Search_Nature);
@@ -85,10 +90,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 //        Search_Architecture = (CheckBox) findViewById(R.id.Search_Architecture);
 //        Search_Lesports = (CheckBox) findViewById(R.id.Search_Lesports);
 
-        KategorieSearchButton.setOnCheckedChangeListener(this);
-        AreaSearchButton.setOnCheckedChangeListener(this);
+        KategorieSearchButton.setOnClickListener(this);
+        AreaSearchButton.setOnClickListener(this);
         Search_Nature.setOnClickListener(this);
 
+        Search_Architecture.setOnClickListener(this);
 //        Search_Nature.setOnCheckedChangeListener(this);
 //        Search_History.setOnCheckedChangeListener(this);
 //        Search_Recreation.setOnCheckedChangeListener(this);
@@ -113,12 +119,12 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         });
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        recyclerView2 = findViewById(R.id.SearchTestView);
+        recyclerView2 = findViewById(R.id.SearchTestView) ;
 
-        recyclerView2.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView2.setLayoutManager(new GridLayoutManager(this,4)) ;
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        SearchTestAdapter adapter = new SearchTestAdapter(provinceCode);
+        SearchTestAdapter adapter = new SearchTestAdapter(provinceCode) ;
         recyclerView2.setAdapter(adapter);
 
 
@@ -127,49 +133,142 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     } // onCreate end
 
-
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.Search_Nature) {
+        if (v.getId() == R.id.KategorieSearchButton) {
+            KategorieSearchButton.setBackgroundColor(Color.GRAY);
+            AreaSearchButton.setBackgroundColor(Color.WHITE);
+            include_kateforie.setVisibility(View.VISIBLE);
+            recyclerView2.setVisibility(View.GONE);
+
+        } else if (v.getId() == R.id.AreaSearchButton) {
+            KategorieSearchButton.setBackgroundColor(Color.WHITE);
+            AreaSearchButton.setBackgroundColor(Color.GRAY);
+            recyclerView2.setVisibility(View.VISIBLE);
+            include_kateforie.setVisibility(View.GONE);
+        }
+
+        if (v.getId() == R.id.Search_Nature){
             TourSearch(1, 12, 0, "A01", "A0101", "");
-            Chip Search_Nature = new Chip(context);
+            Search_Nature = new Chip(context);
             Search_Nature.setText("자연");
             dynamic_layout.addView(Search_Nature);
-
+            Search_Architecture.setChecked(false);
+        }
+        if (v.getId() == R.id.Search_Architecture){
+            TourSearch(1,12,0,"A02","A0205","");
+            Search_Architecture = new Chip(context);
+            Search_Architecture.setText("건축");
+            dynamic_layout.addView(Search_Architecture);
         }
     }
 
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.KategorieSearchButton:
-                if (isChecked) {
-                    KategorieSearchButton.setBackgroundColor(Color.GRAY);
-                    AreaSearchButton.setBackgroundColor(Color.WHITE);
-                    include_kateforie.setVisibility(View.VISIBLE);
-                    recyclerView2.setVisibility(View.GONE);
-                } else {
-                    KategorieSearchButton.setBackgroundColor(Color.WHITE);
-                    AreaSearchButton.setBackgroundColor(Color.WHITE);
-                    include_kateforie.setVisibility(View.GONE);
-                    recyclerView2.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.AreaSearchButton:
-                if (isChecked) {
-                    KategorieSearchButton.setBackgroundColor(Color.WHITE);
-                    AreaSearchButton.setBackgroundColor(Color.GRAY);
-                    include_kateforie.setVisibility(View.GONE);
-                    recyclerView2.setVisibility(View.VISIBLE);
-                } else {
-                    KategorieSearchButton.setBackgroundColor(Color.WHITE);
-                    AreaSearchButton.setBackgroundColor(Color.WHITE);
-                    include_kateforie.setVisibility(View.GONE);
-                    recyclerView2.setVisibility(View.GONE);
-                }
-        } //swith end
-    } //onCheckedChanged end
+    //    @Override
+//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//        switch (buttonView.getId()) {
+//            case R.id.Search_Nature:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A01", "A0101", "");
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_History:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A02", "A0201", "");
+//                    Search_Nature.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Recreation:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A02", "A0202", "");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Experience:
+//                if (isChecked) {
+//                    TourSearch(1, 12, 0, "A02", "A0203", "");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Industry:
+//                if (isChecked) {
+//                    TourSearch(1,12,0,"A02","A0204","");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Architecture:
+//                if (isChecked) {
+//                    TourSearch(1,12,0,"A02","A0205","");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Lesports.setChecked(false);
+//                } else {
+//
+//                }
+//                break;
+//
+//            case R.id.Search_Lesports:
+//                if (isChecked) {
+//                    TourSearch(1,12,0,"A03","","");
+//                    Search_Nature.setChecked(false);
+//                    Search_History.setChecked(false);
+//                    Search_Recreation.setChecked(false);
+//                    Search_Experience.setChecked(false);
+//                    Search_Industry.setChecked(false);
+//                    Search_Architecture.setChecked(false);
+//                } else {
+//
+//                }
+//        } //swith end
+//    } //onCheckedChanged end
+
+
 
 
     @Override
