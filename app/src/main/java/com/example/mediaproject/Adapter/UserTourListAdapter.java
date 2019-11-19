@@ -40,6 +40,8 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<String> UidLists;
 
 
+    public UserTourListAdapter(){};
+
     public UserTourListAdapter(List<UserTourListData> UserTourListData, List<String> UidLists) {
         this.UserTourListData = UserTourListData;
         this.UidLists = UidLists;
@@ -78,15 +80,29 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
 
-            if (UserTourListData.get(position).stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
-                ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart);
-                String count = String.valueOf(UserTourListData.get(position).getStarCount());
-                ((UserTourListHolder) holder).CommunityuHeartCount.setText("좋아요 " + count + "개");
-            } else {
-                ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart_botom);
-                String count = String.valueOf(UserTourListData.get(position).getStarCount());
-                ((UserTourListHolder) holder).CommunityuHeartCount.setText("좋아요 " + count + "개");
-            }
+            firebaseDatabase.getReference().child("UserTourListImage").child(UidLists.get(position).toString()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserTourListModel get = dataSnapshot.getValue(UserTourListModel.class);
+                    if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+                        ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart);
+                        String count = String.valueOf(get.starCount);
+                        ((UserTourListHolder) holder).CommunityuHeartCount.setText("좋아요 " + count + "개");
+                    } else {
+                        ((UserTourListHolder) holder).CommunityCheckedLike.setImageResource(R.drawable.heart_botom);
+                        String count = String.valueOf(get.starCount);
+                        ((UserTourListHolder) holder).CommunityuHeartCount.setText("좋아요 " + count + "개");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+
 
 
             if(UserTourListData.get(position).getUid().equals(firebaseAuth.getCurrentUser().getUid())){
