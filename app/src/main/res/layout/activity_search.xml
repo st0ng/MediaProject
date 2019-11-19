@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,39 +26,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/dynamic_layout"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/chip0"
-                        android:visibility="gone"/>
-
-
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/chip1"
-                        android:visibility="gone"/>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/search_act"
+                <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="검색" />
+                    android:layout_weight="1"
+                    android:scrollbarFadeDuration = "0"
+                    android:scrollbarAlwaysDrawVerticalTrack = "true" >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:id="@+id/dynamic_layout"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" >
+
+                            <com.google.android.material.chip.Chip
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/chip0"
+                                android:visibility="gone"/>
+
+                            <com.google.android.material.chip.Chip
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/chip1"
+                                android:visibility="gone"/>
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_weight="1" />-->
+
+            <Button
+                android:id="@+id/search_act"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="검색" />
 
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,15 +107,6 @@
 
             </LinearLayout>
 
-            <include
-                layout="@layout/include_search_category"
-                android:id="@+id/include_kateforie"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/round_corner"
-                android:visibility="gone"/>
-
-
         </LinearLayout>
 
     </ScrollView>
@@ -102,7 +114,8 @@
     <LinearLayout
         android:background="#CCCCCC"
         android:layout_width="match_parent"
-        android:layout_height="5dp"/>
+        android:layout_height="5dp"
+        android:layout_marginBottom="5dp"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -110,6 +123,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/SearchLaout" />
+
+    <include
+        layout="@layout/include_search_category"
+        android:id="@+id/include_kateforie"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/round_corner"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/SearchTestView"
