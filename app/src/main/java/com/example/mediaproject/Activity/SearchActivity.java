@@ -78,8 +78,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     //관광공사 광역시 코드
     ArrayList<String> provinceCode = new ArrayList<String>(
-            Arrays.asList("서울","인천","대전","대구","광주","부산","울산","세종",
-                    "경기도","강원도","충청북도","충청남도","경상북도","경상남도","전라북도","전라남도","제주도")
+            Arrays.asList("서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종",
+                    "경기도", "강원도", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주도")
     );
 
     @Override
@@ -105,8 +105,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         search_act = findViewById(R.id.search_act);
 
         context = this;
-
-
 
 
 //        Search_Nature = (CheckBox) findViewById(R.id.Search_Nature);
@@ -157,11 +155,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         });
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        recyclerView2 = findViewById(R.id.SearchTestView) ;
-        recyclerView2.setLayoutManager(new GridLayoutManager(this,4)) ;
+        recyclerView2 = findViewById(R.id.SearchTestView);
+        recyclerView2.setLayoutManager(new GridLayoutManager(this, 4));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        SearchTestAdapter adapter = new SearchTestAdapter(provinceCode) ;
+        SearchTestAdapter adapter = new SearchTestAdapter(provinceCode);
         recyclerView2.setAdapter(adapter);
 
         recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
@@ -178,9 +176,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             recyclerView2.setVisibility(View.GONE);
             recyclerView.setVisibility(View.GONE);
 
-            SearchTestAdapter adapter = new SearchTestAdapter(provinceCode) ;
-            recyclerView2.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+
 
         } else if (v.getId() == R.id.AreaSearchButton) {
             KategorieSearchButton.setBackgroundColor(Color.WHITE);
@@ -188,100 +184,93 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             include_kateforie.setVisibility(View.GONE);
             recyclerView2.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
+
+            SearchTestAdapter adapter = new SearchTestAdapter(provinceCode);
+            recyclerView2.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
 
-        if (v.getId() == R.id.Search_Nature){
+        if (v.getId() == R.id.Search_Nature) {
             Chip Search_Nature = new Chip(context);
             Search_Nature.setText("자연관광지");
             contentTypeId = 12;
             cat1 = "A01";
             dynamic_layout.addView(Search_Nature);
-        }
-        else if (v.getId() == R.id.Search_TourSpot){
-            Chip Search_TourSpot= new Chip(context);
+        } else if (v.getId() == R.id.Search_TourSpot) {
+            Chip Search_TourSpot = new Chip(context);
             Search_TourSpot.setText("관광지");
             contentTypeId = 12;
             cat1 = "A02";
 
             dynamic_layout.addView(Search_TourSpot);
-        }
-        else if (v.getId() == R.id.Search_Architecture){
-            Chip Search_Architecture= new Chip(context);
+        } else if (v.getId() == R.id.Search_Architecture) {
+            Chip Search_Architecture = new Chip(context);
             Search_Architecture.setText("건축/조형물");
             contentTypeId = 12;
             cat1 = "A02";
             cat2 = "A0205";
             dynamic_layout.addView(Search_Architecture);
-        }
-        else if (v.getId() == R.id.Search_CultureFacility){
-            Chip Search_CultureFacility= new Chip(context);
+        } else if (v.getId() == R.id.Search_CultureFacility) {
+            Chip Search_CultureFacility = new Chip(context);
             Search_CultureFacility.setText("문화시설");
             contentTypeId = 14;
             cat1 = "A02";
             dynamic_layout.addView(Search_CultureFacility);
-        }
-        else if (v.getId() == R.id.Search_Festival){
-            Chip Search_Festival= new Chip(context);
+        } else if (v.getId() == R.id.Search_Festival) {
+            Chip Search_Festival = new Chip(context);
             Search_Festival.setText("축제");
             contentTypeId = 15;
             cat1 = "A02";
             cat2 = "A0207";
             dynamic_layout.addView(Search_Festival);
-        }
-        else if (v.getId() == R.id.Search_PnE){
-            Chip Search_PnE= new Chip(context);
+        } else if (v.getId() == R.id.Search_PnE) {
+            Chip Search_PnE = new Chip(context);
             contentTypeId = 15;
-            cat1= "A02";
+            cat1 = "A02";
             cat2 = "A0208";
             Search_PnE.setText("공연/행사");
             dynamic_layout.addView(Search_PnE);
-        }
-        else if (v.getId() == R.id.Search_Course){
-            Chip Search_Course= new Chip(context);
+        } else if (v.getId() == R.id.Search_Course) {
+            Chip Search_Course = new Chip(context);
             Search_Course.setText("추천코스");
             contentTypeId = 25;
             cat1 = "C01";
             dynamic_layout.addView(Search_Course);
-        }
-        else if (v.getId() == R.id.Search_Lesports){
-            Chip Search_Lesports= new Chip(context);
+        } else if (v.getId() == R.id.Search_Lesports) {
+            Chip Search_Lesports = new Chip(context);
             Search_Lesports.setText("레포츠");
             contentTypeId = 28;
             cat1 = "A03";
             dynamic_layout.addView(Search_Lesports);
-        }
-        else if (v.getId() == R.id.Search_Lodge){
-            Chip Search_Lodge= new Chip(context);
+        } else if (v.getId() == R.id.Search_Lodge) {
+            Chip Search_Lodge = new Chip(context);
             Search_Lodge.setText("숙박");
             contentTypeId = 32;
             cat1 = "B02";
             dynamic_layout.addView(Search_Lodge);
-        }
-        else if (v.getId() == R.id.Search_Shopping){
-            Chip Search_Shopping= new Chip(context);
+        } else if (v.getId() == R.id.Search_Shopping) {
+            Chip Search_Shopping = new Chip(context);
             Search_Shopping.setText("쇼핑");
             contentTypeId = 38;
             cat1 = "A04";
             dynamic_layout.addView(Search_Shopping);
-        }
-        else if (v.getId() == R.id.Search_Food){
-            Chip Search_Food= new Chip(context);
+        } else if (v.getId() == R.id.Search_Food) {
+            Chip Search_Food = new Chip(context);
             Search_Food.setText("음식");
             contentTypeId = 39;
             dynamic_layout.addView(Search_Food);
         }
 
 
-
-        if(v.getId() == R.id.search_act) {
+        if (v.getId() == R.id.search_act) {
 
             include_kateforie.setVisibility(View.GONE);
             recyclerView2.setVisibility(View.GONE);
-            search_act.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
 
             //검색에 넣을 테마 argument
             LocationCodeData LocData = new LocationCodeData();
-            LinkedHashMap<String,Integer> map = LocData.provinceCode;
+            LinkedHashMap<String, Integer> map = LocData.provinceCode;
             Chip chip0 = findViewById(R.id.chip0);
             String chip0Text = chip0.getText().toString();
             Chip chip1 = findViewById(R.id.chip1);
@@ -291,96 +280,63 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
 
             //areacode 노가다
-            if(areacode == 1)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguSeoul;
+            if (areacode == 1) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguSeoul;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 2)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguInchun;
+            } else if (areacode == 2) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguInchun;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 3)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguDaegeon;
+            } else if (areacode == 3) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguDaegeon;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 4)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguDaegu;
+            } else if (areacode == 4) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguDaegu;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 5)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguGwangju;
+            } else if (areacode == 5) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguGwangju;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 6)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguBusan;
+            } else if (areacode == 6) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguBusan;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 7)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguUlsan;
+            } else if (areacode == 7) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguUlsan;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 8)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguSejong;
+            } else if (areacode == 8) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguSejong;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 31)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguGyunggi;
+            } else if (areacode == 31) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguGyunggi;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 32)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguGangwon;
+            } else if (areacode == 32) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguGangwon;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 33)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguChungBuk;
+            } else if (areacode == 33) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguChungBuk;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 34)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguChungNam;
+            } else if (areacode == 34) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguChungNam;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 35)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguGyoungBuk;
+            } else if (areacode == 35) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguGyoungBuk;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 36)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguGyoungNam;
+            } else if (areacode == 36) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguGyoungNam;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 37)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguGeonBuk;
+            } else if (areacode == 37) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguGeonBuk;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 38)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguGeonNam;
+            } else if (areacode == 38) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguGeonNam;
                 sigunguCode = sigungumap.get(chip1Text);
-            }
-            else if(areacode == 39)
-            {
-                LinkedHashMap<String,Integer> sigungumap = LocData.sigunguZezu;
+            } else if (areacode == 39) {
+                LinkedHashMap<String, Integer> sigungumap = LocData.sigunguZezu;
                 sigunguCode = sigungumap.get(chip1Text);
             }
             Log.d("shit2", String.valueOf(areacode));
-            Log.d("shit2",cat1);
-            Log.d("shit2",cat2);
+            Log.d("shit2", cat1);
+            Log.d("shit2", cat2);
             Log.d("shit2", String.valueOf(contentTypeId));
-            TourSearch(areacode,contentTypeId,sigunguCode,cat1,cat2,"");
+            TourSearch(areacode, contentTypeId, sigunguCode, cat1, cat2, "");
         }
     }
 
@@ -393,7 +349,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     public void TourSearch(int areaCode, int contentTypeId, int sigunguCode, String cat1, String cat2, String cat3) {
         if (areaCode == 0 || sigunguCode == 0) {
-            Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", contentTypeId, areaCode,sigunguCode, cat1, cat2, cat3,999,1);
+            Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", contentTypeId, areaCode, sigunguCode, cat1, cat2, cat3, 999, 1);
             call.enqueue(new Callback<TourDataRES>() {
                 @Override
                 public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
@@ -429,7 +385,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                             ));
                         }
-                        TourSearchAdapter = new TourSearchAdapter(data , list);
+                        TourSearchAdapter = new TourSearchAdapter(data, list);
                         recyclerView.setAdapter(TourSearchAdapter);
                         TourSearchAdapter.notifyDataSetChanged();
                     }
@@ -442,7 +398,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 }
             });
         } else { //if end
-            Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", contentTypeId, areaCode, sigunguCode, cat1, cat2, cat3,999,1);
+            Call<TourDataRES> call = LoadTourApi.getInstance().getService().getareaBasedList("Y", "A", contentTypeId, areaCode, sigunguCode, cat1, cat2, cat3, 999, 1);
             call.enqueue(new Callback<TourDataRES>() {
                 @Override
                 public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
@@ -533,7 +489,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                                 response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
                         ));
                     }
-                    TourSearchAdapter = new TourSearchAdapter(data,list);
+                    TourSearchAdapter = new TourSearchAdapter(data, list);
                     recyclerView.setAdapter(TourSearchAdapter);
                     TourSearchAdapter.notifyDataSetChanged();
                 }

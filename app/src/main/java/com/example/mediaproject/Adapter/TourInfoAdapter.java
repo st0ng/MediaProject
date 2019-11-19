@@ -24,7 +24,6 @@ public class TourInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     protected Context ThisView;
 
 
-
     public TourInfoAdapter(List<TourInfoData> tourInfoData, List<String> UidLists) {
         this.tourInfoData = tourInfoData;
         this.UidLists = UidLists;
@@ -50,14 +49,14 @@ public class TourInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     .getTourImage())
                     .into(((TourInfoHolder) holder).TourImage);
 
-            ((TourInfoHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+            ((TourInfoHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ThisView, TouristSpotActivity.class);
                     intent.putExtra("contentid", tourInfoData.get(position).getTourContentId());
-                    intent.putExtra("photo",tourInfoData.get(position).getTourImage());
-                    intent.putExtra("title",tourInfoData.get(position).getTourTitle());
-                    intent.putExtra("addr",tourInfoData.get(position).getTourAddr());
+                    intent.putExtra("photo", tourInfoData.get(position).getTourImage());
+                    intent.putExtra("title", tourInfoData.get(position).getTourTitle());
+                    intent.putExtra("addr", tourInfoData.get(position).getTourAddr());
                     ThisView.startActivity(intent);
 
                 }

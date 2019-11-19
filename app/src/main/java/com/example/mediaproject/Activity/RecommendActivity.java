@@ -244,6 +244,7 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                         String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
 
                         tourSearchData.add(new TourSearchData(
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
                                 response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
                                 response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
                                 response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
@@ -271,13 +272,13 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                         mMap.addMarker(marker);
 
 
-
-                        if(response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 12
-                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 14
-                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 15
-                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 28
-                        ||response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 38){ //관광지
+                        if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 12
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 14
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 15
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 28
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 38) { //관광지
                             tour.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
@@ -300,8 +301,9 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
 
-                        }else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 39){ // 음식점
+                        } else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 39) { // 음식점
                             restor.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
@@ -324,8 +326,9 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
 
-                        }else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 32){ // 숙박지
+                        } else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 32) { // 숙박지
                             stay.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
@@ -348,11 +351,12 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
                                     response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
 
-                        }else{}
+                        } else {
+                        }
                     } //for end
-                        TourSearchAdapter = new TourSearchAdapter(tour);
-                        recyclerView.setAdapter(TourSearchAdapter);
-                        TourSearchAdapter.notifyDataSetChanged();
+                    TourSearchAdapter = new TourSearchAdapter(tour);
+                    recyclerView.setAdapter(TourSearchAdapter);
+                    TourSearchAdapter.notifyDataSetChanged();
 
                     TourSearchAdapter2 = new TourSearchAdapter(restor);
                     recyclerView2.setAdapter(TourSearchAdapter2);

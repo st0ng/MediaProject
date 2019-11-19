@@ -84,12 +84,12 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int UserTourListCount = 0 ;
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                int UserTourListCount = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
-                    if(get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())){
-                        UserTourListCount ++;
+                    if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+                        UserTourListCount++;
                     }
                 }
                 String count = String.valueOf(UserTourListCount);
@@ -108,11 +108,11 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int TourInfocount = 0;
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     TourInfoModel get = snapshot.getValue(TourInfoModel.class);
 
-                    if(get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())){
-                        TourInfocount ++;
+                    if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+                        TourInfocount++;
                     }
                 }
                 String count = String.valueOf(TourInfocount);
@@ -128,7 +128,7 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         firebaseDatabase.getReference().child("UserInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
                         UserModel get = snapshot1.getValue(UserModel.class);
 
@@ -153,8 +153,6 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         });
 
 
-
-
     }//Oncreate end
 
     @Override
@@ -166,16 +164,16 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.Account_SelectedTourList){
+        if (v.getId() == R.id.Account_SelectedTourList) {
             Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
-            intent.putExtra("ListCheck" , 0 );
+            intent.putExtra("ListCheck", 0);
             startActivity(intent);
-        }else if (v.getId() == R.id.Account_SelectedHeartList){
+        } else if (v.getId() == R.id.Account_SelectedHeartList) {
             Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
-            intent.putExtra("ListCheck" , 1);
+            intent.putExtra("ListCheck", 1);
             startActivity(intent);
-        }else if (v.getId() == R.id.Update_UserInfo){
-            Intent intent = new Intent(AccountActivity.this , UpdateUserInfo.class);
+        } else if (v.getId() == R.id.Update_UserInfo) {
+            Intent intent = new Intent(AccountActivity.this, UpdateUserInfo.class);
             startActivity(intent);
         }
 

@@ -147,7 +147,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
                 if (checklist == false) {
                     childUpdates = new HashMap<>();
-                    tourInfoData = new TourInfoData(title, photo, addr,  contentid, 0, 0, null, null);
+                    tourInfoData = new TourInfoData(title, photo, addr, contentid, 0, 0, null, null);
                     userValue = tourInfoData.toMap();
 
                     childUpdates.put("/TourInfo/" + title, userValue);

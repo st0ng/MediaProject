@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,12 +36,14 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
 
-
     private List<UserTourListData> UserTourListData;
     private List<String> UidLists;
 
 
-    public UserTourListAdapter(){};
+    public UserTourListAdapter() {
+    }
+
+    ;
 
     public UserTourListAdapter(List<UserTourListData> UserTourListData, List<String> UidLists) {
         this.UserTourListData = UserTourListData;
@@ -102,24 +105,21 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
 
-
-
-
-            if(UserTourListData.get(position).getUid().equals(firebaseAuth.getCurrentUser().getUid())){
+            if (UserTourListData.get(position).getUid().equals(firebaseAuth.getCurrentUser().getUid())) {
                 ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.INVISIBLE);
             }
 
             firebaseDatabase.getReference().child("UserInfo").child(UserTourListData.get(position).Uid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        UserModel get = dataSnapshot.getValue(UserModel.class);
-                        String CheckImage;
-                        CheckImage = get.UserImage;
-                        if(CheckImage != null){
-                            Glide.with(holder.itemView.getContext()).load(CheckImage).into(((UserTourListHolder) holder).Community_ortherUserImage);
-                        }
+                    UserModel get = dataSnapshot.getValue(UserModel.class);
+                    String CheckImage;
+                    CheckImage = get.UserImage;
+                    if (CheckImage != null) {
+                        Glide.with(holder.itemView.getContext()).load(CheckImage).into(((UserTourListHolder) holder).Community_ortherUserImage);
+                    }
                 }
 
                 @Override
@@ -128,7 +128,15 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
 
-        }
+            ((UserTourListHolder) holder).CommnitiySetComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+ 
+                }
+            });
+
+
+        } // if end
     } //onBindViewHolder end
 
     @Override
@@ -146,6 +154,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView CommunitiyDescription;
         TextView CommunitiyCreateDate;
         TextView CommunityuHeartCount;
+        Button CommnitiySetComment;
 
 
         public UserTourListHolder(@NonNull View itemView) {
@@ -157,7 +166,8 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             CommunityCheckedLike = itemView.findViewById(R.id.CommnityCheckedLike);
             CommunityuHeartCount = itemView.findViewById(R.id.CommnitiyLikeCount);
             CommunityDelete = itemView.findViewById(R.id.CommunityDelete);
-            Community_ortherUserImage= itemView.findViewById(R.id.Community_ortherUserImage);
+            Community_ortherUserImage = itemView.findViewById(R.id.Community_ortherUserImage);
+            CommnitiySetComment = itemView.findViewById(R.id.CommnitiySetComment);
         }
     } //UserTourListHolder end
 

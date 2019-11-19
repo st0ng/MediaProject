@@ -1,6 +1,7 @@
 package com.example.mediaproject.Data;
 
 public class TourSearchData {
+    private int dist;
     private String addr1;
     private String addr2;
     private Integer areacode;
@@ -28,6 +29,35 @@ public class TourSearchData {
     private Integer checkbox;
 
 
+    public TourSearchData(int dist , String title, String addr1, String addr2, Integer areacode, Integer booktour,
+                          String cat1, String cat2, String cat3, Integer contentid, Integer contenttypeid,
+                          Long createdtime, String firstimage, String firstimage2, Double mapx, Double mapy,
+                          Integer mlevel, Long modifiedtime, Integer readcount, Integer sigungucode, String tel, String zipcode) {
+
+        this.dist = dist;
+        this.title = title;
+        this.addr1 = addr1;
+        this.addr2 = addr2;
+        this.areacode = areacode;
+        this.booktour = booktour;
+        this.cat1 = cat1;
+        this.cat2 = cat2;
+        this.cat3 = cat3;
+        this.contentid = contentid;
+        this.contenttypeid = contenttypeid;
+        this.createdtime = createdtime;
+        this.firstimage = firstimage;
+        this.firstimage2 = firstimage2;
+        this.mapx = mapx;
+        this.mapy = mapy;
+        this.mlevel = mlevel;
+        this.modifiedtime = modifiedtime;
+        this.readcount = readcount;
+        this.sigungucode = sigungucode;
+        this.tel = tel;
+        this.zipcode = zipcode;
+    }
+
     public TourSearchData(String title, String addr1, String addr2, Integer areacode, Integer booktour,
                           String cat1, String cat2, String cat3, Integer contentid, Integer contenttypeid,
                           Long createdtime, String firstimage, String firstimage2, Double mapx, Double mapy,
@@ -54,6 +84,14 @@ public class TourSearchData {
         this.sigungucode = sigungucode;
         this.tel = tel;
         this.zipcode = zipcode;
+    }
+
+    public int getDist() {
+        return dist;
+    }
+
+    public void setDist(int dist) {
+        this.dist = dist;
     }
 
     public String getAddr1() {

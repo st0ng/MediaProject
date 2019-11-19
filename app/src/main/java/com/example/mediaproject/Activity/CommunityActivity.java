@@ -32,7 +32,6 @@ public class CommunityActivity extends BaseActivity {
     protected FirebaseAuth firebaseAuth;
 
 
-
     Button CommunityTourListUploadButton;
     RecyclerView recyclerView;
     UserTourListAdapter userTourListAdapter;
@@ -60,8 +59,6 @@ public class CommunityActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.CommunityTourListRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
 
 
         firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
