@@ -102,10 +102,10 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
                 UserDisplayName = null;
                 UserProviderId = null;
                 UserImage = null;
-                UserPost =  null;
-                UserSex =  null;
-                UserEmail =  null;
-                UserPassword =  null;
+                UserPost = null;
+                UserSex = null;
+                UserEmail = null;
+                UserPassword = null;
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserModel get = snapshot.getValue(UserModel.class);
@@ -144,7 +144,8 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
                         Update_male.setChecked(true);
                     } else if (UserSex.equals("여자")) {
                         Update_female.setChecked(true);
-                    } else { }
+                    } else {
+                    }
                 }
 
             } //onDataChange end

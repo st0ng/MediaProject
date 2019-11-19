@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     protected DatabaseReference DBresgerce = null;
-    protected  FirebaseDatabase firebaseDatabase;
+    protected FirebaseDatabase firebaseDatabase;
 
     private boolean UserDataCheck = false;
 
@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity {
                 return false;
             switch (item.getItemId()) {
                 case R.id.navigation_menu1:
-                    if(prevNav !=R.id.navigation_menu1)
+                    if (prevNav != R.id.navigation_menu1)
                         finish();
                     Intent ii = new Intent(BaseActivity.this, RecommendActivity.class);
                     startActivity(ii);
@@ -93,8 +93,6 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -107,18 +105,18 @@ public class BaseActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UserDataCheck = false;
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         UserModel get = snapshot.getValue(UserModel.class);
-                        if(currentUser.getUid().contains(get.Uid)){
+                        if (currentUser.getUid().contains(get.Uid)) {
                             UserDataCheck = true;
                         }
                     }
 
-                    if(UserDataCheck == false){
+                    if (UserDataCheck == false) {
                         DBresgerce = FirebaseDatabase.getInstance().getReference();
                         UserDataUpdate = new HashMap<>();
 
-                        UserInfo = new UserInfo(currentUser.getUid(), currentUser.getEmail(),null, null, null, currentUser.getProviderId(), currentUser.getDisplayName(),null);
+                        UserInfo = new UserInfo(currentUser.getUid(), currentUser.getEmail(), null, null, null, currentUser.getProviderId(), currentUser.getDisplayName(), null);
                         UserValue = UserInfo.toMap();
 
                         UserDataUpdate.put("/UserInfo/" + currentUser.getUid(), UserValue);

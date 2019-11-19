@@ -28,7 +28,7 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     protected Context ThisView;
 
 
-    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData){
+    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData) {
         this.tourSearchData = tourSearchData;
     }
 
@@ -64,17 +64,17 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
                     .into(((TourSearchHolder) holder).TourImage);
 
-            ((TourSearchHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+            ((TourSearchHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ThisView, TouristSpotActivity.class);
                     intent.putExtra("contentid", tourSearchData.get(position).getContentid());
-                    Log.d("TourSearchAdapter",tourSearchData.get(position).getContentid().toString());
-                    intent.putExtra("photo",tourSearchData.get(position).getFirstimage());
-                    intent.putExtra("title",tourSearchData.get(position).getTitle());
-                    intent.putExtra("addr",tourSearchData.get(position).getAddr1());
-//                    intent.putExtra("dist",tourSearchData.get(position).getDist());
-                    intent.putExtra("tel",tourSearchData.get(position).getTel());
+                    Log.d("TourSearchAdapter", tourSearchData.get(position).getContentid().toString());
+                    intent.putExtra("photo", tourSearchData.get(position).getFirstimage());
+                    intent.putExtra("title", tourSearchData.get(position).getTitle());
+                    intent.putExtra("addr", tourSearchData.get(position).getAddr1());
+                    intent.putExtra("dist",tourSearchData.get(position).getDist());
+                    intent.putExtra("tel", tourSearchData.get(position).getTel());
                     ThisView.startActivity(intent);
 
                 }
