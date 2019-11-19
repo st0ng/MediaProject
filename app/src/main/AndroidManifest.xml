@@ -32,7 +32,7 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignupActivity" />
         <activity
-            android:name=".Activity.AcountActivity"
+            android:name=".Activity.AccountActivity"
             android:theme="@style/Material" />
         <activity android:name=".Activity.CommunityActivity" />
         <activity

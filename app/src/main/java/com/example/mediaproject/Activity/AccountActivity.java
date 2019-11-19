@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 
-public class AcountActivity extends BaseActivity implements View.OnClickListener {
+public class AccountActivity extends BaseActivity implements View.OnClickListener {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -75,7 +75,7 @@ public class AcountActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View v) {
                 firebaseAuth.signOut();
                 //LoginManager.getInstance().logOut();
-                Intent intent = new Intent(AcountActivity.this, LoginActivityNew.class);
+                Intent intent = new Intent(AccountActivity.this, LoginActivityNew.class);
                 startActivity(intent);
                 finish();
             }
@@ -133,7 +133,7 @@ public class AcountActivity extends BaseActivity implements View.OnClickListener
                         UserModel get = snapshot1.getValue(UserModel.class);
 
                         if (firebaseAuth.getCurrentUser().getUid().equals(get.Uid)) {
-                            Glide.with(AcountActivity.this)
+                            Glide.with(AccountActivity.this)
                                     .load(get.UserImage)
                                     .apply(new RequestOptions().override(150, 150))
                                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
@@ -167,17 +167,17 @@ public class AcountActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.Account_SelectedTourList){
-            Intent intent = new Intent(AcountActivity.this, AccountListActivity.class);
+            Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
             intent.putExtra("ListCheck" , 0 );
             startActivity(intent);
         }else if (v.getId() == R.id.Account_SelectedHeartList){
-            Intent intent = new Intent(AcountActivity.this, AccountListActivity.class);
+            Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
             intent.putExtra("ListCheck" , 1);
             startActivity(intent);
         }else if (v.getId() == R.id.Update_UserInfo){
-            Intent intent = new Intent(AcountActivity.this , UpdateUserInfo.class);
+            Intent intent = new Intent(AccountActivity.this , UpdateUserInfo.class);
             startActivity(intent);
         }
 
     }//onclick end
-}//AcountActivity end
+}//AccountActivity end
