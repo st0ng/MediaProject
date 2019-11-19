@@ -58,8 +58,6 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
     private Button UserInfoLoad;
 
     private Uri filepath;
-    private UserInfo userinfo;
-    private UserModel model;
 
     String UserEmail;
     String UserImage;
@@ -83,17 +81,17 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
-
         Update_UserDisPlayName = (EditText) findViewById(R.id.Update_UserDisPlayName);
         Update_UserPost = (EditText) findViewById(R.id.Update_UserPost);
         Update_UserImage = (ImageView) findViewById(R.id.Update_UserImage);
-        Update_UserImage.setOnClickListener(this);
         UserInfoLoad = (Button) findViewById(R.id.UserInfoLoad);
-        UserInfoLoad.setOnClickListener(this);
         Update_CheckedSex = (RadioGroup) findViewById(R.id.Update_CheckedSex);
-        Update_CheckedSex.setOnCheckedChangeListener(this);
         Update_male = (RadioButton) findViewById(R.id.Update_male);
         Update_female = (RadioButton) findViewById(R.id.Update_female);
+
+        Update_UserImage.setOnClickListener(this);
+        UserInfoLoad.setOnClickListener(this);
+        Update_CheckedSex.setOnCheckedChangeListener(this);
 
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         firebaseDatabase.getReference().child("UserInfo").addValueEventListener(new ValueEventListener() {
@@ -127,18 +125,17 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
                             Update_UserPost.setText(get.UserPost);
                         }
 
-                        if (UserSex.equals("남자")) {
-                            Update_male.setChecked(true);
-                        } else if (UserSex.equals("여자")) {
-                            Update_female.setChecked(true);
-                        } else {
-
+                        if (UserSex != null) {
+                            if (UserSex.equals("남자")) {
+                                Update_male.setChecked(true);
+                            } else if (UserSex.equals("여자")) {
+                                Update_female.setChecked(true);
+                            } else { }
                         }
 
-
-                    }
-                }
-            }
+                    } //if end
+                } // for end
+            } //onDataChange end
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -223,6 +220,8 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
                 DBresgerce = FirebaseDatabase.getInstance().getReference();
                 UserDataUpdate = new HashMap<>();
 
+                UserDisplayName = String.valueOf(Update_UserDisPlayName.getText());
+                UserPost = String.valueOf(Update_UserPost.getText());
 
                 UserInfo = new UserInfo(Uid, UserEmail, UserImage, UserSex, UserPost, UserPassword, UserDisplayName, UserPassword);
                 UserValue = UserInfo.toMap();

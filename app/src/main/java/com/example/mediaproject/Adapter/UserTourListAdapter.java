@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.mediaproject.Data.UserModel;
 import com.example.mediaproject.Data.UserTourListData;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.R;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
@@ -92,6 +94,24 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else{
                 ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.INVISIBLE);
             }
+
+            firebaseDatabase.getReference().child("UserInfo").child(UserTourListData.get(position).Uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        UserModel get = dataSnapshot.getValue(UserModel.class);
+                        String CheckImage;
+                        CheckImage = get.UserImage;
+                        if(CheckImage != null){
+                            Glide.with(holder.itemView.getContext()).load(CheckImage).into(((UserTourListHolder) holder).Community_ortherUserImage);
+                        }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
         }
     } //onBindViewHolder end
 
@@ -105,6 +125,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView CommunitiyUserImage;
         ImageView CommunityCheckedLike;
         ImageView CommunityDelete;
+        ImageView Community_ortherUserImage;
         TextView CommunitiyUserEmail;
         TextView CommunitiyDescription;
         TextView CommunitiyCreateDate;
@@ -120,6 +141,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             CommunityCheckedLike = itemView.findViewById(R.id.CommnityCheckedLike);
             CommunityuHeartCount = itemView.findViewById(R.id.CommnitiyLikeCount);
             CommunityDelete = itemView.findViewById(R.id.CommunityDelete);
+            Community_ortherUserImage= itemView.findViewById(R.id.Community_ortherUserImage);
         }
     } //UserTourListHolder end
 
