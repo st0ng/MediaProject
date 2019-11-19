@@ -1,5 +1,6 @@
 package com.example.mediaproject;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -97,10 +98,17 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
         firebaseDatabase.getReference().child("UserInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Uid = null;
+                UserDisplayName = null;
+                UserProviderId = null;
+                UserImage = null;
+                UserPost =  null;
+                UserSex =  null;
+                UserEmail =  null;
+                UserPassword =  null;
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserModel get = snapshot.getValue(UserModel.class);
-
-
                     if (currentUser.getUid().equals(get.Uid)) {
                         Uid = get.Uid;
                         UserDisplayName = get.UserDisplayName;
@@ -110,31 +118,35 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
                         UserSex = get.UserSex;
                         UserEmail = get.UserEmail;
                         UserPassword = get.UserPassword;
-
-                        Update_UserDisPlayName.setText(get.UserDisplayName);
-
-                        if (UserImage != null) {
-                            Glide.with(UpdateUserInfo.this)
-                                    .load(get.UserImage)
-                                    .apply(new RequestOptions().override(150, 150))
-                                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
-                                    .into(Update_UserImage);
-                        }
-
-                        if (UserPost != null) {
-                            Update_UserPost.setText(get.UserPost);
-                        }
-
-                        if (UserSex != null) {
-                            if (UserSex.equals("남자")) {
-                                Update_male.setChecked(true);
-                            } else if (UserSex.equals("여자")) {
-                                Update_female.setChecked(true);
-                            } else { }
-                        }
-
                     } //if end
                 } // for end
+
+                Update_UserDisPlayName.setText(UserDisplayName);
+
+                if (UserImage != null) {
+                    Activity activity = UpdateUserInfo.this;
+                    if (activity.isFinishing())
+                        return;
+
+                    Glide.with(UpdateUserInfo.this)
+                            .load(UserImage)
+                            .apply(new RequestOptions().override(150, 150))
+                            .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
+                            .into(Update_UserImage);
+                }
+
+                if (UserPost != null) {
+                    Update_UserPost.setText(UserPost);
+                }
+
+                if (UserSex != null) {
+                    if (UserSex.equals("남자")) {
+                        Update_male.setChecked(true);
+                    } else if (UserSex.equals("여자")) {
+                        Update_female.setChecked(true);
+                    } else { }
+                }
+
             } //onDataChange end
 
             @Override

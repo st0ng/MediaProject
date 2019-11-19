@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.mediaproject.Data.LocationTourSearchData;
 import com.example.mediaproject.Data.TourSearchData;
 import com.example.mediaproject.R;
 import com.example.mediaproject.TouristSpotActivity;
@@ -25,13 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<TourSearchData> tourSearchData;
-    private ArrayList<LocationTourSearchData> LocationtourSearchData;
     private List<String> UidLists;
     protected Context ThisView;
 
 
-    public TourSearchAdapter(ArrayList<LocationTourSearchData> LocationtourSearchData){
-        this.LocationtourSearchData = LocationtourSearchData;
+    public TourSearchAdapter(ArrayList<TourSearchData> tourSearchData){
+        this.tourSearchData = tourSearchData;
     }
 
 
