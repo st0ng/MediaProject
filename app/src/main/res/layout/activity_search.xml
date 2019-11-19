@@ -5,9 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/SearchLaout"
@@ -64,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <CheckBox
+                <Button
                     android:id="@+id/AreaSearchButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -74,7 +71,7 @@
                     android:gravity="center"
                     android:text="지역" />
 
-                <CheckBox
+                <Button
                     android:id="@+id/KategorieSearchButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -85,32 +82,24 @@
                     android:text="카테고리" />
 
             </LinearLayout>
-
-            <include
-                layout="@layout/include_search_category"
-                android:id="@+id/include_kateforie"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/round_corner"
-                android:visibility="gone"/>
-
-
         </LinearLayout>
 
-    </ScrollView>
 
-    <LinearLayout
-        android:background="#CCCCCC"
+    <include
+        android:id="@+id/include_kateforie"
+        layout="@layout/include_search_category"
         android:layout_width="match_parent"
-        android:layout_height="5dp"/>
+        android:layout_height="fill_parent"
+        android:background="@drawable/round_corner"
+        android:visibility="gone" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/TourSearchRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/SearchLaout" />
+        android:layout_height="wrap_content" />
 
+    
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/SearchTestView"
         android:layout_width="match_parent"

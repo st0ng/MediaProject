@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
     private Uri filepath;
     private Button communityTourListGalleryLoad;
     private Button communityTourListFinalUpload;
+    private EditText CommunitytourListPost;
     private ImageView CommunityTourListImage;
 
 
@@ -68,7 +70,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
         CommunityTourListImage = (ImageView) findViewById(R.id.CommunityTourListImage);
         communityTourListGalleryLoad = (Button) findViewById(R.id.communityTourListGalleryLoad);
         communityTourListFinalUpload = (Button) findViewById(R.id.communityTourListFinalUpload);
-
+        CommunitytourListPost = (EditText) findViewById(R.id.CommunitytourListPost);
 
         communityTourListGalleryLoad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +154,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
                     userTourListModel.UserEmail = firebaseAuth.getCurrentUser().getEmail();
                     userTourListModel.ImageUri = downloadUri.toString();
                     userTourListModel.ImageName = filename;
-                    userTourListModel.description = "test";
+                    userTourListModel.description = String.valueOf(CommunitytourListPost.getText());
                     userTourListModel.CreateDate = fileDate;
                     userTourListModel.starCount = 0;
                     userTourListModel.stars = null;

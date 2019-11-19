@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 
@@ -22,7 +20,6 @@ import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -41,8 +38,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private LinearLayout include_kateforie;
     private LinearLayout dynamic_layout;
 
-    private CheckBox KategorieSearchButton;
-    private CheckBox AreaSearchButton;
+    private Button KategorieSearchButton;
+    private Button AreaSearchButton;
 
     private Chip Search_Nature;
     private Chip Search_TourSpot;
@@ -92,8 +89,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         include_kateforie = (LinearLayout) findViewById(R.id.include_kateforie);
         dynamic_layout = (LinearLayout) findViewById(R.id.dynamic_layout);
-        AreaSearchButton = (CheckBox) findViewById(R.id.AreaSearchButton);
-        KategorieSearchButton = (CheckBox) findViewById(R.id.KategorieSearchButton);
+        AreaSearchButton = (Button) findViewById(R.id.AreaSearchButton);
+        KategorieSearchButton = (Button) findViewById(R.id.KategorieSearchButton);
         Search_Nature = (Chip) findViewById(R.id.Search_Nature);
         Search_TourSpot = (Chip) findViewById(R.id.Search_TourSpot);
         Search_Architecture = (Chip) findViewById(R.id.Search_Architecture);
@@ -161,13 +158,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
         recyclerView2 = findViewById(R.id.SearchTestView) ;
-
         recyclerView2.setLayoutManager(new GridLayoutManager(this,4)) ;
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
         SearchTestAdapter adapter = new SearchTestAdapter(provinceCode) ;
         recyclerView2.setAdapter(adapter);
-
 
         recyclerView = (RecyclerView) findViewById(R.id.TourSearchRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -176,14 +171,14 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-
-
-
         if (v.getId() == R.id.KategorieSearchButton) {
             KategorieSearchButton.setBackgroundColor(Color.GRAY);
             AreaSearchButton.setBackgroundColor(Color.WHITE);
             include_kateforie.setVisibility(View.VISIBLE);
             recyclerView2.setVisibility(View.GONE);
+            SearchTestAdapter adapter = new SearchTestAdapter(provinceCode) ;
+            recyclerView2.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
         } else if (v.getId() == R.id.AreaSearchButton) {
             KategorieSearchButton.setBackgroundColor(Color.WHITE);
