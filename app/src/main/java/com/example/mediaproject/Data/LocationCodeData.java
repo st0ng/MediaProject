@@ -3,27 +3,28 @@ package com.example.mediaproject.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class LocationCodeData
 {
-    public HashMap<String, Integer> provinceCode = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguSeoul = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguInchun = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguDaegeon = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguDaegu = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguGwangju = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguBusan = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguUlsan = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguSejong = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguGyunggi = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguGangwon = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguChungBuk = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguChungNam = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguGyoungBuk = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguGyoungNam = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguGeonBuk = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguGeonNam = new HashMap<String, Integer>();
-    public HashMap<String, Integer> sigunguZezu = new HashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> provinceCode = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguSeoul = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguInchun = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguDaegeon = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguDaegu = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguGwangju = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguBusan = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguUlsan = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguSejong = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguGyunggi = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguGangwon = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguChungBuk = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguChungNam = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguGyoungBuk = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguGyoungNam = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguGeonBuk = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguGeonNam = new LinkedHashMap<String, Integer>();
+    public LinkedHashMap<String, Integer> sigunguZezu = new LinkedHashMap<String, Integer>();
     public LocationCodeData()
     {
         //지역코드

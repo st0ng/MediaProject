@@ -17,7 +17,10 @@ import com.google.android.material.chip.Chip;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import io.reactivex.internal.operators.completable.CompletableHide;
 
@@ -65,180 +68,209 @@ public class SearchTestAdapter extends RecyclerView.Adapter<SearchTestAdapter.Vi
     @Override
     public void onBindViewHolder(SearchTestAdapter.ViewHolder holder, final int position) {
         String text = mData.get(position);
-        if(text.equals("")){
-            holder.LocList.setVisibility(View.GONE);
-        }
-        else
-        {
-            holder.LocList.setText(text) ;
-        }
+        holder.LocList.setText(text) ;
 
         ((ViewHolder) holder).LocList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ArrayList<String> Locations = new ArrayList<String>();
                 Chip chip1 = mParent.findViewById(R.id.chip1);
+                Chip chip0 = mParent.findViewById(R.id.chip0);
 
-                Log.d("shit", String.valueOf(position));
                 if (flag == 0 ) {
                     if (position == 0) {
-                        HashMap<String,Integer> map = LocData.sigunguSeoul;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguSeoul;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("서울");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 1) {
-                        HashMap<String,Integer> map = LocData.sigunguInchun;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguInchun;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("인천");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 2) {
-                        HashMap<String,Integer> map = LocData.sigunguDaegeon;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguDaegeon;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("대전");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 3) {
-                        HashMap<String,Integer> map = LocData.sigunguDaegu;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguDaegu;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("대구");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 4) {
-                        HashMap<String,Integer> map = LocData.sigunguGwangju;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguGwangju;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("광주");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 5) {
-                        HashMap<String,Integer> map = LocData.sigunguBusan;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguBusan;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("부산");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 6) {
-                        HashMap<String,Integer> map = LocData.sigunguUlsan;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguUlsan;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("울산");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 7) {
-                        HashMap<String,Integer> map = LocData.sigunguSejong;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguSejong;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("세종");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 8) {
-                        HashMap<String,Integer> map = LocData.sigunguGyunggi;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguGyunggi;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("경기도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 9) {
-                        HashMap<String,Integer> map = LocData.sigunguGangwon;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguGangwon;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("강원도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 10) {
-                        HashMap<String,Integer> map = LocData.sigunguChungBuk;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguChungBuk;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("충청북도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 11) {
-                        HashMap<String,Integer> map = LocData.sigunguChungNam;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguChungNam;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("충청남도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 12) {
-                        HashMap<String,Integer> map = LocData.sigunguGyoungBuk;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguGyoungBuk;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("경상북도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 13) {
-                        HashMap<String,Integer> map = LocData.sigunguGyoungNam;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguGyoungNam;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("경상남도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 14) {
-                        HashMap<String,Integer> map = LocData.sigunguGeonBuk;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguGeonBuk;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("전라북도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 15) {
-                        HashMap<String,Integer> map = LocData.sigunguGeonNam;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguGeonNam;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("전라남도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     } else if (position == 16) {
-                        HashMap<String,Integer> map = LocData.sigunguZezu;
+                        LinkedHashMap<String,Integer> map = LocData.sigunguZezu;
                         for(String key : map.keySet())
                         {
                             Locations.add(key);
                         }
                         mData = Locations;
                         notifyDataSetChanged();
+                        chip0.setText("제주도");
+                        chip0.setVisibility(View.VISIBLE);
                         flag = 1;
                     }
                 }
                 else {
                     Selected = 1;
                     //holder.LocList.isClickable(false);
+
                     chip1.setText(mData.get(position));
                     chip1.setVisibility(View.VISIBLE);
                 }

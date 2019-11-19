@@ -42,6 +42,7 @@ public interface TourApiService {
                                        @Query("arrange") String arrange,
                                        @Query("contentTypeId") int contentTypeId,
                                        @Query("areaCode") int areaCode,
+                                       @Query("sigunguCode") int sigunguCode,
                                        @Query("cat1") String cat1,
                                        @Query("cat2") String cat2,
                                        @Query("cat3") String cat3,
