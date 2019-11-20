@@ -169,6 +169,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        Chip chip2 = findViewById(R.id.chip2);
+
         if (v.getId() == R.id.KategorieSearchButton) {
             KategorieSearchButton.setBackgroundColor(Color.GRAY);
             AreaSearchButton.setBackgroundColor(Color.WHITE);
@@ -191,74 +193,70 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         }
 
         if (v.getId() == R.id.Search_Nature) {
-            Chip Search_Nature = new Chip(context);
-            Search_Nature.setText("자연관광지");
+            chip2.setText("자연관광지");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 12;
             cat1 = "A01";
-            dynamic_layout.addView(Search_Nature);
+            cat2 = "";
         } else if (v.getId() == R.id.Search_TourSpot) {
-            Chip Search_TourSpot = new Chip(context);
-            Search_TourSpot.setText("관광지");
+            chip2.setText("관광지");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 12;
             cat1 = "A02";
-
-            dynamic_layout.addView(Search_TourSpot);
+            cat2 = "";
         } else if (v.getId() == R.id.Search_Architecture) {
-            Chip Search_Architecture = new Chip(context);
-            Search_Architecture.setText("건축/조형물");
+            chip2.setText("건축/조형물");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 12;
             cat1 = "A02";
             cat2 = "A0205";
-            dynamic_layout.addView(Search_Architecture);
         } else if (v.getId() == R.id.Search_CultureFacility) {
-            Chip Search_CultureFacility = new Chip(context);
-            Search_CultureFacility.setText("문화시설");
+            chip2.setText("문화시설");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 14;
             cat1 = "A02";
-            dynamic_layout.addView(Search_CultureFacility);
         } else if (v.getId() == R.id.Search_Festival) {
-            Chip Search_Festival = new Chip(context);
-            Search_Festival.setText("축제");
+            chip2.setText("축제");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 15;
             cat1 = "A02";
             cat2 = "A0207";
-            dynamic_layout.addView(Search_Festival);
         } else if (v.getId() == R.id.Search_PnE) {
-            Chip Search_PnE = new Chip(context);
+            chip2.setText("공연/행사");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 15;
             cat1 = "A02";
             cat2 = "A0208";
-            Search_PnE.setText("공연/행사");
-            dynamic_layout.addView(Search_PnE);
         } else if (v.getId() == R.id.Search_Course) {
-            Chip Search_Course = new Chip(context);
-            Search_Course.setText("추천코스");
+            chip2.setText("추천코스");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 25;
             cat1 = "C01";
-            dynamic_layout.addView(Search_Course);
+            cat2 = "";
         } else if (v.getId() == R.id.Search_Lesports) {
-            Chip Search_Lesports = new Chip(context);
-            Search_Lesports.setText("레포츠");
+            chip2.setText("레포츠");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 28;
             cat1 = "A03";
-            dynamic_layout.addView(Search_Lesports);
+            cat2 = "";
         } else if (v.getId() == R.id.Search_Lodge) {
-            Chip Search_Lodge = new Chip(context);
-            Search_Lodge.setText("숙박");
+            chip2.setText("숙박");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 32;
             cat1 = "B02";
-            dynamic_layout.addView(Search_Lodge);
+            cat2 = "";
         } else if (v.getId() == R.id.Search_Shopping) {
-            Chip Search_Shopping = new Chip(context);
-            Search_Shopping.setText("쇼핑");
+            chip2.setText("쇼핑");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 38;
             cat1 = "A04";
-            dynamic_layout.addView(Search_Shopping);
+            cat2 = "";
         } else if (v.getId() == R.id.Search_Food) {
-            Chip Search_Food = new Chip(context);
-            Search_Food.setText("음식");
+            chip2.setText("음식");
+            chip2.setVisibility(View.VISIBLE);
             contentTypeId = 39;
-            dynamic_layout.addView(Search_Food);
+            cat1 = "";
+            cat2 = "";
         }
 
 

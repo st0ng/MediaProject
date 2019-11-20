@@ -14,6 +14,12 @@ import com.example.mediaproject.Data.TourInfoModel;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TouristSpotActivity extends AppCompatActivity implements View.OnClickListener {
+public class TouristSpotActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     protected FirebaseDatabase firebaseDatabase;
     protected DatabaseReference databaseReference;
@@ -63,6 +69,10 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private LinearLayout overview_layout;
     private LinearLayout homepage_layout;
 
+    private GoogleMap mMap;
+    private double mX;
+    private double mY;
+    String title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,12 +80,14 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_tourist_spot);
 
         Intent intent = getIntent();
-        final String title = intent.getExtras().getString("title");
+        title = intent.getExtras().getString("title");
         final String addr = intent.getExtras().getString("addr");
         String dist = String.valueOf(intent.getExtras().getInt("dist")) + "m";
         String tel = intent.getExtras().getString("tel");
         final String photo = intent.getExtras().getString("photo");
         final int contentid = intent.getExtras().getInt("contentid");
+        mX = intent.getExtras().getDouble("mapX");
+        mY = intent.getExtras().getDouble("mapY");
 
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
         TourTitle = (TextView) findViewById(R.id.TourTitle);
@@ -96,6 +108,10 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         overview_layout = (LinearLayout) findViewById(R.id.overview_layout);
         homepage_layout = (LinearLayout) findViewById(R.id.telephone_layout);
 
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map2);
+        mapFragment.getMapAsync(this);
 
         Glide.with(SpotImage.getContext()).load(photo).into(SpotImage);
         TourTitle.setText(title);
@@ -191,6 +207,22 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         });
 
 
+    }
+
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        LatLng spotLoc = new LatLng(mY,mX);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(spotLoc);
+        markerOptions.title(title);
+        mMap.addMarker(markerOptions);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(spotLoc));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     public void TourInfo(int contentid) {
