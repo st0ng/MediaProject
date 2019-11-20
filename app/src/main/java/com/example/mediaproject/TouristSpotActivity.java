@@ -14,6 +14,12 @@ import com.example.mediaproject.Data.TourInfoModel;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TouristSpotActivity extends AppCompatActivity implements View.OnClickListener {
+public class TouristSpotActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     protected FirebaseDatabase firebaseDatabase;
     protected DatabaseReference databaseReference;
@@ -62,6 +68,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private LinearLayout telephone_layout;
     private LinearLayout overview_layout;
     private LinearLayout homepage_layout;
+
+    private GoogleMap mMap;
 
 
     @Override
@@ -96,6 +104,10 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         overview_layout = (LinearLayout) findViewById(R.id.overview_layout);
         homepage_layout = (LinearLayout) findViewById(R.id.telephone_layout);
 
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map2);
+        mapFragment.getMapAsync(this);
 
         Glide.with(SpotImage.getContext()).load(photo).into(SpotImage);
         TourTitle.setText(title);
@@ -191,6 +203,23 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         });
 
 
+    }
+
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        LatLng SEOUL = new LatLng(37.56, 126.97);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(SEOUL);
+        markerOptions.title("서울");
+        markerOptions.snippet("한국의 수도");
+        mMap.addMarker(markerOptions);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     public void TourInfo(int contentid) {
