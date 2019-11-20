@@ -93,7 +93,7 @@ public class AccountListActivity extends AppCompatActivity {
                         UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
                         if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
-                            data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.stars));
+                            data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount,get.CommentCount, get.stars,get.Comments));
                             String UidKey = snapshot.getKey();
                             UidLists.add(UidKey);
                         }

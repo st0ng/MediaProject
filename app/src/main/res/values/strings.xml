@@ -15,4 +15,5 @@
     <string name="title_activity_community_tour_list_load">CommunityTourListLoad</string>
     <string name="title_activity_account_list">AccountListActivity</string>
     <string name="title_activity_update_user_info">UpdateUserInfo</string>
+    <string name="title_activity_chat">chatActivity</string>
 </resources>

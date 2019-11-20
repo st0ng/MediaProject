@@ -157,7 +157,9 @@ public class CommunityTourListLoad extends AppCompatActivity {
                     userTourListModel.description = String.valueOf(CommunitytourListPost.getText());
                     userTourListModel.CreateDate = fileDate;
                     userTourListModel.starCount = 0;
+                    userTourListModel.CommentCount = 0;
                     userTourListModel.stars = null;
+                    userTourListModel.Comments = null;
 
                     databaseReference.child("UserTourListImage").push().setValue(userTourListModel);
 

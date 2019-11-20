@@ -1,5 +1,6 @@
 package com.example.mediaproject.Adapter;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.mediaproject.CommentActicity;
 import com.example.mediaproject.Data.UserModel;
 import com.example.mediaproject.Data.UserTourListData;
 import com.example.mediaproject.Data.UserTourListModel;
@@ -83,7 +85,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
 
-            firebaseDatabase.getReference().child("UserTourListImage").child(UidLists.get(position).toString()).addValueEventListener(new ValueEventListener() {
+            firebaseDatabase.getReference().child("UserTourListImage").child(UidLists.get(position)).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UserTourListModel get = dataSnapshot.getValue(UserTourListModel.class);
@@ -105,11 +107,11 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
 
-            if (UserTourListData.get(position).getUid().equals(firebaseAuth.getCurrentUser().getUid())) {
-                ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.VISIBLE);
-            } else {
-                ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.INVISIBLE);
-            }
+//            if (UserTourListData.get(position).getUid().equals(firebaseAuth.getCurrentUser().getUid())) {
+//                ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.VISIBLE);
+//            } else {
+//                ((UserTourListHolder) holder).CommunityDelete.setVisibility(View.INVISIBLE);
+//            }
 
             firebaseDatabase.getReference().child("UserInfo").child(UserTourListData.get(position).Uid).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -131,7 +133,9 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((UserTourListHolder) holder).CommnitiySetComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
- 
+                    Intent intent = new Intent(holder.itemView.getContext(), CommentActicity.class);
+                    intent.putExtra("UidLists", UidLists.get(position).toString());
+                    holder.itemView.getContext().startActivity(intent);
                 }
             });
 
