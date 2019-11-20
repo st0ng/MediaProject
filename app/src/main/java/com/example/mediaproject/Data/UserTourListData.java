@@ -11,15 +11,17 @@ public class UserTourListData {
     public String description;
     public String CreateDate;
     public int starCount = 0;
+    public int CommentCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
+    public Object Comments = null;
 
 
     public UserTourListData() {
 
     }
 
-    public UserTourListData(String Uid, String UserEmail, String ImageUri, String ImageName , String description, String CreateDate,
-                              int starCount , Map<String , Boolean> stars) {
+    public UserTourListData(String Uid, String UserEmail, String ImageUri, String ImageName, String description, String CreateDate,
+                            int starCount, int CommentCount, Map<String, Boolean> stars, Object Comments) {
         this.Uid = Uid;
         this.UserEmail = UserEmail;
         this.ImageUri = ImageUri;
@@ -27,7 +29,10 @@ public class UserTourListData {
         this.description = description;
         this.CreateDate = CreateDate;
         this.starCount = starCount;
+        this.CommentCount = CommentCount;
         this.stars = stars;
+        this.Comments = Comments;
+
     }
 
     public Map<String, Object> toMap() {
@@ -38,7 +43,11 @@ public class UserTourListData {
         result.put("description", description);
         result.put("CreateDate", CreateDate);
         result.put("starCount", starCount);
+        result.put("CommentCount", CommentCount);
         result.put("stars", stars);
+        result.put("Comments", Comments);
+
+
         return result;
     }
 
@@ -105,4 +114,13 @@ public class UserTourListData {
     public void setImageName(String imageName) {
         ImageName = imageName;
     }
+
+    public int getCommentCount() {
+        return CommentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        CommentCount = commentCount;
+    }
+
 }

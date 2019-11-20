@@ -73,7 +73,7 @@ public class CommunityActivity extends BaseActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
-                    data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.stars));
+                    data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.CommentCount, get.stars, get.Comments));
 
                     String UidKey = snapshot.getKey();
                     UidLists.add(UidKey);

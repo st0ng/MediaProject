@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ChatUid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="uid" />
+
+        <TextView
+            android:id="@+id/ChatComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="content" />
+
+        <TextView
+            android:id="@+id/Chatdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
