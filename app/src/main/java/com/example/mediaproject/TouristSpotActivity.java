@@ -70,7 +70,9 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private LinearLayout homepage_layout;
 
     private GoogleMap mMap;
-
+    private double mX;
+    private double mY;
+    String title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,12 +80,14 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_tourist_spot);
 
         Intent intent = getIntent();
-        final String title = intent.getExtras().getString("title");
+        title = intent.getExtras().getString("title");
         final String addr = intent.getExtras().getString("addr");
         String dist = String.valueOf(intent.getExtras().getInt("dist")) + "m";
         String tel = intent.getExtras().getString("tel");
         final String photo = intent.getExtras().getString("photo");
         final int contentid = intent.getExtras().getInt("contentid");
+        mX = intent.getExtras().getDouble("mapX");
+        mY = intent.getExtras().getDouble("mapY");
 
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
         TourTitle = (TextView) findViewById(R.id.TourTitle);
@@ -210,15 +214,14 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
         mMap = googleMap;
 
-        LatLng SEOUL = new LatLng(37.56, 126.97);
+        LatLng spotLoc = new LatLng(mY,mX);
 
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울");
-        markerOptions.snippet("한국의 수도");
+        markerOptions.position(spotLoc);
+        markerOptions.title(title);
         mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(spotLoc));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 

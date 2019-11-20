@@ -75,6 +75,9 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     intent.putExtra("addr", tourSearchData.get(position).getAddr1());
                     intent.putExtra("dist",tourSearchData.get(position).getDist());
                     intent.putExtra("tel", tourSearchData.get(position).getTel());
+                    intent.putExtra("mapX",tourSearchData.get(position).getMapx());
+                    intent.putExtra("mapY",tourSearchData.get(position).getMapy());
+
                     ThisView.startActivity(intent);
 
                 }
