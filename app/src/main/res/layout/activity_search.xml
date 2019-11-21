@@ -7,6 +7,20 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
+    <TextView
+        android:gravity="center"
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/colorBlack"
+        android:text="나들이 검색" />
+
+    <LinearLayout
+        android:background="#CCCCCC"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,7 +34,10 @@
             <SearchView
                 android:id="@+id/TourSearchView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:queryHint="지역, 장소명으로 검색해보세요" />
+
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -29,44 +46,46 @@
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:scrollbarFadeDuration = "0"
                     android:scrollbarAlwaysDrawVerticalTrack = "true" >
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
                         <LinearLayout
                             android:id="@+id/dynamic_layout"
                             android:orientation="horizontal"
+                            android:padding="5dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" >
+                            android:layout_height="match_parent" >
 
                             <com.google.android.material.chip.Chip
+                                android:layout_marginLeft="5dp"
+                                android:layout_gravity="center"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                app:chipBackgroundColor="#2196F3"
+                                android:textColor="@color/colorWhite"
                                 android:id="@+id/chip0"
                                 android:visibility="gone"/>
 
                             <com.google.android.material.chip.Chip
+                                android:layout_marginLeft="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                app:chipBackgroundColor="#2196F3"
+                                android:textColor="@color/colorWhite"
                                 android:id="@+id/chip1"
                                 android:visibility="gone"/>
 
                             <com.google.android.material.chip.Chip
+                                android:layout_marginLeft="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                app:chipBackgroundColor="#F44336"
+                                android:textColor="@color/colorWhite"
                                 android:id="@+id/chip2"
                                 android:visibility="gone"/>
 
-
-
-                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -95,10 +114,9 @@
 
                 <Button
                     android:id="@+id/AreaSearchButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/colorWhite"
                     android:textColor="@color/colorBlack"
                     android:button="@null"
                     android:gravity="center"
@@ -106,12 +124,11 @@
 
                 <Button
                     android:id="@+id/KategorieSearchButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:button="@null"
                     android:gravity="center"
-                    android:background="@color/colorWhite"
                     android:textColor="@color/colorBlack"
                     android:text="카테고리" />
 
@@ -124,12 +141,14 @@
     <LinearLayout
         android:background="#CCCCCC"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="8dp"
         android:layout_marginBottom="5dp"/>
 
     <include
         layout="@layout/include_search_category"
         android:id="@+id/include_kateforie"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/round_corner"
