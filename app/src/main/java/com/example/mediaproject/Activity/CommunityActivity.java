@@ -32,9 +32,9 @@ public class CommunityActivity extends BaseActivity {
     protected FirebaseAuth firebaseAuth;
 
 
-    Button CommunityTourListUploadButton;
-    RecyclerView recyclerView;
-    UserTourListAdapter userTourListAdapter;
+    private Button CommunityTourListUploadButton;
+    private RecyclerView recyclerView;
+    private UserTourListAdapter userTourListAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
