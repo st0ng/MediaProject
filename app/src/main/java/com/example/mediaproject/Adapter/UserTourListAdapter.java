@@ -67,7 +67,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((UserTourListHolder) holder).CommunitiyUserEmail.setText(UserTourListData.get(position).getUserEmail());
             ((UserTourListHolder) holder).CommunitiyDescription.setText(UserTourListData.get(position).getDescription());
             ((UserTourListHolder) holder).CommunitiyCreateDate.setText(UserTourListData.get(position).getCreateDate());
-            String count = String.valueOf("댓글 " +  UserTourListData.get(position).CommentCount + " 개");
+            String count = String.valueOf("댓글 " +  UserTourListData.get(position).CommentCount + "개");
             ((UserTourListHolder) holder).CommnitiyCommentCount.setText(count);
             Glide.with(holder.itemView.getContext()).load(UserTourListData.get(position).ImageUri).into(((UserTourListHolder) holder).CommunitiyUserImage);
 
@@ -132,7 +132,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
 
-            ((UserTourListHolder) holder).CommnitiySetComment.setOnClickListener(new View.OnClickListener() {
+            ((UserTourListHolder) holder).CommnitiyCommentCount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(holder.itemView.getContext(), CommentActicity.class);
@@ -174,7 +174,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             CommunityuHeartCount = itemView.findViewById(R.id.CommnitiyLikeCount);
             CommunityDelete = itemView.findViewById(R.id.CommunityDelete);
             Community_ortherUserImage = itemView.findViewById(R.id.Community_ortherUserImage);
-            CommnitiySetComment = itemView.findViewById(R.id.CommnitiySetComment);
+            //CommnitiySetComment = itemView.findViewById(R.id.CommnitiySetComment);
             CommnitiyCommentCount= itemView.findViewById(R.id.CommnitiyCommentCount);
         }
     } //UserTourListHolder end

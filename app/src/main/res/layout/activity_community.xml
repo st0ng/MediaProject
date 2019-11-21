@@ -7,18 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/CommunityTourListUploadButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="올리기" />
-
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/CommunityTourListRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/CommunityTourListUploadButton" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.mediaproject.Data.TourInfoData;
 import com.example.mediaproject.Data.TourInfoModel;
+import com.example.mediaproject.Data.TourTypeData;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
@@ -52,6 +53,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
 
     private RatingBar TourRatingBar;
+    private ImageView TourUpload;
     private ImageView TourList_Heart;
     private ImageView SpotImage;
     private ImageView TourList_Survey;
@@ -62,6 +64,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private TextView telephone_textview;
     private TextView overview_textview;
     private TextView homepage_textview;
+    private TextView tour_spot1;
+    private TextView tour_spot2;
 
 
     private LinearLayout location_layout;
@@ -90,7 +94,11 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         final int contentid = intent.getExtras().getInt("contentid");
         mX = intent.getExtras().getDouble("mapX");
         mY = intent.getExtras().getDouble("mapY");
+        String cat2_key = intent.getExtras().getString("cat2");
+        String cat3_key = intent.getExtras().getString("cat3");
 
+
+        TourUpload = (ImageView) findViewById(R.id.TourList_Upload);
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
         TourTitle = (TextView) findViewById(R.id.TourTitle);
 
@@ -101,6 +109,11 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         telephone_textview = (TextView) findViewById(R.id.telephone_textview);
         overview_textview = (TextView) findViewById(R.id.overview_textview);
         homepage_textview = (TextView) findViewById(R.id.homepage_textview);
+
+        tour_spot1 =  findViewById(R.id.Tourspot_type1);
+        tour_spot2 =  findViewById(R.id.Tourspot_type2);
+
+
         TourRatingBar = (RatingBar) findViewById(R.id.TourRatingBar);
 
         TourList_Survey = (ImageView) findViewById(R.id.TourList_Survey);
@@ -121,6 +134,27 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         overview_layout = (LinearLayout) findViewById(R.id.overview_layout);
         homepage_layout = (LinearLayout) findViewById(R.id.telephone_layout);
 
+        TourTypeData tourTypeData = new TourTypeData();
+        HashMap<String, String> category2 = tourTypeData.Category_2;
+        HashMap<String, String> category3 = tourTypeData.Category_3;
+        String cat2 = category2.get(cat2_key);
+        String cat3 = category3.get(cat3_key);
+        if( cat2 != null)
+        {
+            tour_spot1.setText(cat2);
+        }
+        if( cat3 != null)
+        {
+            tour_spot2.setText(cat3);
+        }
+
+        TourUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TouristSpotActivity.this, CommunityTourListLoad.class);
+                startActivity(intent);
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -141,7 +175,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             location_layout.setVisibility(View.GONE);
         }
 
-        if (dist != null) { //거리
+        if (!dist.equals("0m")) { //거리
             distance_layout.setVisibility(View.VISIBLE);
             distance_textview.setText(dist);
         } else {
