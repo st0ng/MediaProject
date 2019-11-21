@@ -7,9 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mediaproject.Data.CommentModel;
+import com.example.mediaproject.Data.UserModel;
+import com.example.mediaproject.Data.UserTourListModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +42,8 @@ public class CommentActicity extends AppCompatActivity {
     private Button CommentLoad;
     private RecyclerView CommnitiyCommentRecyclerView;
 
+    public int CommentCount = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +65,6 @@ public class CommentActicity extends AppCompatActivity {
         CommnitiyCommentRecyclerView.setAdapter(new RecyclerViewAdapter());
 
 
-
-        firebaseDatabase.getReference().child("UserTourListImage" + UidLists + "/Comments").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
         CommentLoad.setOnClickListener(new View.OnClickListener() { // 채팅 올릴 때
             @Override
             public void onClick(View v) {
@@ -80,7 +74,25 @@ public class CommentActicity extends AppCompatActivity {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 E요일 a h:mm");
                 Date now = new Date();
                 load.Date = formatter.format(now);
-                firebaseDatabase.getReference().child("UserTourListImage/" + UidLists + "/Comments").push().setValue(load);
+                firebaseDatabase.getReference().child("UserTourListImage/" + UidLists + "/Comments").push().setValue(load).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        firebaseDatabase.getReference().child("UserTourListImage/" + UidLists).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                UserTourListModel get = dataSnapshot.getValue(UserTourListModel.class);
+                                int count = get.CommentCount + 1;
+                                firebaseDatabase.getReference().child("UserTourListImage/" + UidLists + "/CommentCount").setValue(count);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                });
             }
         }); // commentLoad Button end
     }
@@ -94,9 +106,14 @@ public class CommentActicity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     comment.clear();
+
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         comment.add(snapshot.getValue(CommentModel.class));
                     }
+
+                    CommentCount = comment.size() + 1;
+
+
                     notifyDataSetChanged();
                 }
 
@@ -115,10 +132,22 @@ public class CommentActicity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            ((MessageViewHolder) holder).content.setText(comment.get(position).Messages);
-            ((MessageViewHolder) holder).uid.setText(comment.get(position).Uid);
-            ((MessageViewHolder) holder).date.setText(comment.get(position).Date);
+        public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
+            firebaseDatabase.getReference().child("UserInfo/" + comment.get(position).Uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserModel get = dataSnapshot.getValue(UserModel.class);
+                    ((MessageViewHolder) holder).ChatUid.setText(get.UserDisplayName);
+                    Glide.with(holder.itemView.getContext()).load(get.UserImage).into(((MessageViewHolder) holder).ChatUserImage);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            ((MessageViewHolder) holder).ChatComment.setText(comment.get(position).Messages);
+            ((MessageViewHolder) holder).Chatdate.setText(comment.get(position).Date);
         }
 
         @Override
@@ -127,16 +156,20 @@ public class CommentActicity extends AppCompatActivity {
         }
 
         private class MessageViewHolder extends RecyclerView.ViewHolder {
-            TextView content;
-            TextView uid;
-            TextView date;
+            TextView ChatComment;
+            TextView ChatUid;
+            TextView Chatdate;
+            ImageView ChatUserImage;
 
             public MessageViewHolder(View view) {
                 super(view);
-                content = (TextView) view.findViewById(R.id.ChatComment);
-                uid = (TextView) view.findViewById(R.id.ChatUid);
-                date = (TextView) view.findViewById(R.id.Chatdate);
+                ChatComment = (TextView) view.findViewById(R.id.ChatComment);
+                ChatUid = (TextView) view.findViewById(R.id.ChatUid);
+                Chatdate = (TextView) view.findViewById(R.id.Chatdate);
+                ChatUserImage = (ImageView) view.findViewById(R.id.ChatUserImage);
             }
         }
-    }
+
+
+    }// recyclerview end
 }

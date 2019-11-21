@@ -166,8 +166,8 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                         if (response.code() == 200) {
                             //int size = response.body().getList()
                         }
-                        Log.d("airair", response.body().getList().get(0).getPm25Grade());
-                        Log.d("airair", response.body().getList().get(0).getPm10Grade());
+//                        Log.d("airair", response.body().getList().get(0).getPm25Grade());
+//                        Log.d("airair", response.body().getList().get(0).getPm10Grade());
                     }
 
                     @Override

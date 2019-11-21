@@ -72,6 +72,20 @@ public class CommunityTourListLoad extends AppCompatActivity {
         communityTourListFinalUpload = (Button) findViewById(R.id.communityTourListFinalUpload);
         CommunitytourListPost = (EditText) findViewById(R.id.CommunitytourListPost);
 
+        String NullImage ="https://www.google.com/url?sa=i&url=http%3A%2F%2Fm.e-himart.co.kr%2Fapp%2Fgoods%2FgoodsDetail%3FgoodsNo%3D0002267911&psig=AOvVaw0raNbtrEqzp0IOilBiSssj&ust=1574397944505000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNix58S_-uUCFQAAAAAdAAAAABAR";
+//                Glide.with(this).load(NullImage).into(CommunityTourListImage);
+
+
+        CommunityTourListImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 0);
+            }
+        });
+
         communityTourListGalleryLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
