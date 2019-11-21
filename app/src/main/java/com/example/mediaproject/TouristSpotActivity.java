@@ -2,6 +2,7 @@ package com.example.mediaproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.mediaproject.Data.EvaluationModel;
 import com.example.mediaproject.Data.TourInfoData;
 import com.example.mediaproject.Data.TourInfoModel;
 import com.example.mediaproject.Data.TourTypeData;
@@ -66,6 +68,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private TextView homepage_textview;
     private TextView tour_spot1;
     private TextView tour_spot2;
+    private TextView TourList_HeartCount;
+    private TextView TourList_SurveyCount;
 
 
     private LinearLayout location_layout;
@@ -109,9 +113,11 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         telephone_textview = (TextView) findViewById(R.id.telephone_textview);
         overview_textview = (TextView) findViewById(R.id.overview_textview);
         homepage_textview = (TextView) findViewById(R.id.homepage_textview);
+        TourList_HeartCount = (TextView) findViewById(R.id.TourList_HeartCount);
+        TourList_SurveyCount = (TextView) findViewById(R.id.TourList_SurveyCount);
 
-        tour_spot1 =  findViewById(R.id.Tourspot_type1);
-        tour_spot2 =  findViewById(R.id.Tourspot_type2);
+        tour_spot1 = findViewById(R.id.Tourspot_type1);
+        tour_spot2 = findViewById(R.id.Tourspot_type2);
 
 
         TourRatingBar = (RatingBar) findViewById(R.id.TourRatingBar);
@@ -120,8 +126,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         TourList_Survey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TouristSpotActivity.this , EvaluationActivity.class);
-                intent.putExtra("title",title);
+                Intent intent = new Intent(TouristSpotActivity.this, EvaluationActivity.class);
+                intent.putExtra("title", title);
                 startActivity(intent);
             }
         });
@@ -134,17 +140,16 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         overview_layout = (LinearLayout) findViewById(R.id.overview_layout);
         homepage_layout = (LinearLayout) findViewById(R.id.telephone_layout);
 
+
         TourTypeData tourTypeData = new TourTypeData();
         HashMap<String, String> category2 = tourTypeData.Category_2;
         HashMap<String, String> category3 = tourTypeData.Category_3;
         String cat2 = category2.get(cat2_key);
         String cat3 = category3.get(cat3_key);
-        if( cat2 != null)
-        {
+        if (cat2 != null) {
             tour_spot1.setText(cat2);
         }
-        if( cat3 != null)
-        {
+        if (cat3 != null) {
             tour_spot2.setText(cat3);
         }
 
@@ -193,8 +198,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             TourInfo(contentid);
         }
 
-
-        firebaseDatabase.getReference().child("TourInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase.getReference().child("TourInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 checklist = false;
@@ -204,25 +208,6 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
                     if (listkey.equals(title)) {
                         checklist = true;
-
-
-//                        firebaseDatabase.getReference().child("TourInfo").child(listkey).addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                TourInfoModel get = dataSnapshot.getValue(TourInfoModel.class);
-//                                Map<String, Float> Scope;
-//                                Scope = get.TourScope;
-//                                String name = firebaseAuth.getCurrentUser().getUid();
-//                                TourRatingBar.setRating(Scope.get(name));
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                            }
-//                        });
-
-
                         break;
                     }
 
@@ -243,11 +228,14 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         TourInfoModel data = dataSnapshot.getValue(TourInfoModel.class);
-
                         if (data.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
                             TourList_Heart.setImageResource(R.drawable.heart);
+                            String count = "좋아요 " + String.valueOf(data.starCount) + "개";
+                            TourList_HeartCount.setText(count);
                         } else {
                             TourList_Heart.setImageResource(R.drawable.heart_botom);
+                            String count = "좋아요 " + String.valueOf(data.starCount) + "개";
+                            TourList_HeartCount.setText(count);
                         }
                     }
 
@@ -257,6 +245,36 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                     }
                 }); // firebase // TourInfo // title 경로 end
 
+
+                firebaseDatabase.getReference().child("TourInfo").child(title).child("Evaluations").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        int count = 0;
+                        int sum = 0;
+                        float average = 0;
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            EvaluationModel get = snapshot.getValue(EvaluationModel.class);
+                            count++;
+                            sum += get.TourScope;
+                        }
+
+                        String stringcount = "평가 " + count + "개";
+                        TourList_SurveyCount.setText(stringcount);
+
+                        if (count != 0) {
+                            average = (sum / count);
+                            Log.d("ttttt", String.valueOf(average));
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override

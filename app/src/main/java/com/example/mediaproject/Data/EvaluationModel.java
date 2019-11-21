@@ -2,6 +2,6 @@ package com.example.mediaproject.Data;
 
 public class EvaluationModel {
     public String Uid;
-    public float TourScope  = 0;
+    public int TourScope  = 0;
     public String date;
 }

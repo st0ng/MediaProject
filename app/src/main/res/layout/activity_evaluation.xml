@@ -14,7 +14,7 @@
         android:layout_marginTop="5dp"
         android:isIndicator="false"
         android:numStars="5"
-        android:stepSize="0.5" />
+        android:stepSize="1" />
 
 
     <TextView
