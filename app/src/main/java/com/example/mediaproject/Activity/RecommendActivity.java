@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mediaproject.Adapter.TourSearchAdapter;
@@ -63,6 +64,11 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
     protected GoogleMap mMap;
     public double latitude;
     public double longitude;
+    private TextView fineDust;
+    private TextView ultraFineDust;
+    private TextView temperatures;
+    private TextView weather_info;
+
     //지도 관련 변수 & 권한설정
     private static final String ROOT_URL = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/";
 
@@ -77,6 +83,11 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_recommend);
+
+        fineDust= (TextView) findViewById(R.id.FineDust);
+        ultraFineDust= (TextView) findViewById(R.id.UltraFineDust);
+        temperatures = (TextView) findViewById(R.id.temperatures);
+        weather_info = (TextView) findViewById(R.id.weather);
 
         //권한 확인
         if (!checkLocationServicesStatus()) {
@@ -96,38 +107,12 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         String address = getCurrentAddress(latitude, longitude);
 
-
         String locaddr[] = address.split(" ");
         Log.d("shit", address);
         final Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
-        //날씨 받아오기
-        Retrofit retrofit3 = new Retrofit.Builder()
-                .baseUrl("http://api.openweathermap.org/data/2.5/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        WeatherApiService weatherApiService = retrofit3.create(WeatherApiService.class);
-        Call<WeatherApi> getWeather = weatherApiService.getWeather(latitude,longitude);
-        getWeather.enqueue(new Callback<WeatherApi>() {
-            @Override
-            public void onResponse(Call<WeatherApi> call, Response<WeatherApi> response) {
-
-                WeatherTypeData weatherTypeData = new WeatherTypeData();
-                HashMap<String,String> weatherMap = weatherTypeData.WeatherType;
-                String weather = response.body().getWeather().get(0).getMain();
-                String weatherKor = weatherMap.get(weather);
-                Log.d("airair",weatherKor);
-                Double temp = response.body().getMain().getTemp()- 273.15;
-                Log.d("airair","temp " + temp);
-            }
-
-            @Override
-            public void onFailure(Call<WeatherApi> call, Throwable t) {
-                Log.d("shit","날씨 받아오는 것 실패 ㅠㅠㅠㅠㅠㅠ");
-            }
-        });
 
         Retrofit retrofit2 = new Retrofit.Builder()
                 .baseUrl("http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/")
@@ -157,10 +142,42 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                     if (tempdist <= distance) {
                         distance = tempdist;
                         closestStation = response.body().getList().get(i).getStationName();
+                        Log.d("airair", closestStation);
                     }
                 }
                 int meter = (int) Math.round(distance);
 
+
+                //날씨 받아오기
+                Retrofit retrofit3 = new Retrofit.Builder()
+                        .baseUrl("http://api.openweathermap.org/data/2.5/")
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build();
+                WeatherApiService weatherApiService = retrofit3.create(WeatherApiService.class);
+                Call<WeatherApi> getWeather = weatherApiService.getWeather(latitude,longitude);
+                getWeather.enqueue(new Callback<WeatherApi>() {
+                    @Override
+                    public void onResponse(Call<WeatherApi> call, Response<WeatherApi> response) {
+                        String weather = response.body().getWeather().get(0).getMain();
+                        Double temperature = response.body().getMain().getTemp()-273.15;
+                        int int_temperature = (int) Math.round(temperature);
+                        temperatures.setText(Integer.toString(int_temperature)+"°C");
+
+                        WeatherTypeData weatherTypeData = new WeatherTypeData();
+                        HashMap<String, String> weatherMap = weatherTypeData.WeatherType;
+                        String weatherKor = weatherMap.get(weather);
+                        weather_info.setText(weatherKor);
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<WeatherApi> call, Throwable t) {
+                        Log.d("shit","날씨 받아오는 것 실패 ㅠㅠㅠㅠㅠㅠ");
+                    }
+                });
+
+
+                //미세먼지
                 Retrofit retrofit1 = new Retrofit.Builder()
                         .baseUrl(ROOT_URL)
                         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -175,8 +192,21 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                         if (response.code() == 200) {
                             //int size = response.body().getList()
                         }
-//                        Log.d("airair", response.body().getList().get(0).getPm25Grade());
-//                        Log.d("airair", response.body().getList().get(0).getPm10Grade());
+                        String fd = response.body().getList().get(0).getPm10Grade1h();
+                        String ufd = response.body().getList().get(0).getPm25Grade1h();
+
+                        if(fd.equals("1")) fineDust.setText("좋음");
+                        else if(fd.equals("2")) fineDust.setText("보통");
+                        else if(fd.equals("3")) fineDust.setText("나쁨");
+                        else if(fd.equals("4")) fineDust.setText("매우나쁨");
+
+                        if(ufd.equals("1")) ultraFineDust.setText("좋음");
+                        else if(ufd.equals("2")) ultraFineDust.setText("보통");
+                        else if(ufd.equals("3")) ultraFineDust.setText("나쁨");
+                        else if(ufd.equals("4")) ultraFineDust.setText("매우나쁨");
+
+                        Log.d("airair", response.body().getList().get(0).getPm10Grade1h());
+                        Log.d("airair", response.body().getList().get(0).getPm25Grade1h());
                     }
 
                     @Override
@@ -203,6 +233,7 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
                 Log.d("airair", t.getMessage());
             }
         });
+        //여기까지 날씨, 미세먼지
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

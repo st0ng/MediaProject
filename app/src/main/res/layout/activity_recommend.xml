@@ -21,18 +21,120 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:padding="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/foot_font_r"
+                    android:text="TODAY" />
+
+                <ImageView
+                    android:src="@drawable/iconfinder_sunandcloud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp" />
+
+
+                <TextView
+                    android:id="@+id/temperatures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="30dp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/foot_font_r"
+                    android:layout_marginBottom="20dp"
+                    android:text="°C" />
+
+                <TextView
+                    android:id="@+id/weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/foot_font_l"
+                    android:layout_marginBottom="20dp"
+                    android:text="날씨" />
+
+                <LinearLayout
+                    android:background="#F2F3F4"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:layout_marginVertical="15dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="미세먼지" />
+
+                        <TextView
+                            android:id="@+id/FineDust"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="미세" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginVertical="15dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="초미세먼지" />
+
+                        <TextView
+                            android:id="@+id/UltraFineDust"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="초미세" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:paddingVertical="10dp"
+                android:paddingVertical="15dp"
                 android:orientation="vertical"
                 android:background="@drawable/round_corner">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/foot_font_l"
+                    android:textSize="20dp"
                     android:textColor="#000000"
                     android:paddingLeft="15dp"
                     android:text="주변 나들이" />
@@ -52,15 +154,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:paddingVertical="10dp"
+                android:paddingVertical="15dp"
                 android:orientation="vertical"
                 android:background="@drawable/round_corner">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/foot_font_l"
+                    android:textSize="20dp"
                     android:textColor="#000000"
                     android:paddingLeft="15dp"
                     android:text="주변 여행지 리스트" />
@@ -77,15 +179,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:paddingVertical="10dp"
+                android:paddingVertical="15dp"
                 android:orientation="vertical"
                 android:background="@drawable/round_corner">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/foot_font_l"
+                    android:textSize="20dp"
                     android:textColor="#000000"
                     android:paddingLeft="15dp"
                     android:text="주변 음식점 리스트" />
@@ -102,15 +204,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:paddingVertical="10dp"
+                android:paddingVertical="15dp"
                 android:orientation="vertical"
                 android:background="@drawable/round_corner">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/foot_font_l"
+                    android:textSize="20dp"
                     android:textColor="#000000"
                     android:paddingLeft="15dp"
                     android:text="주변 숙박지 리스트" />
