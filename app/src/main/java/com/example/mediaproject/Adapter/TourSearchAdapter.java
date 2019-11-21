@@ -51,38 +51,43 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof TourSearchHolder) {
-            ((TourSearchHolder) holder).TourTitle.setText(tourSearchData.get(position).getTitle());
-            ((TourSearchHolder) holder).TourAdd1.setText(tourSearchData.get(position).getAddr1());
+            if(tourSearchData.size() != 0){
+                ((TourSearchHolder) holder).TourTitle.setText(tourSearchData.get(position).getTitle());
+                ((TourSearchHolder) holder).TourAdd1.setText(tourSearchData.get(position).getAddr1());
 
-            RequestOptions myOptions = new RequestOptions()
-                    .fitCenter()
-                    .override(85, 85);
+                RequestOptions myOptions = new RequestOptions()
+                        .fitCenter()
+                        .override(85, 85);
 
-            Glide.with(((TourSearchHolder) holder).TourImage.getContext())
-                    .load(tourSearchData.get(position).getFirstimage())
-                    .apply(new RequestOptions().override(75, 75))
-                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
-                    .into(((TourSearchHolder) holder).TourImage);
+                Glide.with(((TourSearchHolder) holder).TourImage.getContext())
+                        .load(tourSearchData.get(position).getFirstimage())
+                        .apply(new RequestOptions().override(75, 75))
+                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
+                        .into(((TourSearchHolder) holder).TourImage);
 
-            ((TourSearchHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(ThisView, TouristSpotActivity.class);
-                    intent.putExtra("contentid", tourSearchData.get(position).getContentid());
-                    Log.d("TourSearchAdapter", tourSearchData.get(position).getContentid().toString());
-                    intent.putExtra("photo", tourSearchData.get(position).getFirstimage());
-                    intent.putExtra("title", tourSearchData.get(position).getTitle());
-                    intent.putExtra("addr", tourSearchData.get(position).getAddr1());
-                    intent.putExtra("dist",tourSearchData.get(position).getDist());
-                    intent.putExtra("tel", tourSearchData.get(position).getTel());
-                    intent.putExtra("mapX",tourSearchData.get(position).getMapx());
-                    intent.putExtra("mapY",tourSearchData.get(position).getMapy());
-                    intent.putExtra("cat2",tourSearchData.get(position).getCat2());
-                    intent.putExtra("cat3",tourSearchData.get(position).getCat3());
-                    ThisView.startActivity(intent);
+                ((TourSearchHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ThisView, TouristSpotActivity.class);
+                        intent.putExtra("contentid", tourSearchData.get(position).getContentid());
+                        Log.d("TourSearchAdapter", tourSearchData.get(position).getContentid().toString());
+                        intent.putExtra("photo", tourSearchData.get(position).getFirstimage());
+                        intent.putExtra("title", tourSearchData.get(position).getTitle());
+                        intent.putExtra("addr", tourSearchData.get(position).getAddr1());
+                        intent.putExtra("dist",tourSearchData.get(position).getDist());
+                        intent.putExtra("tel", tourSearchData.get(position).getTel());
+                        intent.putExtra("mapX",tourSearchData.get(position).getMapx());
+                        intent.putExtra("mapY",tourSearchData.get(position).getMapy());
+                        intent.putExtra("cat2",tourSearchData.get(position).getCat2());
+                        intent.putExtra("cat3",tourSearchData.get(position).getCat3());
+                        ThisView.startActivity(intent);
 
-                }
-            });
+                    }
+                });
+            }else{ //검색 데이터가 0개 일때
+
+            }
+
         }
     }
 
@@ -96,6 +101,7 @@ public class TourSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView TourTitle;
         TextView TourAdd1;
         ImageView TourImage;
+
 
         public TourSearchHolder(@NonNull View itemView) {
             super(itemView);

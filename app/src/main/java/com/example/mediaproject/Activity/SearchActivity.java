@@ -56,6 +56,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     private Button search_act;
     private EditText edit;
+    private EditText Search_NullData;
 
 
 //    private CheckBox Search_Nature;
@@ -105,6 +106,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         Search_Shopping = findViewById(R.id.Search_Shopping);
         Search_Food = findViewById(R.id.Search_Food);
         search_act = findViewById(R.id.search_act);
+
 
         context = this;
 

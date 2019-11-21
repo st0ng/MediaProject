@@ -81,21 +81,25 @@
                 android:text="1. 방문지만의 고유한 특성이 있었습니까?" />
 
             <RadioGroup
+                android:id="@+id/Question1"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
+                    android:id="@+id/Question1_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="예" />
 
                 <RadioButton
+                    android:id="@+id/Question1_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="글쎄요" />
 
                 <RadioButton
+                    android:id="@+id/Question1_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아니요" />
@@ -119,21 +123,25 @@
                 android:text="2. 방문지의 접근은 편리하였나요?" />
 
             <RadioGroup
+                android:id="@+id/Question2"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
+                    android:id="@+id/Question2_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="예" />
 
                 <RadioButton
+                    android:id="@+id/Question2_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="글쎄요" />
 
                 <RadioButton
+                    android:id="@+id/Question2_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아니요" />
@@ -157,21 +165,25 @@
                 android:text="3. 방문지에서 추가적인 비용이 발생하였나요?" />
 
             <RadioGroup
+                android:id="@+id/Question3"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
+                    android:id="@+id/Question3_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="예" />
 
                 <RadioButton
+                    android:id="@+id/Question3_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="글쎄요" />
 
                 <RadioButton
+                    android:id="@+id/Question3_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아니요" />
@@ -195,21 +207,25 @@
                 android:text="4. 방문지에서의 경험에 만족하셨습니까?" />
 
             <RadioGroup
+                android:id="@+id/Question4"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
+                    android:id="@+id/Question4_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="예" />
 
                 <RadioButton
+                    android:id="@+id/Question4_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="글쎄요" />
 
                 <RadioButton
+                    android:id="@+id/Question4_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아니요" />
@@ -233,21 +249,25 @@
                 android:text="5. 방문지를 재방문하거나 주위에 추천하실 의향이 있으십니까?" />
 
             <RadioGroup
+                android:id="@+id/Question5"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
+                    android:id="@+id/Question5_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="예" />
 
                 <RadioButton
+                    android:id="@+id/Question5_normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="글쎄요" />
 
                 <RadioButton
+                    android:id="@+id/Question5_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아니요" />
@@ -266,6 +286,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/btn_outline"
-        android:text="저장하기"/>
+        android:text="평가하기"/>
 
 </LinearLayout>

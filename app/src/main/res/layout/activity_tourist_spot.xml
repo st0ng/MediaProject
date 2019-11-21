@@ -88,12 +88,13 @@
                 android:layout_marginTop="5dp"
                 android:isIndicator="false"
                 android:numStars="5"
-                android:stepSize="0.5"
+                android:stepSize="0.1"
                 android:clickable="false"
                 android:focusableInTouchMode="false"
                 android:focusable="false"/>
 
             <TextView
+                android:id="@+id/TourRatingBarScope"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -270,10 +270,10 @@ public class UpdateUserInfo extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.Update_male) {
-            Toast.makeText(UpdateUserInfo.this, "남자", Toast.LENGTH_LONG).show();
+//            Toast.makeText(UpdateUserInfo.this, "남자", Toast.LENGTH_LONG).show();
             UserSex = "남자";
         } else if (checkedId == R.id.Update_female) {
-            Toast.makeText(UpdateUserInfo.this, "여자", Toast.LENGTH_LONG).show();
+//            Toast.makeText(UpdateUserInfo.this, "여자", Toast.LENGTH_LONG).show();
             UserSex = "여자";
         } else {
             UserSex = null;

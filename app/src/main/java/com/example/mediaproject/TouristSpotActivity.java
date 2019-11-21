@@ -2,7 +2,7 @@ package com.example.mediaproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,6 +70,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private TextView tour_spot2;
     private TextView TourList_HeartCount;
     private TextView TourList_SurveyCount;
+    private TextView TourRatingBarScope;
 
 
     private LinearLayout location_layout;
@@ -115,12 +116,18 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         homepage_textview = (TextView) findViewById(R.id.homepage_textview);
         TourList_HeartCount = (TextView) findViewById(R.id.TourList_HeartCount);
         TourList_SurveyCount = (TextView) findViewById(R.id.TourList_SurveyCount);
-
+        TourRatingBarScope = (TextView) findViewById(R.id.TourRatingBarScope);
         tour_spot1 = findViewById(R.id.Tourspot_type1);
         tour_spot2 = findViewById(R.id.Tourspot_type2);
 
-
         TourRatingBar = (RatingBar) findViewById(R.id.TourRatingBar);
+        TourRatingBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
 
         TourList_Survey = (ImageView) findViewById(R.id.TourList_Survey);
         TourList_Survey.setOnClickListener(new View.OnClickListener() {
@@ -263,8 +270,37 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                         TourList_SurveyCount.setText(stringcount);
 
                         if (count != 0) {
-                            average = (sum / count);
-                            Log.d("ttttt", String.valueOf(average));
+                            average = ((float) sum / count);
+                            average = (float) (Math.round(average * 10) / 10.0);
+                            TourRatingBarScope.setText(Float.toString(average));
+
+
+//                            if (0 <= average && average < 0.5) {
+//                                average = 0;
+//                            } else if (0.5 <= average && average < 1.0) {
+//                                average = (float) 0.5;
+//                            } else if (1.0 <= average && average < 1.5) {
+//                                average = (float) 1.0;
+//                            } else if (1.5 <= average && average < 2.0) {
+//                                average = (float) 1.5;
+//                            } else if (2.0 <= average && average < 2.5) {
+//                                average = (float) 2.0;
+//                            } else if (2.5 <= average && average < 3.0) {
+//                                average = (float) 2.5;
+//                            } else if (3.0 <= average && average < 3.5) {
+//                                average = (float) 3.0;
+//                            } else if (3.5 <= average && average < 4.0) {
+//                                average = (float) 3.5;
+//                            } else if (4.0 <= average && average < 4.5) {
+//                                average = (float) 4.0;
+//                            } else if (4.5 <= average && average < 5.0) {
+//                                average = (float) 4.5;
+//                            } else {
+//                                average = (float) 5.0;
+//                            }
+
+                            TourRatingBar.setRating(average);
+
                         }
 
 
