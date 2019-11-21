@@ -61,7 +61,7 @@ public class AccountListActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     TourInfoModel get = snapshot.getValue(TourInfoModel.class);
                     if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
-                        data.add(new TourInfoData(get.TourTitle, get.TourImage, get.TourAddr, get.TourContentId, get.evaluationCount, get.starCount, get.evaluation, get.stars));
+                        data.add(new TourInfoData(get.TourTitle, get.TourImage, get.TourAddr, get.TourContentId, get.starCount, get.EvaluationCount, get.stars, get.Evaluations));
                         String UidKey = snapshot.getKey();
                         list.add(UidKey);
                     }
@@ -93,7 +93,7 @@ public class AccountListActivity extends AppCompatActivity {
                         UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
                         if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
-                            data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount,get.CommentCount, get.stars,get.Comments));
+                            data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.CommentCount, get.stars, get.Comments));
                             String UidKey = snapshot.getKey();
                             UidLists.add(UidKey);
                         }

@@ -16,4 +16,5 @@
     <string name="title_activity_account_list">AccountListActivity</string>
     <string name="title_activity_update_user_info">UpdateUserInfo</string>
     <string name="title_activity_chat">chatActivity</string>
+    <string name="title_activity_evaluation">EvaluationActivity</string>
 </resources>

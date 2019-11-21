@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EvaluationActivity"
+    android:orientation="vertical">
+
+    <RatingBar
+        android:id="@+id/EvaluationRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:stepSize="0.5" />
+
+
+    <TextView
+        android:id="@+id/EvaluationScope"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0"/>
+
+    <Button
+        android:id="@+id/EvaluationLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저장하기"/>
+
+</LinearLayout>

@@ -54,6 +54,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private RatingBar TourRatingBar;
     private ImageView TourList_Heart;
     private ImageView SpotImage;
+    private ImageView TourList_Survey;
     private TextView TourTitle;
     private TextView location_textview;
     private TextView location2_textview;
@@ -61,6 +62,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private TextView telephone_textview;
     private TextView overview_textview;
     private TextView homepage_textview;
+
 
     private LinearLayout location_layout;
     private LinearLayout location2_layout;
@@ -92,6 +94,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
         TourTitle = (TextView) findViewById(R.id.TourTitle);
 
+
         location_textview = (TextView) findViewById(R.id.location_textview);
         location2_textview = (TextView) findViewById(R.id.location2_textview);
         distance_textview = (TextView) findViewById(R.id.distance_textview);
@@ -100,6 +103,16 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         homepage_textview = (TextView) findViewById(R.id.homepage_textview);
         TourRatingBar = (RatingBar) findViewById(R.id.TourRatingBar);
 
+        TourList_Survey = (ImageView) findViewById(R.id.TourList_Survey);
+        TourList_Survey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TouristSpotActivity.this , EvaluationActivity.class);
+                intent.putExtra("title",title);
+                startActivity(intent);
+            }
+        });
+
 
         location_layout = (LinearLayout) findViewById(R.id.location_layout);
         location2_layout = (LinearLayout) findViewById(R.id.location2_layout);
@@ -107,6 +120,11 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         telephone_layout = (LinearLayout) findViewById(R.id.telephone_layout);
         overview_layout = (LinearLayout) findViewById(R.id.overview_layout);
         homepage_layout = (LinearLayout) findViewById(R.id.telephone_layout);
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -141,11 +159,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             TourInfo(contentid);
         }
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        firebaseDatabase.getReference().child("TourInfo").addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference().child("TourInfo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 checklist = false;
@@ -155,6 +170,25 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
                     if (listkey.equals(title)) {
                         checklist = true;
+
+
+//                        firebaseDatabase.getReference().child("TourInfo").child(listkey).addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                TourInfoModel get = dataSnapshot.getValue(TourInfoModel.class);
+//                                Map<String, Float> Scope;
+//                                Scope = get.TourScope;
+//                                String name = firebaseAuth.getCurrentUser().getUid();
+//                                TourRatingBar.setRating(Scope.get(name));
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+
+
                         break;
                     }
 
@@ -214,7 +248,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
         mMap = googleMap;
 
-        LatLng spotLoc = new LatLng(mY,mX);
+        LatLng spotLoc = new LatLng(mY, mX);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(spotLoc);
@@ -355,4 +389,6 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
 
     }
+
+
 }

@@ -8,24 +8,26 @@ public class TourInfoData {
     public String TourImage;
     public String TourAddr;
     public int TourContentId = 0;
-    public int evaluationCount = 0;
     public int starCount = 0;
-    public Map<String, Double> evaluation = new HashMap<>();
+    public int EvaluationCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
+    public Object Evaluations;
 
     public TourInfoData() {
 
     }
 
-    public TourInfoData(String TourTitle, String TourImage, String TourAddr, int TourContentId, int evaluationCount, int starCount, Map<String, Double> evaluation, Map<String, Boolean> stars) {
+    public TourInfoData(String TourTitle, String TourImage, String TourAddr,
+                        int TourContentId, int starCount, int EvaluationCount, Map<String, Boolean> stars,
+                        Object Evaluations) {
         this.TourTitle = TourTitle;
         this.TourImage = TourImage;
         this.TourAddr = TourAddr;
         this.TourContentId = TourContentId;
         this.starCount = starCount;
-        this.evaluationCount = evaluationCount;
+        this.EvaluationCount = EvaluationCount;
         this.stars = stars;
-        this.evaluation = evaluation;
+        this.Evaluations = Evaluations;
     }
 
     public Map<String, Object> toMap() {
@@ -34,13 +36,14 @@ public class TourInfoData {
         result.put("TourImage", TourImage);
         result.put("TourAddr", TourAddr);
         result.put("TourContentId", TourContentId);
-        result.put("evaluationCount", evaluationCount);
+
         result.put("starCount", starCount);
-        result.put("evaluation", evaluation);
+        result.put("EvaluationCount", EvaluationCount);
+
         result.put("stars", stars);
+        result.put("Evaluations", Evaluations);
         return result;
     }
-
 
     public String getTourTitle() {
         return TourTitle;
@@ -48,18 +51,6 @@ public class TourInfoData {
 
     public void setTourTitle(String tourTitle) {
         TourTitle = tourTitle;
-    }
-
-    public int getEvaluationCount() {
-        return evaluationCount;
-    }
-
-    public void setEvaluationCount(int evaluationCount) {
-        this.evaluationCount = evaluationCount;
-    }
-
-    public int getStarCount() {
-        return starCount;
     }
 
     public String getTourImage() {
@@ -78,17 +69,23 @@ public class TourInfoData {
         TourAddr = tourAddr;
     }
 
+    public int getTourContentId() {
+        return TourContentId;
+    }
+
+    public void setTourContentId(int tourContentId) {
+        TourContentId = tourContentId;
+    }
+
+
+    public int getStarCount() {
+        return starCount;
+    }
+
     public void setStarCount(int starCount) {
         this.starCount = starCount;
     }
 
-    public Map<String, Double> getEvaluation() {
-        return evaluation;
-    }
-
-    public void setEvaluation(Map<String, Double> evaluation) {
-        this.evaluation = evaluation;
-    }
 
     public Map<String, Boolean> getStars() {
         return stars;
@@ -98,12 +95,12 @@ public class TourInfoData {
         this.stars = stars;
     }
 
-    public int getTourContentId() {
-        return TourContentId;
+    public Object getEvaluations() {
+        return Evaluations;
     }
 
-    public void setTourContentId(int tourContentId) {
-        TourContentId = tourContentId;
+    public void setEvaluations(Object evaluations) {
+        Evaluations = evaluations;
     }
 }
 
