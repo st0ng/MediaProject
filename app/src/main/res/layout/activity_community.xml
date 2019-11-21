@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:textColor="@color/colorBlack"
+        android:fontFamily="@font/foot_font_l"
         android:text="커뮤니티" />
 
     <LinearLayout
