@@ -116,6 +116,7 @@ public class CommentActicity extends AppCompatActivity {
 
 
                     notifyDataSetChanged();
+                    CommnitiyCommentRecyclerView.scrollToPosition(comment.size() - 1);
                 }
 
                 @Override
