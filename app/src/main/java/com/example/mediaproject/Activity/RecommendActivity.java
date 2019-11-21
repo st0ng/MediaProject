@@ -16,6 +16,7 @@ import com.example.mediaproject.Adapter.TourSearchAdapter;
 import com.example.mediaproject.AirQuality.AirApiService;
 import com.example.mediaproject.AirQuality.Airapi;
 import com.example.mediaproject.Data.TourSearchData;
+import com.example.mediaproject.Data.WeatherTypeData;
 import com.example.mediaproject.GpsTracker;
 import com.example.mediaproject.R;
 import com.example.mediaproject.StationApi.StationApi;
@@ -36,6 +37,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -94,6 +96,7 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         String address = getCurrentAddress(latitude, longitude);
 
+
         String locaddr[] = address.split(" ");
         Log.d("shit", address);
         final Gson gson = new GsonBuilder()
@@ -110,8 +113,14 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         getWeather.enqueue(new Callback<WeatherApi>() {
             @Override
             public void onResponse(Call<WeatherApi> call, Response<WeatherApi> response) {
+
+                WeatherTypeData weatherTypeData = new WeatherTypeData();
+                HashMap<String,String> weatherMap = weatherTypeData.WeatherType;
                 String weather = response.body().getWeather().get(0).getMain();
-                Log.d("shit",weather);
+                String weatherKor = weatherMap.get(weather);
+                Log.d("airair",weatherKor);
+                Double temp = response.body().getMain().getTemp()- 273.15;
+                Log.d("airair","temp " + temp);
             }
 
             @Override
