@@ -22,6 +22,8 @@ import com.example.mediaproject.StationApi.StationApi;
 import com.example.mediaproject.StationApi.StationApiService;
 import com.example.mediaproject.TourApi.LoadTourApi;
 import com.example.mediaproject.TourApi.Model.TourDataRES;
+import com.example.mediaproject.Weather.WeatherApi;
+import com.example.mediaproject.Weather.WeatherApiService;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -97,6 +99,26 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         final Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
+
+        //날씨 받아오기
+        Retrofit retrofit3 = new Retrofit.Builder()
+                .baseUrl("http://api.openweathermap.org/data/2.5/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        WeatherApiService weatherApiService = retrofit3.create(WeatherApiService.class);
+        Call<WeatherApi> getWeather = weatherApiService.getWeather(latitude,longitude);
+        getWeather.enqueue(new Callback<WeatherApi>() {
+            @Override
+            public void onResponse(Call<WeatherApi> call, Response<WeatherApi> response) {
+                String weather = response.body().getWeather().get(0).getMain();
+                Log.d("shit",weather);
+            }
+
+            @Override
+            public void onFailure(Call<WeatherApi> call, Throwable t) {
+                Log.d("shit","날씨 받아오는 것 실패 ㅠㅠㅠㅠㅠㅠ");
+            }
+        });
 
         Retrofit retrofit2 = new Retrofit.Builder()
                 .baseUrl("http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/")
