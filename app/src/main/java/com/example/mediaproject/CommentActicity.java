@@ -71,9 +71,10 @@ public class CommentActicity extends AppCompatActivity {
                 CommentModel load = new CommentModel();
                 load.Uid = firebaseAuth.getCurrentUser().getUid();
                 load.Messages = String.valueOf(CommentContent.getText());
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 E요일 a h:mm");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd E요일 HH:mm");
                 Date now = new Date();
                 load.Date = formatter.format(now);
+                CommentContent.setText("");
                 firebaseDatabase.getReference().child("UserTourListImage/" + UidLists + "/Comments").push().setValue(load).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

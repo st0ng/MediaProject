@@ -8,11 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -31,23 +34,36 @@
                 android:id="@+id/ChatUid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
+                android:textStyle="bold"
                 android:text="uid" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/ChatComment"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="15dp"
             android:text="content" />
 
         <TextView
             android:id="@+id/Chatdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="12dp"
             android:text="date" />
+
+        <LinearLayout
+            android:background="#CCCCCC"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 
