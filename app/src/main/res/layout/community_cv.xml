@@ -91,8 +91,9 @@
                         android:id="@+id/CommnitiyLikeCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="좋아요 0 개"
-                        android:layout_below="@+id/CommnityCheckedLike"
+                        android:text="좋아요 0개"
+                        android:layout_toRightOf="@+id/CommnityCheckedLike"
+                        android:layout_marginLeft="10dp"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorBlack"/>
@@ -122,9 +123,6 @@
                 <!--                    android:layout_alignEnd="@+id/CommnitiySetComment"-->
 
             </RelativeLayout>
-
-
-
 
 
             <ImageView

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 
@@ -54,6 +55,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private Chip Search_Food;
 
     private Button search_act;
+    private EditText edit;
 
 
 //    private CheckBox Search_Nature;
@@ -105,6 +107,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         search_act = findViewById(R.id.search_act);
 
         context = this;
+
 
 
 //        Search_Nature = (CheckBox) findViewById(R.id.Search_Nature);
