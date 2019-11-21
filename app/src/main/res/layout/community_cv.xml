@@ -98,28 +98,28 @@
                         android:textColor="@color/colorBlack"/>
 
 
-                <Button
-                    android:id="@+id/CommnitiySetComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="댓글달기" />
+<!--                <Button-->
+<!--                    android:id="@+id/CommnitiySetComment"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:text="댓글달기" />-->
 
                 <TextView
                     android:id="@+id/CommnitiyCommentCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/CommnitiySetComment"
-                    android:layout_alignEnd="@+id/CommnitiySetComment"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
                     android:foregroundGravity="center"
                     android:gravity="center"
-                    android:text="댓글 0 개"
+                    android:text="댓글 0개"
                     android:textColor="@color/colorBlack"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-
+                <!--                    android:layout_below="@+id/CommnitiySetComment"-->
+                <!--                    android:layout_alignEnd="@+id/CommnitiySetComment"-->
 
             </RelativeLayout>
 

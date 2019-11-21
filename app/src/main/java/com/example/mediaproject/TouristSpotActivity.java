@@ -53,6 +53,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
 
     private RatingBar TourRatingBar;
+    private ImageView TourUpload;
     private ImageView TourList_Heart;
     private ImageView SpotImage;
     private TextView TourTitle;
@@ -95,6 +96,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         String cat3_key = intent.getExtras().getString("cat3");
 
 
+        TourUpload = (ImageView) findViewById(R.id.TourList_Upload);
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
         TourTitle = (TextView) findViewById(R.id.TourTitle);
 
@@ -133,6 +135,14 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             tour_spot2.setText(cat3);
         }
 
+        TourUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TouristSpotActivity.this, CommunityTourListLoad.class);
+                startActivity(intent);
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
@@ -147,7 +157,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             location_layout.setVisibility(View.GONE);
         }
 
-        if (dist != "0") { //거리
+        if (!dist.equals("0m")) { //거리
             distance_layout.setVisibility(View.VISIBLE);
             distance_textview.setText(dist);
         } else {

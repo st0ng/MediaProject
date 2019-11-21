@@ -31,8 +31,6 @@ public class CommunityActivity extends BaseActivity {
     protected FirebaseDatabase firebaseDatabase;
     protected FirebaseAuth firebaseAuth;
 
-
-    private Button CommunityTourListUploadButton;
     private RecyclerView recyclerView;
     private UserTourListAdapter userTourListAdapter;
 
@@ -44,16 +42,6 @@ public class CommunityActivity extends BaseActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-
-
-        CommunityTourListUploadButton = (Button) findViewById(R.id.CommunityTourListUploadButton);
-        CommunityTourListUploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CommunityActivity.this, CommunityTourListLoad.class);
-                startActivity(intent);
-            }
-        });
 
 
         recyclerView = (RecyclerView) findViewById(R.id.CommunityTourListRecyclerView);
