@@ -37,6 +37,9 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout Account_SelectedTourList;
     private LinearLayout Account_SelectedHeartList;
     private LinearLayout Account_MyLoadList;
+    private LinearLayout Account_getHeartUser;
+    private LinearLayout Account_Followers;
+    private LinearLayout Account_Following;
     private ImageView AccountUserImage;
     private TextView AccountUserName;
     private Button Update_UserInfoButton;
@@ -54,12 +57,18 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         TourLost_Myheart_count = (TextView) findViewById(R.id.TourLost_Myheart_count);
         TourInfo_Myheart_count = (TextView) findViewById(R.id.TourInfo_Myheart_count);
         TourLost_MyLoad_count = (TextView) findViewById(R.id.TourLost_MyLoad_count);
+        AccountUserName = (TextView) findViewById(R.id.AccountUserName);
+
         Account_SelectedTourList = (LinearLayout) findViewById(R.id.Account_SelectedTourList);
         Account_SelectedHeartList = (LinearLayout) findViewById(R.id.Account_SelectedHeartList);
         Account_MyLoadList = (LinearLayout) findViewById(R.id.Account_MyLoadList);
+        Account_getHeartUser = (LinearLayout) findViewById(R.id.Account_getHeartUser);
+        Account_Followers = (LinearLayout) findViewById(R.id.Account_Followers);
+        Account_Following = (LinearLayout) findViewById(R.id.Account_Following);
+
         Update_UserInfoButton = (Button) findViewById(R.id.Update_UserInfo);
         AccountUserImage = (ImageView) findViewById(R.id.AccountUserImage);
-        AccountUserName = (TextView) findViewById(R.id.AccountUserName);
+
 
         Update_UserInfoButton.setOnClickListener(this);
         Account_SelectedTourList.setOnClickListener(this);
@@ -67,18 +76,12 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         Account_MyLoadList.setOnClickListener(this);
 
 
-//        GradientDrawable drawable = (GradientDrawable) this.getDrawable(R.drawable.backfround_rounding);
-//        UserImage.setBackground(drawable);
-//        UserImage.setClipToOutline(true);
-//        UserImage.setBackground(new ShapeDrawable(new OvalShape()));
-//        UserImage.setClipToOutline(true);
-
         Button logOut = (Button) findViewById(R.id.logout_button);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
-                //LoginManager.getInstance().logOut();
+//                LoginManager.getInstance().logOut();
                 Intent intent = new Intent(AccountActivity.this, LoginActivityNew.class);
                 startActivity(intent);
                 finish();
@@ -181,6 +184,18 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         } else if (v.getId() == R.id.Account_MyLoadList) {
             Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
             intent.putExtra("ListCheck", 2);
+            startActivity(intent);
+        }else if (v.getId() == R.id.Account_Followers) {
+            Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
+            intent.putExtra("ListCheck", 3);
+            startActivity(intent);
+        }else if (v.getId() == R.id.Account_Following) {
+            Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
+            intent.putExtra("ListCheck", 4);
+            startActivity(intent);
+        }else if (v.getId() == R.id.Account_getHeartUser) {
+            Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
+            intent.putExtra("ListCheck", 5);
             startActivity(intent);
         }else if (v.getId() == R.id.Update_UserInfo) {
             Intent intent = new Intent(AccountActivity.this, UpdateUserInfo.class);

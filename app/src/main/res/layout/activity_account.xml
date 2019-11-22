@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -37,104 +37,106 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/AccountUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="UserDisplayname"
-            android:textColor="@color/colorBlack"
-            android:fontFamily="@font/foot_font_r"
-            android:textSize="25dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:background="#CCCCCC"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="vertical">
-
             <TextView
+                android:id="@+id/AccountUserName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/foot_font_l"
-                android:textColor="@color/colorBlack"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/foot_font_r"
                 android:gravity="center"
-                android:text="0개"/>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/foot_font_l"
+                android:text="UserDisplayname"
                 android:textColor="@color/colorBlack"
-                android:gravity="center"
-                android:text="팔로워"/>
-
+                android:textSize="25dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/foot_font_l"
-                android:textColor="@color/colorBlack"
-                android:gravity="center"
-                android:text="0개"/>
+                android:layout_height="1dp"
+                android:background="#CCCCCC" />
 
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/foot_font_l"
-                android:textColor="@color/colorBlack"
-                android:gravity="center"
-                android:text="팔로잉"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/Account_Followers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/foot_font_l"
+                        android:gravity="center"
+                        android:text="0개"
+                        android:textColor="@color/colorBlack" />
 
-            <TextView
-                android:id="@+id/Account_GetHeartCount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/foot_font_l"
-                android:textColor="@color/colorBlack"
-                android:gravity="center"
-                android:text="0개"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/foot_font_l"
-                android:textColor="@color/colorBlack"
-                android:gravity="center"
-                android:text="받은 좋아요"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/foot_font_l"
+                        android:gravity="center"
+                        android:text="팔로워"
+                        android:textColor="@color/colorBlack" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Account_Following"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/foot_font_l"
+                        android:gravity="center"
+                        android:text="0개"
+                        android:textColor="@color/colorBlack" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/foot_font_l"
+                        android:gravity="center"
+                        android:text="팔로잉"
+                        android:textColor="@color/colorBlack" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Account_getHeartUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/Account_GetHeartCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/foot_font_l"
+                        android:gravity="center"
+                        android:text="0개"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/foot_font_l"
+                        android:gravity="center"
+                        android:text="받은 좋아요"
+                        android:textColor="@color/colorBlack" />
 
         </LinearLayout>
     </LinearLayout>

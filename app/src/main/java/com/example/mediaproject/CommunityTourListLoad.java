@@ -76,8 +76,6 @@ public class CommunityTourListLoad extends AppCompatActivity {
         addr = intent.getExtras().getString("addr");
 
 
-
-
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
