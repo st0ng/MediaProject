@@ -2,10 +2,12 @@ package com.example.mediaproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -85,6 +87,29 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private double mY;
     String title;
 
+
+    //progressbar 설정
+    private ProgressBar Q1_yes_layout;
+    private ProgressBar Q1_no_layout;
+    private ProgressBar Q1_normal_layout;
+
+    private ProgressBar Q2_yes_layout;
+    private ProgressBar Q2_no_layout;
+    private ProgressBar Q2_normal_layout;
+
+    private ProgressBar Q3_yes_layout;
+    private ProgressBar Q3_no_layout;
+    private ProgressBar Q3_normal_layout;
+
+    private ProgressBar Q4_yes_layout;
+    private ProgressBar Q4_no_layout;
+    private ProgressBar Q4_normal_layout;
+
+    private ProgressBar Q5_yes_layout;
+    private ProgressBar Q5_no_layout;
+    private ProgressBar Q5_normal_layout;
+    //progressbar 끝
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +126,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         mY = intent.getExtras().getDouble("mapY");
         String cat2_key = intent.getExtras().getString("cat2");
         String cat3_key = intent.getExtras().getString("cat3");
-
+        String addrlist[];
 
         TourUpload = (ImageView) findViewById(R.id.TourList_Upload);
         SpotImage = (ImageView) findViewById(R.id.SpotImage);
@@ -187,6 +212,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         if (addr != null) { //주소
             location_layout.setVisibility(View.VISIBLE);
             location_textview.setText(addr);
+            addrlist = addr.split(" ");
         } else {
             location_layout.setVisibility(View.GONE);
         }
@@ -317,6 +343,58 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
 
 
                         } // for end
+
+                        //progressbar 값과 연동시켜주기
+                        int Q1_yes_ratio = (int)((float)Q1_yes/count*100);
+                        int Q1_no_ratio = (int)((float)Q1_no/count*100);
+                        int Q1_normal_ratio = (int)((float)Q1_normal/count*100);
+                        Q1_yes_layout = findViewById(R.id.Question1_ProgressBar_yes);
+                        Q1_yes_layout.setProgress(Q1_yes_ratio);
+                        Q1_no_layout = findViewById(R.id.Question1_ProgressBar_no);
+                        Q1_no_layout.setProgress(Q1_no_ratio);
+                        Q1_normal_layout = findViewById(R.id.Question1_ProgressBar_normal);
+                        Q1_normal_layout.setProgress(Q1_normal_ratio);
+
+                        int Q2_yes_ratio = (int)((float)Q2_yes/count*100);
+                        int Q2_no_ratio = (int)((float)Q2_no/count*100);
+                        int Q2_normal_ratio = (int)((float)Q2_normal/count*100);
+                        Q2_yes_layout = findViewById(R.id.Question2_ProgressBar_yes);
+                        Q2_yes_layout.setProgress(Q2_yes_ratio);
+                        Q2_no_layout = findViewById(R.id.Question2_ProgressBar_no);
+                        Q2_no_layout.setProgress(Q2_no_ratio);
+                        Q2_normal_layout = findViewById(R.id.Question2_ProgressBar_normal);
+                        Q2_normal_layout.setProgress(Q2_normal_ratio);
+
+                        int Q3_yes_ratio = (int)((float)Q3_yes/count*100);
+                        int Q3_no_ratio = (int)((float)Q3_no/count*100);
+                        int Q3_normal_ratio = (int)((float)Q3_normal/count*100);
+                        Q3_yes_layout = findViewById(R.id.Question3_ProgressBar_yes);
+                        Q3_yes_layout.setProgress(Q3_yes_ratio);
+                        Q3_no_layout = findViewById(R.id.Question3_ProgressBar_no);
+                        Q3_no_layout.setProgress(Q3_no_ratio);
+                        Q3_normal_layout = findViewById(R.id.Question3_ProgressBar_normal);
+                        Q3_normal_layout.setProgress(Q3_normal_ratio);
+
+                        int Q4_yes_ratio = (int)((float)Q4_yes/count*100);
+                        int Q4_no_ratio = (int)((float)Q4_no/count*100);
+                        int Q4_normal_ratio = (int)((float)Q4_normal/count*100);
+                        Q4_yes_layout = findViewById(R.id.Question4_ProgressBar_yes);
+                        Q4_yes_layout.setProgress(Q4_yes_ratio);
+                        Q4_no_layout = findViewById(R.id.Question4_ProgressBar_no);
+                        Q4_no_layout.setProgress(Q4_no_ratio);
+                        Q4_normal_layout = findViewById(R.id.Question4_ProgressBar_normal);
+                        Q4_normal_layout.setProgress(Q4_normal_ratio);
+
+                        int Q5_yes_ratio = (int)((float)Q5_yes/count*100);
+                        int Q5_no_ratio = (int)((float)Q5_no/count*100);
+                        int Q5_normal_ratio = (int)((float)Q5_normal/count*100);
+                        Q5_yes_layout = findViewById(R.id.Question5_ProgressBar_yes);
+                        Q5_yes_layout.setProgress(Q5_yes_ratio);
+                        Q5_no_layout = findViewById(R.id.Question5_ProgressBar_no);
+                        Q5_no_layout.setProgress(Q5_no_ratio);
+                        Q5_normal_layout = findViewById(R.id.Question5_ProgressBar_normal);
+                        Q5_normal_layout.setProgress(Q5_normal_ratio);
+                        //progressbar 연동 끝
 
                         String stringcount = "평가 " + count + "개";
                         TourList_SurveyCount.setText(stringcount);

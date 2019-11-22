@@ -452,7 +452,7 @@
 
 
                         <ProgressBar
-                            android:id="@+id/Question1_ProgressBar_Normal"
+                            android:id="@+id/Question1_ProgressBar_normal"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -494,381 +494,388 @@
                     </LinearLayout>
                 </LinearLayout>
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Q2"/>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:text="예" />-->
-
-
-<!--                        <ProgressBar-->
-<!--                            android:id="@+id/Question2_ProgressBar_yes"-->
-<!--                            style="?android:attr/progressBarStyleHorizontal"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="right"-->
-<!--                            android:max="100" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="0%"/>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:text="글쎄요" />-->
-
-
-<!--                        <ProgressBar-->
-<!--                            android:id="@+id/Question2_ProgressBar_normal"-->
-<!--                            style="?android:attr/progressBarStyleHorizontal"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:max="100" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="0%"/>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:textSize="20dp"-->
-<!--                            android:text="아니요" />-->
-
-
-<!--                        <ProgressBar-->
-<!--                            android:id="@+id/Question2_ProgressBar_no"-->
-<!--                            style="?android:attr/progressBarStyleHorizontal"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:max="100" />-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="0%"/>-->
-<!--                    </LinearLayout>-->
-<!--                </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Q3"/>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="예" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question3_ProgressBar_yes"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="right"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="글쎄요" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question3_ProgressBar_normal"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="아니요" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question3_ProgressBar_no"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Q4"/>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="예" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question4_ProgressBar_yes"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="right"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="글쎄요" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question4_ProgressBar_normal"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="아니요" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question4_ProgressBar_no"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-<!--                    </LinearLayout>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Q5"/>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="예" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question5_ProgressBar_yes"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="right"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="글쎄요" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question5_ProgressBar_normal"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:textSize="20dp"-->
-<!--                                android:text="아니요" />-->
-
-
-<!--                            <ProgressBar-->
-<!--                                android:id="@+id/Question5_ProgressBar_no"-->
-<!--                                style="?android:attr/progressBarStyleHorizontal"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:max="100" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="0%"/>-->
-<!--                        </LinearLayout>-->
-<!--                    </LinearLayout>-->
 
 
 
-
-
-
-
-
+                    <LinearLayout
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:text="고유한 특성"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="예" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question2_ProgressBar_yes"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:max="100" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="글쎄요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question2_ProgressBar_normal"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="아니요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question2_ProgressBar_no"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:text="고유한 특성"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="예" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question3_ProgressBar_yes"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:max="100" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="글쎄요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question3_ProgressBar_normal"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="아니요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question3_ProgressBar_no"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:text="고유한 특성"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="예" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question4_ProgressBar_yes"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:max="100" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="글쎄요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question4_ProgressBar_normal"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="아니요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question4_ProgressBar_no"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:text="고유한 특성"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="예" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question5_ProgressBar_yes"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="12dp"
+                                android:layout_gravity="center"
+                                android:max="100" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="글쎄요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question5_ProgressBar_normal"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="아니요" />
+
+
+                            <ProgressBar
+                                android:id="@+id/Question5_ProgressBar_no"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progressDrawable="@drawable/myprogressbar" />
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
             </HorizontalScrollView>

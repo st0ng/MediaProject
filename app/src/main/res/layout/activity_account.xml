@@ -36,6 +36,8 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="UserDisplayname"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/foot_font_r"
             android:textSize="25dp" />
     </LinearLayout>
 
@@ -54,6 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorWhite"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
                 android:text="나의 프로필 보기"/>
 
             <Button
@@ -62,6 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorWhite"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
                 android:text="나의 정보 수정"/>
 
         </LinearLayout>
@@ -72,6 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
+            android:textColor="@color/colorBlack"
+            android:textSize="15dp"
             android:text="로그아웃" />
 
 
@@ -79,14 +87,18 @@
             android:id="@+id/Account_SelectedHeartList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginVertical="20dp"
+                android:layout_marginLeft="40dp"
                 android:layout_weight="1"
-                android:text="내가 선택한 게시물 하트 카운트"
+                android:text="내가 좋아요한 게시물"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
                 android:textSize="20dp" />
 
             <TextView
@@ -94,6 +106,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:textSize="20dp"
+                android:textColor="@color/colorBlack"
+                android:text="0"
+                android:fontFamily="@font/foot_font_l"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -107,9 +123,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginVertical="20dp"
+                android:layout_marginLeft="40dp"
                 android:layout_weight="1"
-                android:text="내가 선택한 관광지 하트 카운트"
+                android:text="내가 좋아요한 관광지"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
                 android:textSize="20dp" />
 
             <TextView
@@ -117,6 +136,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:textSize="20dp"
+                android:text="0"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/foot_font_l"
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
