@@ -51,36 +51,37 @@ public class AccountListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int number = intent.getExtras().getInt("ListCheck");
-        firebaseDatabase.getReference().child("TourInfo").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<TourInfoData> data = new ArrayList<>();
-                List<String> list = new ArrayList<>();
-                data.clear();
-                list.clear();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    TourInfoModel get = snapshot.getValue(TourInfoModel.class);
-                    if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
-                        data.add(new TourInfoData(get.TourTitle, get.TourImage, get.TourAddr, get.TourContentId, get.starCount, get.EvaluationCount, get.stars, get.Evaluations));
-                        String UidKey = snapshot.getKey();
-                        list.add(UidKey);
-                    }
-                } //for end
-                tourInfoAdapter = new TourInfoAdapter(data, list);
-                recyclerView.setAdapter(tourInfoAdapter);
-                tourInfoAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         if (number == 0) {
+            firebaseDatabase.getReference().child("TourInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<TourInfoData> data = new ArrayList<>();
+                    List<String> list = new ArrayList<>();
+                    data.clear();
+                    list.clear();
 
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        TourInfoModel get = snapshot.getValue(TourInfoModel.class);
+                        if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+                            data.add(new TourInfoData(get.TourTitle, get.TourImage, get.TourAddr, get.TourContentId, get.starCount, get.EvaluationCount, get.stars, get.Evaluations));
+                            String UidKey = snapshot.getKey();
+                            list.add(UidKey);
+                        }
+                    } //for end
+                    tourInfoAdapter = new TourInfoAdapter(data, list);
+                    recyclerView.setAdapter(tourInfoAdapter);
+                    tourInfoAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         } else if (number == 1) { //heart
             firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -149,25 +150,7 @@ public class AccountListActivity extends AppCompatActivity {
 
 
         } else if (number == 5) {
-//            firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                        UserTourListModel get = snapshot.getValue(UserTourListModel.class);
-//                        if (get.Uid.equals(firebaseAuth.getCurrentUser().getUid())) {
-//
-//
-//
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-
+//            recyclerView.setAdapter(new UserViewAdater());
         } else {
         }
 

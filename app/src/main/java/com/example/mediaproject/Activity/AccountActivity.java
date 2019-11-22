@@ -74,7 +74,9 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         Account_SelectedTourList.setOnClickListener(this);
         Account_SelectedHeartList.setOnClickListener(this);
         Account_MyLoadList.setOnClickListener(this);
-
+        Account_getHeartUser.setOnClickListener(this);
+        Account_Followers.setOnClickListener(this);
+        Account_Following.setOnClickListener(this);
 
         Button logOut = (Button) findViewById(R.id.logout_button);
         logOut.setOnClickListener(new View.OnClickListener() {
