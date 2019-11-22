@@ -81,7 +81,7 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-        firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int UserTourListCount = 0;
@@ -110,8 +110,7 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
                 int TourInfocount = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     TourInfoModel get = snapshot.getValue(TourInfoModel.class);
-
-                    if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
+                    if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) { //좋아요 횟수
                         TourInfocount++;
                     }
                 }
@@ -125,25 +124,20 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-        firebaseDatabase.getReference().child("UserInfo").addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference().child("UserInfo").child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                        UserModel get = snapshot1.getValue(UserModel.class);
+                UserModel get = dataSnapshot.getValue(UserModel.class);
 
-                        if (firebaseAuth.getCurrentUser().getUid().equals(get.Uid)) {
-                            Glide.with(AccountActivity.this)
-                                    .load(get.UserImage)
-                                    .apply(new RequestOptions().override(150, 150))
-                                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
-                                    .into(AccountUserImage);
+                Glide.with(AccountActivity.this)
+                        .load(get.UserImage)
+                        .apply(new RequestOptions().override(150, 150))
+                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
+                        .into(AccountUserImage);
 
-                            AccountUserName.setText(get.UserDisplayName);
+                AccountUserName.setText(get.UserDisplayName);
 
-                        }
-                    }
-                }
+
             }
 
             @Override

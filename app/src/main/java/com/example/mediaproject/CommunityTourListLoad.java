@@ -2,10 +2,8 @@ package com.example.mediaproject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -161,8 +159,11 @@ public class CommunityTourListLoad extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 try {
                     filepath = data.getData();
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
-                    CommunityTourListImage.setImageBitmap(bitmap);
+
+                    Glide.with(this).load(filepath)
+                            .into(CommunityTourListImage);
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
+//                    CommunityTourListImage.setImageBitmap(bitmap);
 
 
                 } catch (Exception e) {

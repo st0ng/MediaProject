@@ -166,7 +166,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(TouristSpotActivity.this, CommunityTourListLoad.class);
                 intent.putExtra("cat2", cat2);
                 intent.putExtra("cat3", cat3);
-                intent.putExtra("addr" , addr);
+                intent.putExtra("addr", addr);
                 startActivity(intent);
             }
         });
