@@ -1,4 +1,4 @@
-package com.example.mediaproject;
+package com.example.mediaproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import com.example.mediaproject.Data.TourInfoData;
 import com.example.mediaproject.Data.TourInfoModel;
 import com.example.mediaproject.Data.UserTourListData;
 import com.example.mediaproject.Data.UserTourListModel;
+import com.example.mediaproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,7 +51,7 @@ public class AccountListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int number = intent.getExtras().getInt("ListCheck");
-        firebaseDatabase.getReference().child("TourInfo").addValueEventListener(new ValueEventListener() {
+        firebaseDatabase.getReference().child("TourInfo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<TourInfoData> data = new ArrayList<>();
@@ -81,7 +82,7 @@ public class AccountListActivity extends AppCompatActivity {
         if (number == 0) {
 
         } else if (number == 1) { //heart
-            firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
+            firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     List<UserTourListData> data = new ArrayList<>();
@@ -93,7 +94,7 @@ public class AccountListActivity extends AppCompatActivity {
                         UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
                         if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
-                            data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.CommentCount, get.stars, get.Comments,get.Cat2,get.Cat3,get.Addr,get.Title));
+                            data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.CommentCount, get.stars, get.Comments, get.Cat2, get.Cat3, get.Addr, get.Title));
                             String UidKey = snapshot.getKey();
                             UidLists.add(UidKey);
                         }
@@ -110,6 +111,36 @@ public class AccountListActivity extends AppCompatActivity {
                 }
             });
 
+
+        } else if (number == 2) {
+            firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<UserTourListData> data = new ArrayList<>();
+                    List<String> UidLists = new ArrayList<>();
+                    data.clear();
+                    UidLists.clear();
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        UserTourListModel get = snapshot.getValue(UserTourListModel.class);
+
+                        if (get.Uid.equals(firebaseAuth.getCurrentUser().getUid())) {
+                            data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.CommentCount, get.stars, get.Comments, get.Cat2, get.Cat3, get.Addr, get.Title));
+                            String UidKey = snapshot.getKey();
+                            UidLists.add(UidKey);
+                        }
+                    }
+                    userTourListAdapter = new UserTourListAdapter(data, UidLists);
+                    recyclerView.setAdapter(userTourListAdapter);
+                    userTourListAdapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         } else {
 

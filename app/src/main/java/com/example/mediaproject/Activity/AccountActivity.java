@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.mediaproject.AccountListActivity;
 import com.example.mediaproject.Data.TourInfoModel;
 import com.example.mediaproject.Data.UserModel;
 import com.example.mediaproject.Data.UserTourListModel;
@@ -34,8 +33,10 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
 
     private TextView TourLost_Myheart_count;
     private TextView TourInfo_Myheart_count;
+    private TextView TourLost_MyLoad_count;
     private LinearLayout Account_SelectedTourList;
     private LinearLayout Account_SelectedHeartList;
+    private LinearLayout Account_MyLoadList;
     private ImageView AccountUserImage;
     private TextView AccountUserName;
     private Button Update_UserInfoButton;
@@ -52,8 +53,10 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
 
         TourLost_Myheart_count = (TextView) findViewById(R.id.TourLost_Myheart_count);
         TourInfo_Myheart_count = (TextView) findViewById(R.id.TourInfo_Myheart_count);
+        TourLost_MyLoad_count = (TextView) findViewById(R.id.TourLost_MyLoad_count);
         Account_SelectedTourList = (LinearLayout) findViewById(R.id.Account_SelectedTourList);
         Account_SelectedHeartList = (LinearLayout) findViewById(R.id.Account_SelectedHeartList);
+        Account_MyLoadList = (LinearLayout) findViewById(R.id.Account_MyLoadList);
         Update_UserInfoButton = (Button) findViewById(R.id.Update_UserInfo);
         AccountUserImage = (ImageView) findViewById(R.id.AccountUserImage);
         AccountUserName = (TextView) findViewById(R.id.AccountUserName);
@@ -61,6 +64,7 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
         Update_UserInfoButton.setOnClickListener(this);
         Account_SelectedTourList.setOnClickListener(this);
         Account_SelectedHeartList.setOnClickListener(this);
+        Account_MyLoadList.setOnClickListener(this);
 
 
 //        GradientDrawable drawable = (GradientDrawable) this.getDrawable(R.drawable.backfround_rounding);
@@ -85,15 +89,23 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int UserTourListCount = 0;
+                int UserLoadListCount = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
                     if (get.stars.containsKey(firebaseAuth.getCurrentUser().getUid())) {
                         UserTourListCount++;
                     }
+
+                    if(get.Uid.equals(firebaseAuth.getCurrentUser().getUid())){
+                        UserLoadListCount++;
+                    }
                 }
                 String count = String.valueOf(UserTourListCount);
                 TourLost_Myheart_count.setText(count);
+                String count2 = String.valueOf(UserLoadListCount);
+                TourLost_MyLoad_count.setText(count2);
+
 
 
             } // UserTourListImage end
@@ -166,7 +178,11 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
             intent.putExtra("ListCheck", 1);
             startActivity(intent);
-        } else if (v.getId() == R.id.Update_UserInfo) {
+        } else if (v.getId() == R.id.Account_MyLoadList) {
+            Intent intent = new Intent(AccountActivity.this, AccountListActivity.class);
+            intent.putExtra("ListCheck", 2);
+            startActivity(intent);
+        }else if (v.getId() == R.id.Update_UserInfo) {
             Intent intent = new Intent(AccountActivity.this, UpdateUserInfo.class);
             startActivity(intent);
         }

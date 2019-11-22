@@ -7,10 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -41,6 +50,98 @@
             android:textSize="25dp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:background="#CCCCCC"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:text="0개"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:text="팔로워"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:text="0개"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:text="팔로잉"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Account_GetHeartCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:text="0개"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/foot_font_l"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:text="받은 좋아요"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:background="#CCCCCC"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,11 +243,36 @@
                 android:fontFamily="@font/foot_font_l"
                 android:layout_weight="1" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Account_MyLoadList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/foot_font_l"
+                android:text="내가 올린 게시물      "
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/TourLost_MyLoad_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/foot_font_l"
+                android:text="0"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
+        </LinearLayout>
     </LinearLayout>
-
-
-
-
-
-
+</LinearLayout>
+    </ScrollView>
 </LinearLayout>

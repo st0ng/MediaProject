@@ -115,10 +115,7 @@
                             android:text="초미세" />
 
                     </LinearLayout>
-
                 </LinearLayout>
-
-
             </LinearLayout>
 
 
@@ -224,13 +221,6 @@
                     android:layout_marginVertical="10dp" />
 
             </LinearLayout>
-
-
-
         </LinearLayout>
-
     </ScrollView>
-
-
-
 </LinearLayout>

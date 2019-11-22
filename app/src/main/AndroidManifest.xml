@@ -23,7 +23,7 @@
             android:label=".UpdateUserInfo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AccountListActivity"
+            android:name=".Activity.AccountListActivity"
             android:label="@string/title_activity_account_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
