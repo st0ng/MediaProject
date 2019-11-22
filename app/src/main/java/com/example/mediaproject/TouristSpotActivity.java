@@ -138,7 +138,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         Intent intent = getIntent();
         title = intent.getExtras().getString("title");
         final String addr = intent.getExtras().getString("addr");
-        String dist = String.valueOf(intent.getExtras().getInt("dist")) + "m";
+        //String dist = String.valueOf(intent.getExtras().getInt("dist")) + "m";
+        int dist = intent.getExtras().getInt("dist");
         String tel = intent.getExtras().getString("tel");
         final String photo = intent.getExtras().getString("photo");
         final int contentid = intent.getExtras().getInt("contentid");
@@ -237,10 +238,23 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             location_layout.setVisibility(View.GONE);
         }
 
-        if (!dist.equals("0m")) { //거리
-            distance_layout.setVisibility(View.VISIBLE);
-            distance_textview.setText(dist);
-        } else {
+//        if (!dist.equals("0m")) { //거리
+//            distance_layout.setVisibility(View.VISIBLE);
+//            distance_textview.setText(dist);
+//        } else {
+//            distance_layout.setVisibility(View.GONE);
+//        }
+
+        if(dist!=0){
+            if(dist>0 && dist<1000){
+                distance_layout.setVisibility(View.VISIBLE);
+                distance_textview.setText(String.valueOf(dist)+"m");
+            } else{
+                float a = (float)dist/1000;
+                distance_layout.setVisibility(View.VISIBLE);
+                distance_textview.setText(String.valueOf(Math.round(a*10)/10.0)+"km");
+            }
+        } else{
             distance_layout.setVisibility(View.GONE);
         }
 

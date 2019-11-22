@@ -60,7 +60,7 @@
             android:id="@+id/CommnitiyDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:text="포스트"
             android:textSize="15sp"
@@ -71,7 +71,10 @@
             android:id="@+id/CommunityTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="됫누?"/>
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#0D538B"
+            android:text="#태그"/>
 
         <ImageView
             android:id="@+id/CommnitiyUserImage"
