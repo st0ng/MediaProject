@@ -83,25 +83,46 @@
             <RadioGroup
                 android:id="@+id/Question1"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
                     android:id="@+id/Question1_yes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="예" />
 
                 <RadioButton
                     android:id="@+id/Question1_normal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:text="글쎄요" />
 
                 <RadioButton
                     android:id="@+id/Question1_no"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="아니요" />
 
             </RadioGroup>
@@ -125,25 +146,46 @@
             <RadioGroup
                 android:id="@+id/Question2"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
                     android:id="@+id/Question2_yes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="예" />
 
                 <RadioButton
                     android:id="@+id/Question2_normal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:text="글쎄요" />
 
                 <RadioButton
                     android:id="@+id/Question2_no"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="아니요" />
 
             </RadioGroup>
@@ -167,25 +209,46 @@
             <RadioGroup
                 android:id="@+id/Question3"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
                     android:id="@+id/Question3_yes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="예" />
 
                 <RadioButton
                     android:id="@+id/Question3_normal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:text="글쎄요" />
 
                 <RadioButton
                     android:id="@+id/Question3_no"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="아니요" />
 
             </RadioGroup>
@@ -209,25 +272,46 @@
             <RadioGroup
                 android:id="@+id/Question4"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
                     android:id="@+id/Question4_yes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="예" />
 
                 <RadioButton
                     android:id="@+id/Question4_normal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:text="글쎄요" />
 
                 <RadioButton
                     android:id="@+id/Question4_no"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="아니요" />
 
             </RadioGroup>
@@ -251,25 +335,46 @@
             <RadioGroup
                 android:id="@+id/Question5"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
                     android:id="@+id/Question5_yes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="예" />
 
                 <RadioButton
                     android:id="@+id/Question5_normal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:text="글쎄요" />
 
                 <RadioButton
                     android:id="@+id/Question5_no"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/radio_states"
+                    android:textColor="@drawable/radio_text"
+                    android:button="@null"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+
                     android:text="아니요" />
 
             </RadioGroup>
