@@ -108,6 +108,26 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
     private ProgressBar Q5_yes_layout;
     private ProgressBar Q5_no_layout;
     private ProgressBar Q5_normal_layout;
+
+    private TextView Q1_yes_layout_per;
+    private TextView Q1_no_layout_per;
+    private TextView Q1_normal_layout_per;
+
+    private TextView Q2_yes_layout_per;
+    private TextView Q2_no_layout_per;
+    private TextView Q2_normal_layout_per;
+
+    private TextView Q3_yes_layout_per;
+    private TextView Q3_no_layout_per;
+    private TextView Q3_normal_layout_per;
+
+    private TextView Q4_yes_layout_per;
+    private TextView Q4_no_layout_per;
+    private TextView Q4_normal_layout_per;
+
+    private TextView Q5_yes_layout_per;
+    private TextView Q5_no_layout_per;
+    private TextView Q5_normal_layout_per;
     //progressbar 끝
 
     @Override
@@ -118,7 +138,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         Intent intent = getIntent();
         title = intent.getExtras().getString("title");
         final String addr = intent.getExtras().getString("addr");
-        String dist = String.valueOf(intent.getExtras().getInt("dist")) + "m";
+        //String dist = String.valueOf(intent.getExtras().getInt("dist")) + "m";
+        int dist = intent.getExtras().getInt("dist");
         String tel = intent.getExtras().getString("tel");
         final String photo = intent.getExtras().getString("photo");
         final int contentid = intent.getExtras().getInt("contentid");
@@ -217,10 +238,23 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             location_layout.setVisibility(View.GONE);
         }
 
-        if (!dist.equals("0m")) { //거리
-            distance_layout.setVisibility(View.VISIBLE);
-            distance_textview.setText(dist);
-        } else {
+//        if (!dist.equals("0m")) { //거리
+//            distance_layout.setVisibility(View.VISIBLE);
+//            distance_textview.setText(dist);
+//        } else {
+//            distance_layout.setVisibility(View.GONE);
+//        }
+
+        if(dist!=0){
+            if(dist>0 && dist<1000){
+                distance_layout.setVisibility(View.VISIBLE);
+                distance_textview.setText(String.valueOf(dist)+"m");
+            } else{
+                float a = (float)dist/1000;
+                distance_layout.setVisibility(View.VISIBLE);
+                distance_textview.setText(String.valueOf(Math.round(a*10)/10.0)+"km");
+            }
+        } else{
             distance_layout.setVisibility(View.GONE);
         }
 
@@ -354,6 +388,12 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                         Q1_no_layout.setProgress(Q1_no_ratio);
                         Q1_normal_layout = findViewById(R.id.Question1_ProgressBar_normal);
                         Q1_normal_layout.setProgress(Q1_normal_ratio);
+                        Q1_yes_layout_per = findViewById(R.id.Question1_ProgressBar_yes_per);
+                        Q1_no_layout_per = findViewById(R.id.Question1_ProgressBar_no_per);
+                        Q1_normal_layout_per = findViewById(R.id.Question1_ProgressBar_normal_per);
+                        Q1_yes_layout_per.setText(Q1_yes_ratio + "%");
+                        Q1_no_layout_per.setText(Q1_no_ratio + "%");
+                        Q1_normal_layout_per.setText(Q1_normal_ratio + "%");
 
                         int Q2_yes_ratio = (int)((float)Q2_yes/count*100);
                         int Q2_no_ratio = (int)((float)Q2_no/count*100);
@@ -364,6 +404,12 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                         Q2_no_layout.setProgress(Q2_no_ratio);
                         Q2_normal_layout = findViewById(R.id.Question2_ProgressBar_normal);
                         Q2_normal_layout.setProgress(Q2_normal_ratio);
+                        Q2_yes_layout_per = findViewById(R.id.Question2_ProgressBar_yes_per);
+                        Q2_no_layout_per = findViewById(R.id.Question2_ProgressBar_no_per);
+                        Q2_normal_layout_per = findViewById(R.id.Question2_ProgressBar_normal_per);
+                        Q2_yes_layout_per.setText(Q2_yes_ratio + "%");
+                        Q2_no_layout_per.setText(Q2_no_ratio + "%");
+                        Q2_normal_layout_per.setText(Q2_normal_ratio + "%");
 
                         int Q3_yes_ratio = (int)((float)Q3_yes/count*100);
                         int Q3_no_ratio = (int)((float)Q3_no/count*100);
@@ -374,6 +420,12 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                         Q3_no_layout.setProgress(Q3_no_ratio);
                         Q3_normal_layout = findViewById(R.id.Question3_ProgressBar_normal);
                         Q3_normal_layout.setProgress(Q3_normal_ratio);
+                        Q3_yes_layout_per = findViewById(R.id.Question3_ProgressBar_yes_per);
+                        Q3_no_layout_per = findViewById(R.id.Question3_ProgressBar_no_per);
+                        Q3_normal_layout_per = findViewById(R.id.Question3_ProgressBar_normal_per);
+                        Q3_yes_layout_per.setText(Q3_yes_ratio + "%");
+                        Q3_no_layout_per.setText(Q3_no_ratio + "%");
+                        Q3_normal_layout_per.setText(Q3_normal_ratio + "%");
 
                         int Q4_yes_ratio = (int)((float)Q4_yes/count*100);
                         int Q4_no_ratio = (int)((float)Q4_no/count*100);
@@ -384,6 +436,12 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                         Q4_no_layout.setProgress(Q4_no_ratio);
                         Q4_normal_layout = findViewById(R.id.Question4_ProgressBar_normal);
                         Q4_normal_layout.setProgress(Q4_normal_ratio);
+                        Q4_yes_layout_per = findViewById(R.id.Question4_ProgressBar_yes_per);
+                        Q4_no_layout_per = findViewById(R.id.Question4_ProgressBar_no_per);
+                        Q4_normal_layout_per = findViewById(R.id.Question4_ProgressBar_normal_per);
+                        Q4_yes_layout_per.setText(Q4_yes_ratio + "%");
+                        Q4_no_layout_per.setText(Q4_no_ratio + "%");
+                        Q4_normal_layout_per.setText(Q4_normal_ratio + "%");
 
                         int Q5_yes_ratio = (int)((float)Q5_yes/count*100);
                         int Q5_no_ratio = (int)((float)Q5_no/count*100);
@@ -394,6 +452,12 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                         Q5_no_layout.setProgress(Q5_no_ratio);
                         Q5_normal_layout = findViewById(R.id.Question5_ProgressBar_normal);
                         Q5_normal_layout.setProgress(Q5_normal_ratio);
+                        Q5_yes_layout_per = findViewById(R.id.Question5_ProgressBar_yes_per);
+                        Q5_no_layout_per = findViewById(R.id.Question5_ProgressBar_no_per);
+                        Q5_normal_layout_per = findViewById(R.id.Question5_ProgressBar_normal_per);
+                        Q5_yes_layout_per.setText(Q5_yes_ratio + "%");
+                        Q5_no_layout_per.setText(Q5_no_ratio + "%");
+                        Q5_normal_layout_per.setText(Q5_normal_ratio + "%");
                         //progressbar 연동 끝
 
                         String stringcount = "평가 " + count + "개";
