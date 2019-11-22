@@ -28,6 +28,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="MyProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressBackgroundTint">#DDDDDD</item>
+        <item name="android:progressTint">#F44336</item>
+        <item name="android:minWidth">200dp</item>
+    </style>
+
     <color name="buttontext">#000000</color>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

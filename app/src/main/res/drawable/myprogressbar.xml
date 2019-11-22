@@ -5,8 +5,8 @@
     android:gravity="center_vertical|fill_horizontal">
     <shape android:shape="rectangle"
         android:tint="?attr/colorControlNormal">
-        <corners android:radius="8dp"/>
-        <size android:height="20dp" />
+        <corners android:radius="0dp"/>
+        <size android:height="12dp" />
         <solid android:color="#90caf9" />
     </shape>
     </item>
@@ -16,8 +16,8 @@
         <scale android:scaleWidth="100%">
             <shape android:shape="rectangle"
                 android:tint="?attr/colorControlActivated">
-                <corners android:radius="8dp"/>
-                <size android:height="20dp" />
+                <corners android:radius="0dp"/>
+                <size android:height="12dp" />
                 <solid android:color="#b9f6ca" />
             </shape>
         </scale>
