@@ -259,11 +259,61 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                         int count = 0;
                         int sum = 0;
                         float average = 0;
+                        int Q1_yes = 0, Q1_normal = 0, Q1_no = 0,
+                                Q2_yes = 0, Q2_normal = 0, Q2_no = 0,
+                                Q3_yes = 0, Q3_normal = 0, Q3_no = 0,
+                                Q4_yes = 0, Q4_normal = 0, Q4_no = 0,
+                                Q5_yes = 0, Q5_normal = 0, Q5_no = 0;
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             EvaluationModel get = snapshot.getValue(EvaluationModel.class);
                             count++;
                             sum += get.TourScope;
+
+
+                            if(get.Question1.equals("예")){
+                                Q1_yes++;
+                            }else if(get.Question1.equals("글쎄요")) {
+                                Q1_normal++;
+                            }else if(get.Question1.equals("아니요")){
+                                Q1_no++;
+                            }
+
+                            if(get.Question2.equals("예")){
+                                Q2_yes++;
+                            }else if(get.Question2.equals("글쎄요")) {
+                                Q2_normal++;
+                            }else if(get.Question2.equals("아니요")){
+                                Q2_no++;
+                            }
+
+                            if(get.Question3.equals("예")){
+                                Q3_yes++;
+                            }else if(get.Question3.equals("글쎄요")) {
+                                Q3_normal++;
+                            }else if(get.Question3.equals("아니요")){
+                                Q3_no++;
+                            }
+
+                            if(get.Question4.equals("예")){
+                                Q4_yes++;
+                            }else if(get.Question4.equals("글쎄요")) {
+                                Q4_normal++;
+                            }else if(get.Question4.equals("아니요")){
+                                Q4_no++;
+                            }
+
+                            if(get.Question5.equals("예")){
+                                Q5_yes++;
+                            }else if(get.Question5.equals("글쎄요")) {
+                                Q5_normal++;
+                            }else if(get.Question5.equals("아니요")){
+                                Q5_no++;
+                            }
+
+
+
+
                         }
 
                         String stringcount = "평가 " + count + "개";
