@@ -395,7 +395,7 @@
                     android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="130dp"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -404,7 +404,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textColor="@color/colorBlack"
-                        android:text="고유한 특성"/>
+                        android:text="장소의 고유성"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -412,7 +412,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="50dp"
+                            android:layout_width="45dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="예" />
@@ -420,7 +420,7 @@
 
                         <ProgressBar
                             android:id="@+id/Question1_ProgressBar_yes"
-                            android:layout_width="50dp"
+                            android:layout_width="45dp"
                             android:layout_height="wrap_content"
                             android:progressDrawable="@drawable/myprogressbar"
                             android:layout_gravity="center"
@@ -429,10 +429,11 @@
                             />
 
                         <TextView
+                            android:id="@+id/Question1_ProgressBar_yes_per"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0%" />
+                            android:text="100%" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -441,7 +442,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="50dp"
+                            android:layout_width="45dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="글쎄요" />
@@ -449,13 +450,15 @@
 
                         <ProgressBar
                             android:id="@+id/Question1_ProgressBar_normal"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="wrap_content"
+                            android:layout_width="45dp"
                             android:layout_height="wrap_content"
+                            android:progressDrawable="@drawable/myprogressbar"
+                            android:layout_gravity="center"
                             android:max="100"
-                            android:progressDrawable="@drawable/myprogressbar" />
+                            style="@style/MyProgressBar"/>
 
                         <TextView
+                            android:id="@+id/Question1_ProgressBar_normal_per"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -468,7 +471,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="50dp"
+                            android:layout_width="45dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="아니요" />
@@ -476,13 +479,16 @@
 
                         <ProgressBar
                             android:id="@+id/Question1_ProgressBar_no"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="wrap_content"
+                            android:layout_width="45dp"
                             android:layout_height="wrap_content"
+                            android:progressDrawable="@drawable/myprogressbar"
+                            android:layout_gravity="center"
                             android:max="100"
-                            android:progressDrawable="@drawable/myprogressbar" />
+                            style="@style/MyProgressBar"
+                            />
 
                         <TextView
+                            android:id="@+id/Question1_ProgressBar_no_per"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -494,7 +500,7 @@
 
 
                     <LinearLayout
-                        android:layout_width="130dp"
+                        android:layout_width="132dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
@@ -503,7 +509,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:textColor="@color/colorBlack"
-                            android:text="고유한 특성"/>
+                            android:text="접근 편리성"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -511,7 +517,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="50dp"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="예" />
@@ -519,14 +525,16 @@
 
                             <ProgressBar
                                 android:id="@+id/Question2_ProgressBar_yes"
-                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="wrap_content"
                                 android:progressDrawable="@drawable/myprogressbar"
-                                android:layout_width="wrap_content"
-                                android:layout_height="12dp"
                                 android:layout_gravity="center"
-                                android:max="100" />
+                                android:max="100"
+                                style="@style/MyProgressBar"
+                                />
 
                             <TextView
+                                android:id="@+id/Question2_ProgressBar_yes_per"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -539,7 +547,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="50dp"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="글쎄요" />
@@ -547,13 +555,16 @@
 
                             <ProgressBar
                                 android:id="@+id/Question2_ProgressBar_normal"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="wrap_content"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_gravity="center"
                                 android:max="100"
-                                android:progressDrawable="@drawable/myprogressbar" />
+                                style="@style/MyProgressBar"
+                                />
 
                             <TextView
+                                android:id="@+id/Question2_ProgressBar_normal_per"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -566,7 +577,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="50dp"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="아니요" />
@@ -574,13 +585,16 @@
 
                             <ProgressBar
                                 android:id="@+id/Question2_ProgressBar_no"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="wrap_content"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_gravity="center"
                                 android:max="100"
-                                android:progressDrawable="@drawable/myprogressbar" />
+                                style="@style/MyProgressBar"
+                                />
 
                             <TextView
+                                android:id="@+id/Question2_ProgressBar_no_per"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -589,7 +603,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="130dp"
+                        android:layout_width="132dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
@@ -598,7 +612,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:textColor="@color/colorBlack"
-                            android:text="고유한 특성"/>
+                            android:text="비용 발생 정도"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -606,7 +620,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="50dp"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="예" />
@@ -614,14 +628,16 @@
 
                             <ProgressBar
                                 android:id="@+id/Question3_ProgressBar_yes"
-                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="wrap_content"
                                 android:progressDrawable="@drawable/myprogressbar"
-                                android:layout_width="wrap_content"
-                                android:layout_height="12dp"
                                 android:layout_gravity="center"
-                                android:max="100" />
+                                android:max="100"
+                                style="@style/MyProgressBar"
+                                />
 
                             <TextView
+                                android:id="@+id/Question3_ProgressBar_yes_per"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -634,7 +650,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="50dp"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="글쎄요" />
@@ -642,13 +658,16 @@
 
                             <ProgressBar
                                 android:id="@+id/Question3_ProgressBar_normal"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="wrap_content"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_gravity="center"
                                 android:max="100"
-                                android:progressDrawable="@drawable/myprogressbar" />
+                                style="@style/MyProgressBar"
+                                />
 
                             <TextView
+                                android:id="@+id/Question3_ProgressBar_normal_per"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -661,21 +680,24 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="50dp"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="아니요" />
 
 
                             <ProgressBar
-                                android:id="@+id/Question3_ProgressBar_no"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="wrap_content"
+                                android:id= "@+id/Question3_ProgressBar_no"
+                                android:layout_width="45dp"
                                 android:layout_height="wrap_content"
+                                android:progressDrawable="@drawable/myprogressbar"
+                                android:layout_gravity="center"
                                 android:max="100"
-                                android:progressDrawable="@drawable/myprogressbar" />
+                                style="@style/MyProgressBar"
+                                />
 
                             <TextView
+                                android:id= "@+id/Question3_ProgressBar_no_per"
                                 android:layout_marginLeft="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -693,7 +715,7 @@
                 android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="130dp"
+                android:layout_width="132dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -702,7 +724,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/colorBlack"
-                    android:text="고유한 특성"/>
+                    android:text="경험 만족도"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -710,7 +732,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="예" />
@@ -718,14 +740,16 @@
 
                     <ProgressBar
                         android:id="@+id/Question4_ProgressBar_yes"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
                         android:progressDrawable="@drawable/myprogressbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="12dp"
                         android:layout_gravity="center"
-                        android:max="100" />
+                        android:max="100"
+                        style="@style/MyProgressBar"
+                        />
 
                     <TextView
+                        android:id="@+id/Question4_ProgressBar_yes_per"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -738,7 +762,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="글쎄요" />
@@ -746,13 +770,16 @@
 
                     <ProgressBar
                         android:id="@+id/Question4_ProgressBar_normal"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
+                        android:progressDrawable="@drawable/myprogressbar"
+                        android:layout_gravity="center"
                         android:max="100"
-                        android:progressDrawable="@drawable/myprogressbar" />
+                        style="@style/MyProgressBar"
+                        />
 
                     <TextView
+                        android:id="@+id/Question4_ProgressBar_normal_per"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -765,7 +792,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="아니요" />
@@ -773,13 +800,16 @@
 
                     <ProgressBar
                         android:id="@+id/Question4_ProgressBar_no"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
+                        android:progressDrawable="@drawable/myprogressbar"
+                        android:layout_gravity="center"
                         android:max="100"
-                        android:progressDrawable="@drawable/myprogressbar" />
+                        style="@style/MyProgressBar"
+                        />
 
                     <TextView
+                        android:id="@+id/Question4_ProgressBar_no_per"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -789,7 +819,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="130dp"
+                android:layout_width="132dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -798,7 +828,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/colorBlack"
-                    android:text="고유한 특성"/>
+                    android:text="재방문 의향"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -806,7 +836,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="예" />
@@ -814,14 +844,16 @@
 
                     <ProgressBar
                         android:id="@+id/Question5_ProgressBar_yes"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
                         android:progressDrawable="@drawable/myprogressbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="12dp"
                         android:layout_gravity="center"
-                        android:max="100" />
+                        android:max="100"
+                        style="@style/MyProgressBar"
+                        />
 
                     <TextView
+                        android:id="@+id/Question5_ProgressBar_yes_per"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -834,7 +866,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="글쎄요" />
@@ -842,13 +874,16 @@
 
                     <ProgressBar
                         android:id="@+id/Question5_ProgressBar_normal"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
+                        android:progressDrawable="@drawable/myprogressbar"
+                        android:layout_gravity="center"
                         android:max="100"
-                        android:progressDrawable="@drawable/myprogressbar" />
+                        style="@style/MyProgressBar"
+                        />
 
                     <TextView
+                        android:id="@+id/Question5_ProgressBar_normal_per"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -861,7 +896,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="아니요" />
@@ -869,13 +904,16 @@
 
                     <ProgressBar
                         android:id="@+id/Question5_ProgressBar_no"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="45dp"
                         android:layout_height="wrap_content"
+                        android:progressDrawable="@drawable/myprogressbar"
+                        android:layout_gravity="center"
                         android:max="100"
-                        android:progressDrawable="@drawable/myprogressbar" />
+                        style="@style/MyProgressBar"
+                        />
 
                     <TextView
+                        android:id="@+id/Question5_ProgressBar_no_per"
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
