@@ -59,7 +59,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:src="@drawable/icon_location"
+                android:src="@drawable/icon_introduce"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
 
@@ -105,7 +105,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:src="@drawable/icon_location"
+                android:src="@drawable/icon_sex"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
 

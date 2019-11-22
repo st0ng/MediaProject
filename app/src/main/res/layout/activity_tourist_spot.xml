@@ -452,7 +452,7 @@
 
 
                         <ProgressBar
-                            android:id="@+id/Question1_ProgressBar_Normal"
+                            android:id="@+id/Question1_ProgressBar_normal"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
