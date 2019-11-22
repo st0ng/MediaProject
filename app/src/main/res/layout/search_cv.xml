@@ -64,6 +64,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="title"
+                            android:fontFamily="@font/foot_font_l"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
