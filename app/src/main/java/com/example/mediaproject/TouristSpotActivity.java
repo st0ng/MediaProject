@@ -151,8 +151,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
         TourTypeData tourTypeData = new TourTypeData();
         HashMap<String, String> category2 = tourTypeData.Category_2;
         HashMap<String, String> category3 = tourTypeData.Category_3;
-        String cat2 = category2.get(cat2_key);
-        String cat3 = category3.get(cat3_key);
+        final String cat2 = category2.get(cat2_key);
+        final String cat3 = category3.get(cat3_key);
         if (cat2 != null) {
             tour_spot1.setText(cat2);
         }
@@ -164,6 +164,9 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TouristSpotActivity.this, CommunityTourListLoad.class);
+                intent.putExtra("cat2", cat2);
+                intent.putExtra("cat3", cat3);
+                intent.putExtra("addr" , addr);
                 startActivity(intent);
             }
         });
@@ -271,47 +274,45 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                             sum += get.TourScope;
 
 
-                            if(get.Question1.equals("예")){
+                            if (get.Question1.equals("예")) {
                                 Q1_yes++;
-                            }else if(get.Question1.equals("글쎄요")) {
+                            } else if (get.Question1.equals("글쎄요")) {
                                 Q1_normal++;
-                            }else if(get.Question1.equals("아니요")){
+                            } else if (get.Question1.equals("아니요")) {
                                 Q1_no++;
                             }
 
-                            if(get.Question2.equals("예")){
+                            if (get.Question2.equals("예")) {
                                 Q2_yes++;
-                            }else if(get.Question2.equals("글쎄요")) {
+                            } else if (get.Question2.equals("글쎄요")) {
                                 Q2_normal++;
-                            }else if(get.Question2.equals("아니요")){
+                            } else if (get.Question2.equals("아니요")) {
                                 Q2_no++;
                             }
 
-                            if(get.Question3.equals("예")){
+                            if (get.Question3.equals("예")) {
                                 Q3_yes++;
-                            }else if(get.Question3.equals("글쎄요")) {
+                            } else if (get.Question3.equals("글쎄요")) {
                                 Q3_normal++;
-                            }else if(get.Question3.equals("아니요")){
+                            } else if (get.Question3.equals("아니요")) {
                                 Q3_no++;
                             }
 
-                            if(get.Question4.equals("예")){
+                            if (get.Question4.equals("예")) {
                                 Q4_yes++;
-                            }else if(get.Question4.equals("글쎄요")) {
+                            } else if (get.Question4.equals("글쎄요")) {
                                 Q4_normal++;
-                            }else if(get.Question4.equals("아니요")){
+                            } else if (get.Question4.equals("아니요")) {
                                 Q4_no++;
                             }
 
-                            if(get.Question5.equals("예")){
+                            if (get.Question5.equals("예")) {
                                 Q5_yes++;
-                            }else if(get.Question5.equals("글쎄요")) {
+                            } else if (get.Question5.equals("글쎄요")) {
                                 Q5_normal++;
-                            }else if(get.Question5.equals("아니요")){
+                            } else if (get.Question5.equals("아니요")) {
                                 Q5_no++;
                             }
-
-
 
 
                         }

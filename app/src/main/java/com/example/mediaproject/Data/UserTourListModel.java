@@ -14,6 +14,10 @@ public class UserTourListModel {
     public int CommentCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
     public Object Comments = null;
+    public String Cat2;
+    public String Cat3;
+    public String Addr;
+    public  String Title;
 
 
     public UserTourListModel() {

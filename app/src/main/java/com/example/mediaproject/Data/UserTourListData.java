@@ -14,6 +14,10 @@ public class UserTourListData {
     public int CommentCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
     public Object Comments;
+    public String Cat2;
+    public String Cat3;
+    public String Addr;
+    public String Title;
 
 
     public UserTourListData() {
@@ -21,7 +25,8 @@ public class UserTourListData {
     }
 
     public UserTourListData(String Uid, String UserEmail, String ImageUri, String ImageName, String description, String CreateDate,
-                            int starCount, int CommentCount, Map<String, Boolean> stars, Object Comments) {
+                            int starCount, int CommentCount, Map<String, Boolean> stars, Object Comments,
+                            String Cat2, String Cat3, String Addr, String Title) {
         this.Uid = Uid;
         this.UserEmail = UserEmail;
         this.ImageUri = ImageUri;
@@ -32,6 +37,10 @@ public class UserTourListData {
         this.CommentCount = CommentCount;
         this.stars = stars;
         this.Comments = Comments;
+        this.Cat2 = Cat2;
+        this.Cat3 = Cat3;
+        this.Addr = Addr;
+        this.Title = Title;
 
     }
 
@@ -46,6 +55,10 @@ public class UserTourListData {
         result.put("CommentCount", CommentCount);
         result.put("stars", stars);
         result.put("Comments", Comments);
+        result.put("Cat2", Cat2);
+        result.put("Cat3", Cat3);
+        result.put("Addr", Addr);
+        result.put("Title", Title);
 
 
         return result;

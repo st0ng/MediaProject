@@ -1,13 +1,9 @@
 package com.example.mediaproject.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import com.example.mediaproject.Adapter.UserTourListAdapter;
-import com.example.mediaproject.CommunityTourListLoad;
 import com.example.mediaproject.Data.UserTourListData;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.example.mediaproject.R;
@@ -61,7 +57,7 @@ public class CommunityActivity extends BaseActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserTourListModel get = snapshot.getValue(UserTourListModel.class);
 
-                    data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.CommentCount, get.stars, get.Comments));
+                    data.add(new UserTourListData(get.Uid, get.UserEmail, get.ImageUri, get.ImageName, get.description, get.CreateDate, get.starCount, get.CommentCount, get.stars, get.Comments, get.Cat2, get.Cat3, get.Addr,get.Title));
 
                     String UidKey = snapshot.getKey();
                     UidLists.add(UidKey);

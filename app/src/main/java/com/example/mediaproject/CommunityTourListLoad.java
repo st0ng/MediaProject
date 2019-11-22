@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.mediaproject.Data.UserTourListData;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,8 +26,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,9 +39,6 @@ public class CommunityTourListLoad extends AppCompatActivity {
     protected DatabaseReference databaseReference;
 
     //실시간 데이터베이스 송신 변수 선어
-    HashMap<String, Object> childUpdates = null;
-    Map<String, Object> userValue = null;
-    UserTourListData userTourListData = null;
     UserTourListModel userTourListModel = null;
 
     String fileDate;
@@ -57,10 +51,23 @@ public class CommunityTourListLoad extends AppCompatActivity {
     private ImageView CommunityTourListImage;
 
 
+    String cat2;
+    String cat3;
+    String addr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_tour_list_load);
+
+
+        Intent intent = getIntent();
+        cat2 = intent.getExtras().getString("cat2");
+        cat3 = intent.getExtras().getString("cat3");
+        addr = intent.getExtras().getString("addr");
+
+
+
 
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -174,6 +181,9 @@ public class CommunityTourListLoad extends AppCompatActivity {
                     userTourListModel.CommentCount = 0;
                     userTourListModel.stars = null;
                     userTourListModel.Comments = null;
+                    userTourListModel.Cat2 = cat2;
+                    userTourListModel.Cat3 = cat3;
+                    userTourListModel.Addr = addr;
 
                     databaseReference.child("UserTourListImage").push().setValue(userTourListModel);
 
