@@ -164,6 +164,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TouristSpotActivity.this, CommunityTourListLoad.class);
+                intent.putExtra("title",title);
                 intent.putExtra("cat2", cat2);
                 intent.putExtra("cat3", cat3);
                 intent.putExtra("addr", addr);
@@ -315,7 +316,7 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                             }
 
 
-                        }
+                        } // for end
 
                         String stringcount = "평가 " + count + "개";
                         TourList_SurveyCount.setText(stringcount);
@@ -324,6 +325,8 @@ public class TouristSpotActivity extends AppCompatActivity implements View.OnCli
                             average = ((float) sum / count);
                             average = (float) (Math.round(average * 10) / 10.0);
                             TourRatingBarScope.setText(Float.toString(average));
+
+                            int Q1_result = 0;
 
 
 //                            if (0 <= average && average < 0.5) {

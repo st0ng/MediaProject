@@ -136,4 +136,43 @@ public class UserTourListData {
         CommentCount = commentCount;
     }
 
+    public Object getComments() {
+        return Comments;
+    }
+
+    public void setComments(Object comments) {
+        Comments = comments;
+    }
+
+    public String getCat2() {
+        return Cat2;
+    }
+
+    public void setCat2(String cat2) {
+        Cat2 = cat2;
+    }
+
+    public String getCat3() {
+        return Cat3;
+    }
+
+    public void setCat3(String cat3) {
+        Cat3 = cat3;
+    }
+
+    public String getAddr() {
+        return Addr;
+    }
+
+    public void setAddr(String addr) {
+        Addr = addr;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
 }

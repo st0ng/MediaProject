@@ -64,6 +64,13 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof UserTourListHolder) {
             ((UserTourListHolder) holder).CommunitiyUserEmail.setText(UserTourListData.get(position).getImageName());
+
+            String tag = "#" + TagTrim(UserTourListData.get(position).getTitle()) + " " +
+                    "#" + UserTourListData.get(position).getCat2() + " " +
+                    "#" + UserTourListData.get(position).getCat3() + " " +
+                    Tagsplit(UserTourListData.get(position).getAddr());
+
+            ((UserTourListHolder) holder).CommunityTag.setText(tag);
             ((UserTourListHolder) holder).CommunitiyDescription.setText(UserTourListData.get(position).getDescription());
             ((UserTourListHolder) holder).CommunitiyCreateDate.setText(UserTourListData.get(position).getCreateDate());
             String count = String.valueOf("댓글 " + UserTourListData.get(position).CommentCount + "개");
@@ -160,6 +167,7 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView CommunitiyCreateDate;
         TextView CommunityuHeartCount;
         TextView CommnitiyCommentCount;
+        TextView CommunityTag;
 
 
         public UserTourListHolder(@NonNull View itemView) {
@@ -173,9 +181,26 @@ public class UserTourListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             CommunityDelete = itemView.findViewById(R.id.CommunityDelete);
             Community_ortherUserImage = itemView.findViewById(R.id.Community_ortherUserImage);
             CommnitiyCommentCount = itemView.findViewById(R.id.CommnitiyCommentCount);
+            CommunityTag = itemView.findViewById(R.id.CommunityTag);
         }
     } //UserTourListHolder end
 
+    public String TagTrim(String text){
+        String target = text.replace(" ","");
+
+          return target;
+    }
+
+
+    public String Tagsplit(String text) {
+        String target = text;
+        String[] arrays = target.split(" ");
+        String result = "#" + arrays[0] + " " +
+                         "#" + arrays[1] + " " ;
+
+
+        return result;
+    }
 
     private void onHeartClicked(DatabaseReference postRef) {
         postRef.runTransaction(new Transaction.Handler() {

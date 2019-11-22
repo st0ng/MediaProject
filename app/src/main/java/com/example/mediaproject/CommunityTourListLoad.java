@@ -58,7 +58,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
     private ImageView LoadUserImage;
     private TextView LoadUserName;
 
-
+    String title;
     String cat2;
     String cat3;
     String addr;
@@ -70,6 +70,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+        title = intent.getExtras().getString("title");
         cat2 = intent.getExtras().getString("cat2");
         cat3 = intent.getExtras().getString("cat3");
         addr = intent.getExtras().getString("addr");
@@ -162,8 +163,6 @@ public class CommunityTourListLoad extends AppCompatActivity {
 
                     Glide.with(this).load(filepath)
                             .into(CommunityTourListImage);
-//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
-//                    CommunityTourListImage.setImageBitmap(bitmap);
 
 
                 } catch (Exception e) {
@@ -225,6 +224,7 @@ public class CommunityTourListLoad extends AppCompatActivity {
                     userTourListModel.Cat2 = cat2;
                     userTourListModel.Cat3 = cat3;
                     userTourListModel.Addr = addr;
+                    userTourListModel.Title = title;
 
                     databaseReference.child("UserTourListImage").push().setValue(userTourListModel);
 
