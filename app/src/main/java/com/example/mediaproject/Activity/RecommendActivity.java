@@ -10,6 +10,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +72,9 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
     private TextView ultraFineDust;
     private TextView temperatures;
     private TextView weather_info;
+    private Spinner spinner;
+    ArrayList<String> arrayList;
+    ArrayAdapter<String> arrayAdapter;
 
     //지도 관련 변수 & 권한설정
     private static final String ROOT_URL = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/";
@@ -88,6 +95,21 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
         ultraFineDust= (TextView) findViewById(R.id.UltraFineDust);
         temperatures = (TextView) findViewById(R.id.temperatures);
         weather_info = (TextView) findViewById(R.id.weather);
+
+        arrayList = new ArrayList<>();
+        arrayList.add("1km");
+        arrayList.add("1.5km");
+        arrayList.add("2km");
+        arrayList.add("3km");
+        arrayList.add("4km");
+
+        arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                arrayList);
+
+        spinner = (Spinner)findViewById(R.id.spinner);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(1);
 
         //권한 확인
         if (!checkLocationServicesStatus()) {
@@ -281,162 +303,42 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 
-
         Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y", "A", 999, 1, longitude, latitude, 1500);
-        Loc.enqueue(new Callback<TourDataRES>() {
+        TourListChange(Loc);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
-                if (response.code() == 200) {
-                    int size = response.body().getResponse().getBody().getItems().getItem().size();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(),arrayList.get(i)+"가 선택되었습니다.",
+                        Toast.LENGTH_SHORT).show();
 
-                    ArrayList<TourSearchData> tourSearchData = new ArrayList<>();
-                    ArrayList<TourSearchData> tour = new ArrayList<>();
-                    ArrayList<TourSearchData> restor = new ArrayList<>();
-                    ArrayList<TourSearchData> stay = new ArrayList<>();
+                if(arrayList.get(i).equals("1km")){
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+                    Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y", "A", 999, 1, longitude, latitude, 1000);
+                    TourListChange(Loc);
+                } else if (arrayList.get(i).equals("1.5km")){
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+                    Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y", "A", 999, 1, longitude, latitude, 1500);
+                    TourListChange(Loc);
+                } else if(arrayList.get(i).equals("2km")){
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+                    Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y", "A", 999, 1, longitude, latitude, 2000);
+                    TourListChange(Loc);
+                } else if(arrayList.get(i).equals("3km")){
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+                    Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y", "A", 999, 1, longitude, latitude, 3000);
+                    TourListChange(Loc);
+                } else if(arrayList.get(i).equals("4km")){
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+                    Call<TourDataRES> Loc = LoadTourApi.getInstance().getService().getLocationBasedList("Y", "A", 999, 1, longitude, latitude, 4000);
+                    TourListChange(Loc);
+                }
 
-                    tourSearchData.clear();
-                    tour.clear();
-                    restor.clear();
-                    stay.clear();
-
-                    for (int i = 0; i < size; i++) {
-                        MarkerOptions marker = new MarkerOptions();
-                        double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
-                        double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
-                        String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
-
-                        tourSearchData.add(new TourSearchData(
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-                                response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
-                        ));
-
-                        marker.position(new LatLng(tempLat, tempLng)).title(temptitle);
-                        mMap.addMarker(marker);
-
-
-                        if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 12
-                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 14
-                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 15
-                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 28
-                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 38) { //관광지
-                            tour.add(new TourSearchData(
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
-
-                        } else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 39) { // 음식점
-                            restor.add(new TourSearchData(
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
-
-                        } else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 32) { // 숙박지
-                            stay.add(new TourSearchData(
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
-                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
-                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
-                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
-
-                        } else {
-                        }
-                    } //for end
-                    TourSearchAdapter = new TourSearchAdapter(tour);
-                    recyclerView.setAdapter(TourSearchAdapter);
-                    TourSearchAdapter.notifyDataSetChanged();
-
-                    TourSearchAdapter2 = new TourSearchAdapter(restor);
-                    recyclerView2.setAdapter(TourSearchAdapter2);
-                    TourSearchAdapter2.notifyDataSetChanged();
-
-                    TourSearchAdapter3 = new TourSearchAdapter(stay);
-                    recyclerView3.setAdapter(TourSearchAdapter3);
-                    TourSearchAdapter3.notifyDataSetChanged();
-
-                } //if end
-            } //onResponse end
-
+            }
             @Override
-            public void onFailure(Call<TourDataRES> call, Throwable t) {
-                Log.d("shit", t.getMessage());
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
 
     }
 
@@ -631,4 +533,162 @@ public class RecommendActivity extends BaseActivity implements OnMapReadyCallbac
 
         return trans;
     }
+
+    public void TourListChange(Call<TourDataRES> Loc){
+        Loc.enqueue(new Callback<TourDataRES>() {
+            @Override
+            public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
+                if (response.code() == 200) {
+                    int size = response.body().getResponse().getBody().getItems().getItem().size();
+
+                    ArrayList<TourSearchData> tourSearchData = new ArrayList<>();
+                    ArrayList<TourSearchData> tour = new ArrayList<>();
+                    ArrayList<TourSearchData> restor = new ArrayList<>();
+                    ArrayList<TourSearchData> stay = new ArrayList<>();
+                    MarkerOptions marker = new MarkerOptions();
+
+                    tourSearchData.clear();
+                    tour.clear();
+                    restor.clear();
+                    stay.clear();
+                    mMap.clear();
+
+                    for (int i = 0; i < size; i++) {
+                        double tempLat = response.body().getResponse().getBody().getItems().getItem().get(i).getMapy();
+                        double tempLng = response.body().getResponse().getBody().getItems().getItem().get(i).getMapx();
+                        String temptitle = response.body().getResponse().getBody().getItems().getItem().get(i).getTitle();
+
+                        tourSearchData.add(new TourSearchData(
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()
+                        ));
+
+                        marker.position(new LatLng(tempLat, tempLng)).title(temptitle);
+                        mMap.addMarker(marker);
+
+
+                        if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 12
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 14
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 15
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 28
+                                || response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 38) { //관광지
+                            tour.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
+
+                        } else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 39) { // 음식점
+                            restor.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
+
+                        } else if (response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid() == 32) { // 숙박지
+                            stay.add(new TourSearchData(
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getDist(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTitle(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAddr2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getAreacode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getBooktour(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat1(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat2(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCat3(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContentid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getContenttypeid(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getCreatedtime(),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage()),
+                                    ChageHttps(response.body().getResponse().getBody().getItems().getItem().get(i).getFirstimage2()),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapx(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMapy(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getMlevel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getModifiedtime(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getReadcount(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getSigungucode(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getTel(),
+                                    response.body().getResponse().getBody().getItems().getItem().get(i).getZipcode()));
+
+                        } else {
+                        }
+                    } //for end
+                    TourSearchAdapter = new TourSearchAdapter(tour);
+                    recyclerView.setAdapter(TourSearchAdapter);
+                    TourSearchAdapter.notifyDataSetChanged();
+
+                    TourSearchAdapter2 = new TourSearchAdapter(restor);
+                    recyclerView2.setAdapter(TourSearchAdapter2);
+                    TourSearchAdapter2.notifyDataSetChanged();
+
+                    TourSearchAdapter3 = new TourSearchAdapter(stay);
+                    recyclerView3.setAdapter(TourSearchAdapter3);
+                    TourSearchAdapter3.notifyDataSetChanged();
+
+                } //if end
+            } //onResponse end
+
+            @Override
+            public void onFailure(Call<TourDataRES> call, Throwable t) {
+                Log.d("shit", t.getMessage());
+            }
+        });
+    }
+
 }
