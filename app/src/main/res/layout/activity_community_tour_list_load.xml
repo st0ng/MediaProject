@@ -17,25 +17,51 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
+            <TextView
+                android:gravity="center"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/foot_font_l"
+                android:text="게시물 올리기" />
 
             <LinearLayout
+                android:background="#CCCCCC"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:id="@+id/CommunityTourListImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    tools:srcCompat="@tools:sample/avatars[3]" />
-
-            </LinearLayout>
-
+                android:layout_height="1dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/communityTourListGalleryLoad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/foot_font_l"
+                    android:text="+ 사진 추가" />
+
+                <Button
+                    android:id="@+id/communityTourListFinalUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/foot_font_l"
+                    android:text="올리기" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#CCCCCC"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,26 +69,48 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/location_layout"
-                        android:layout_margin="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:src="@drawable/icon_location"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:cardCornerRadius="100dp">
 
-                        <TextView
-                            android:text="글쓰기"
-                            android:textSize="15dp"
-                            android:textColor="@color/colorBlack"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            <ImageView
+                                android:id="@+id/LoadUserImage"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/nulluser" />
+                        </androidx.cardview.widget.CardView>
 
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <TextView
+                                android:id="@+id/LoadUserName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="email"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorBlack" />
+
+                            <TextView
+                                android:id="@+id/CommnitiyCreateDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="나의 게시물"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <EditText
@@ -78,38 +126,19 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:background="#CCCCCC"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-
-            </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" >
 
-                <Button
-                    android:id="@+id/communityTourListGalleryLoad"
+                <ImageView
+                    android:id="@+id/CommunityTourListImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:layout_weight="1"
-                    android:text="사진 검색" />
-
-                <Button
-                    android:id="@+id/communityTourListFinalUpload"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:layout_weight="1"
-                    android:text="올리기" />
+                    tools:srcCompat="@tools:sample/avatars[3]" />
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

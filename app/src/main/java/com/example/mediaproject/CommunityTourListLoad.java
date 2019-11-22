@@ -3,6 +3,7 @@ package com.example.mediaproject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -10,8 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.mediaproject.Activity.AccountActivity;
+import com.example.mediaproject.Data.UserModel;
 import com.example.mediaproject.Data.UserTourListData;
 import com.example.mediaproject.Data.UserTourListModel;
 import com.google.android.gms.tasks.Continuation;
@@ -19,8 +26,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -55,6 +65,8 @@ public class CommunityTourListLoad extends AppCompatActivity {
     private Button communityTourListFinalUpload;
     private EditText CommunitytourListPost;
     private ImageView CommunityTourListImage;
+    private ImageView LoadUserImage;
+    private TextView LoadUserName;
 
 
     @Override
@@ -71,6 +83,8 @@ public class CommunityTourListLoad extends AppCompatActivity {
         communityTourListGalleryLoad = (Button) findViewById(R.id.communityTourListGalleryLoad);
         communityTourListFinalUpload = (Button) findViewById(R.id.communityTourListFinalUpload);
         CommunitytourListPost = (EditText) findViewById(R.id.CommunitytourListPost);
+        LoadUserImage = (ImageView) findViewById(R.id.LoadUserImage);
+        LoadUserName = (TextView) findViewById(R.id.LoadUserName);
 
         String NullImage ="https://www.google.com/url?sa=i&url=http%3A%2F%2Fm.e-himart.co.kr%2Fapp%2Fgoods%2FgoodsDetail%3FgoodsNo%3D0002267911&psig=AOvVaw0raNbtrEqzp0IOilBiSssj&ust=1574397944505000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNix58S_-uUCFQAAAAAdAAAAABAR";
 //                Glide.with(this).load(NullImage).into(CommunityTourListImage);
@@ -100,6 +114,34 @@ public class CommunityTourListLoad extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 UploadTourList();
+            }
+        });
+
+
+        firebaseDatabase.getReference().child("UserInfo").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
+                        UserModel get = snapshot1.getValue(UserModel.class);
+
+                        if (firebaseAuth.getCurrentUser().getUid().equals(get.Uid)) {
+                            Glide.with(CommunityTourListLoad.this)
+                                    .load(get.UserImage)
+                                    .apply(new RequestOptions().override(150, 150))
+                                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
+                                    .into(LoadUserImage);
+
+                            LoadUserName.setText(get.UserDisplayName);
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 

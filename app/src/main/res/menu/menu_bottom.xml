@@ -4,20 +4,20 @@
     <item
         android:id="@+id/navigation_menu1"
         android:icon="@drawable/location_icon"
-        android:title="Recommend" />
+        android:title="투데이" />
 
     <item
         android:id="@+id/navigation_menu2"
         android:icon="@drawable/search_icon"
-        android:title="Search" />
+        android:title="검색" />
 
     <item
         android:id="@+id/navigation_menu3"
         android:icon="@drawable/community_icon"
-        android:title="Community" />
+        android:title="커뮤니티" />
 
     <item
         android:id="@+id/navigation_menu4"
         android:icon="@drawable/account_icon"
-        android:title="Account" />
+        android:title="나의 정보" />
 </menu>
