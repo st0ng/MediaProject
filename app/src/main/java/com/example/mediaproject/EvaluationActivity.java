@@ -111,6 +111,14 @@ public class EvaluationActivity extends AppCompatActivity implements View.OnClic
         Question5_no = (RadioButton) findViewById(R.id.Question5_no);
 
 
+        EvaluationRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+               String count = String.valueOf(rating);
+                EvaluationScope.setText(count);
+            }
+        });
+
 
         firebaseDatabase.getReference().child("TourInfo")
                 .child(title).child("Evaluations")

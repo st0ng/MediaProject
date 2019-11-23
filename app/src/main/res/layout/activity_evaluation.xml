@@ -311,7 +311,6 @@
                     android:padding="10dp"
                     android:gravity="center"
                     android:layout_marginLeft="10dp"
-
                     android:text="아니요" />
 
             </RadioGroup>
