@@ -83,7 +83,7 @@ public class AccountListActivity extends AppCompatActivity {
                 }
             });
         } else if (number == 1) { //heart
-            firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
+            firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     List<UserTourListData> data = new ArrayList<>();
@@ -114,7 +114,7 @@ public class AccountListActivity extends AppCompatActivity {
 
 
         } else if (number == 2) {
-            firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
+            firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     List<UserTourListData> data = new ArrayList<>();

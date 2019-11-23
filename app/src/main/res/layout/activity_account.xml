@@ -74,7 +74,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/foot_font_l"
                         android:gravity="center"
-                        android:text="0개"
+                        android:text="3"
                         android:textColor="@color/colorBlack" />
 
 
@@ -100,7 +100,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/foot_font_l"
                         android:gravity="center"
-                        android:text="0개"
+                        android:text="2"
                         android:textColor="@color/colorBlack" />
 
 
@@ -127,7 +127,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/foot_font_l"
                         android:gravity="center"
-                        android:text="0개"
+                        android:text="11"
                         android:textColor="@color/colorBlack" />
 
                     <TextView

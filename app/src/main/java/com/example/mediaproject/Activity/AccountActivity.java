@@ -90,7 +90,7 @@ public class AccountActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-        firebaseDatabase.getReference().child("UserTourListImage").addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase.getReference().child("UserTourListImage").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int UserTourListCount = 0;
