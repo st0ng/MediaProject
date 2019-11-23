@@ -69,6 +69,13 @@ public interface TourApiService {
                                        @Query("numOfRows") int numOfRows,
                                        @Query("pageNo") int pageNo);
 
+    @GET("searchKeyword?ServiceKey=xDpckfjsb8NUE5fOrIOhEu12RNJ2PRdFyomXA4a3lzRwEWQFqPvTSDM2ZU16JOGrKd73%2BlZfWUVCVmhtC6iZ6Q%3D%3D&MobileOS=AND&MobileApp=AppTest&_type=json")
+    Call<TourDataRES> getsearchKeyword(@Query("listYN") String listYN,
+                                       @Query("arrange") String arrange,
+                                       @Query("keyword") String keyword,
+                                       @Query("numOfRows") int numOfRows,
+                                       @Query("pageNo") int pageNo);
+
     //공통정보 조회
     @GET("detailCommon?serviceKey=Wbxwtl8WwgmVKhpp9KzLIfEFqOJnJAOHysiyOKV9uVKu6wmZlE3Tf4h94V6%2Fg48FQmWRN2uVR2RLziOZi5vnnA%3D%3D&MobileOS=ETC&MobileApp=AppTest&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&_type=json")
     Call<TourDataRES> getDetailCommon(@Query("contentId") int contentid,

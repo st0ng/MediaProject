@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MediaProject</string>
+    <string name="app_name">모두의나들이</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -11,7 +11,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_recommend">RecommendActivity</string>
-    <string name="title_activity_acount">AcountActivity</string>
+    <string name="title_activity_acount">AccountActivity</string>
     <string name="title_activity_community_tour_list_load">CommunityTourListLoad</string>
     <string name="title_activity_account_list">AccountListActivity</string>
     <string name="title_activity_update_user_info">UpdateUserInfo</string>

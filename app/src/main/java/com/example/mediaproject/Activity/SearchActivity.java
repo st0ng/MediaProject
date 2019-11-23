@@ -455,7 +455,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         String keyword = "";
         keyword = query.trim();
 
-        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getsearchKeyword("Y", "A", 12, keyword, 999, 1);
+        Call<TourDataRES> call = LoadTourApi.getInstance().getService().getsearchKeyword("Y", "A", keyword, 999, 1);
         call.enqueue(new Callback<TourDataRES>() {
             @Override
             public void onResponse(Call<TourDataRES> call, Response<TourDataRES> response) {
